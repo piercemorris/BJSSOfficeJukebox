@@ -2,25 +2,19 @@
 
 ### Team Members
 
-<hr />
-
-Pierce James Morris (psypm@nottingham.ac.uk)
-James Bennett (psyjb12@nottingham.ac.uk)
-Runzhou Li (psyrl6@nottingham.ac.uk)
-Xingke Song (psyxs2@nottingham.ac.uk)
-Robert Laing (leyrpl@nottingham.ac.uk)
-Yousef Ismail (psyyi@nottingham.ac.uk)
+Pierce James Morris (psypm@nottingham.ac.uk)<br />
+James Bennett (psyjb12@nottingham.ac.uk)<br />
+Runzhou Li (psyrl6@nottingham.ac.uk)<br />
+Xingke Song (psyxs2@nottingham.ac.uk)<br />
+Robert Laing (leyrpl@nottingham.ac.uk)<br />
+Yousef Ismail (psyyi@nottingham.ac.uk)<br />
 
 ### Supervisor
-
-<hr />
 
 Tony Pridmore
 tony.pridmore@nottingham.ac.uk
 
 ### Sponsor
-
-<hr />
 
 BJSS
 Leigh White
