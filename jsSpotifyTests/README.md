@@ -2,6 +2,8 @@
 
 This project contains basic demos showing the different OAuth 2.0 flows for [authenticating against the Spotify Web API](https://developer.spotify.com/web-api/authorization-guide/).
 
+This is directly from Spotify's API guide. 
+
 These examples cover:
 
 * Authorization Code flow
@@ -33,3 +35,4 @@ In order to run the different examples, open the folder with the name of the flo
     $ node app.js
 
 Then, open `http://localhost:8888` in a browser.
+# https://developer.spotify.com/documentation/web-api/quick-start/
