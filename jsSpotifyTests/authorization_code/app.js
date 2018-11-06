@@ -32,6 +32,7 @@ var generateRandomString = function(length) {
   return text;
 };
 
+
 var stateKey = 'spotify_auth_state';
 
 var app = express();
@@ -39,6 +40,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
+
 
 app.get('/login', function(req, res) {
 
@@ -91,6 +93,16 @@ app.get('/callback', function(req, res) {
 
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
+    
+        var artist = {
+          url: 'https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg', // API call with Pitbull's ID.
+          headers: { 'Authorization': 'Bearer ' + access_token },
+          json: true
+        };
+        
+        request.get(artist, function(error, response, body) {
+          console.log(body);
+        });
 
         var options = {
           url: 'https://api.spotify.com/v1/me',
