@@ -1,5 +1,25 @@
 # Group 14 BJSS Office Jukebox
 
+## Contents / project structure
+
+`bjssJukeboxBackend/` - contains the Node.js backend of the project i.e. the web server
+`bjssjukeboxfrontend/` - contains the React.js frontend of the project i.e. the web interface
+
+## Dependencies
+
+### Node
+
+1. To download and install go to -> https://nodejs.org/en/ and download the current stable version - this will download both Node.js and NPM which is a package manager for node.
+2. To test if the download is successful, type into the commandline/terminal `$ node -v` which checks the version downloaded and means it's been installed globally.
+
+To run `bjssJukeboxBackend/`:
+
+- **Read the README.md in the root of the folder**
+
+To run `bjssjukeboxfrontend/`:
+
+- **Read the README.md in the root of the folder**
+
 ### Team Members
 
 Pierce James Morris (psypm@nottingham.ac.uk)<br />
@@ -66,17 +86,3 @@ You can choose any IDE or code editor for the project. Most popular with Node ap
 - Visual Studio Code (my choice)
 - Atom
 - Sublime Text
-
-### Setting up for the development of Node.js
-
-1. To download and install go to -> https://nodejs.org/en/ and download the current stable version - this will download both Node.js and NPM which is a package manager for node.
-2. To test if the download is successful, type into the commandline/terminal `$ node -v` which checks the version downloaded and means it's been installed globally.
-
-#### Running Node.js Programs
-
-- `$ node <filename>.js` - This cmd will run a node program
-
-### Setting up for the development of React.js
-
-1. To create a react app use `$ npx create-react-app <app-name>` this will then create the app
-2. Use `$ cd <app-name>` to move into the app then type `$ npm start` which will launch the app.
