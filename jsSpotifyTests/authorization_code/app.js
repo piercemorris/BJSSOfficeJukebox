@@ -117,10 +117,10 @@ app.get('/callback', function(req, res) {
         });
         */
 
-        var artistQuery = 'Flying';
+        var artistQuery = 'Flying Lotus';
 
         var artistSearch = {
-          url: 'https://api.spotify.com/v1/search?q='+artistQuery+'&type=artist&limit=1&offset=20',
+          url: 'https://api.spotify.com/v1/search?q='+artistQuery+'&type=artist&limit=1',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
