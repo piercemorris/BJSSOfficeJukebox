@@ -93,7 +93,8 @@ app.get('/callback', function(req, res) {
 
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
-    
+        
+        /*
         var artist = {
           url: 'https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg', // API call with Pitbull's ID.
           headers: { 'Authorization': 'Bearer ' + access_token },
@@ -103,7 +104,7 @@ app.get('/callback', function(req, res) {
         request.get(artist, function(error, response, body) {
           console.log(body);
         });
-
+        
         var options = {
           url: 'https://api.spotify.com/v1/me',
           headers: { 'Authorization': 'Bearer ' + access_token },
@@ -112,6 +113,19 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
+          console.log(body);
+        });
+        */
+
+        var artistQuery = 'Flying';
+
+        var artistSearch = {
+          url: 'https://api.spotify.com/v1/search?q='+artistQuery+'&type=artist&limit=1&offset=20',
+          headers: { 'Authorization': 'Bearer ' + access_token },
+          json: true
+        };
+
+        request.get(artistSearch, function(error, response, body) {
           console.log(body);
         });
 
