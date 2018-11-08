@@ -117,7 +117,7 @@ app.get('/callback', function(req, res) {
         });
         */
 
-        var artistQuery = 'Flying Lotus';
+        var artistQuery = 'Lemon Jelly';
 
         var artistSearch = {
           url: 'https://api.spotify.com/v1/search?q='+artistQuery+'&type=artist&limit=1',
@@ -126,7 +126,10 @@ app.get('/callback', function(req, res) {
         };
 
         request.get(artistSearch, function(error, response, body) {
-          console.log(body);
+          var result = body.artists.items[0];
+          console.log("\nName: "+result.name+
+                      "\nPopularity: "+result.popularity+
+                      "\nID: "+result.id+"\n");
         });
 
         // we can also pass the token to the browser to make requests from there
