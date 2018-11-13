@@ -1,8 +1,14 @@
 # Group 14 BJSS Office Jukebox
 
+## Useful links
+
+Trello documentation board: https://trello.com/b/sCW8NXz7/office-jukebox-documentation
+Trello development board: https://trello.com/b/vLMkoKj0/office-jukebox-code
+Google drive document repository: https://drive.google.com/drive/u/0/folders/1xXb6svEFCJFJYMQZI_IIbIgOUiKc0alG
+
 ## Contents / project structure
 
-`bjssJukeboxBackend/` - contains the Node.js backend of the project i.e. the web server
+`bjssJukeboxBackend/` - contains the Node.js backend of the project i.e. the web server <br />
 `bjssjukeboxfrontend/` - contains the React.js frontend of the project i.e. the web interface
 
 ## Dependencies
