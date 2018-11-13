@@ -2,9 +2,9 @@
 
 ## Useful links
 
-Trello documentation board: https://trello.com/b/sCW8NXz7/office-jukebox-documentation
-Trello development board: https://trello.com/b/vLMkoKj0/office-jukebox-code
-Google drive document repository: https://drive.google.com/drive/u/0/folders/1xXb6svEFCJFJYMQZI_IIbIgOUiKc0alG
+Trello documentation board: https://trello.com/b/sCW8NXz7/office-jukebox-documentation <br />
+Trello development board: https://trello.com/b/vLMkoKj0/office-jukebox-code <br />
+Google drive document repository: https://drive.google.com/drive/u/0/folders/1xXb6svEFCJFJYMQZI_IIbIgOUiKc0alG <br />
 
 ## Contents / project structure
 
