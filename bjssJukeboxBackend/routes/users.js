@@ -4,13 +4,14 @@ const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const { User, validate } = require("../models/user");
 
+// GET
 router.get("/", async (req, res) => {
-  const member = await Member.find().select("-password -isAdmin -isSuperAdmin");
+  const user = await User.find().select("-password -isAdmin");
 
-  res.send(member);
+  res.send(user);
 });
 
-// MEMBER GET user with id
+// GET logged in user
 router.get("/me", async (req, res) => {
   res.send(await User.findById(req.user._id).select("-password -isAdmin"));
 });
@@ -37,7 +38,7 @@ router.post("/", async (req, res) => {
   res.header("x-auth-token", token).send(_.pick(user, ["_id", "username"]));
 });
 
-// MEMBER PUT update member
+// PUT update user
 router.put("/me", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -55,7 +56,7 @@ router.put("/me", async (req, res) => {
   res.send(user);
 });
 
-// MEMBER delete
+// DELETE
 router.delete("/me", async (req, res) => {
   const user = await User.findByIdAndRemove(req.user._id);
   if (!user)

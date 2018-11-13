@@ -1,4 +1,5 @@
 {
-  "db": "mongodb://admin:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox",
+  "db-live": "mongodb://public:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox",
+  "db-local": "mongodb://localhost/jukebox",
   "jwtPrivateKey": "privatekey"
 }
