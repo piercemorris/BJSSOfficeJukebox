@@ -1,13 +1,9 @@
 const request = require("supertest");
-const app = require("../../index");
 
-describe("GET /", () => {
-  it("should expect a 200 status response", () => {
-    request(app)
+describe("TEST /", () => {
+  it("GET / should expect a 200 status response", async () => {
+    request("http://localhost:3000/")
       .get("/")
-      .expect(200)
-      .end(function(err, res) {
-        if (err) throw err;
-      });
+      .expect(200);
   });
 });
