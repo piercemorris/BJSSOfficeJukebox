@@ -1,0 +1,4 @@
+{
+  "db": "mongodb://admin:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox",
+  "jwtPrivateKey": "privatekey"
+}
