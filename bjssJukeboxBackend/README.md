@@ -17,10 +17,17 @@ To run the tests
 
 # File structure
 
-`public` - contains all the static images/css files/javascript files
-`routes` - defines all the routes to the project structure
-`startup` - contains all the functions for on the project startup
-`test` - folder containing all the tests, with subfolders for integration and unit testing
-`.gitignore` - to ignore any dev dependent folders i.e. node_modules etc
-`index.js` - root files for the project
-`package.json` - contains dependecies and project information
+`public` - contains all the static images/css files/javascript files<br />
+`routes` - defines all the routes to the project structure<br />
+`startup` - contains all the functions for on the project startup<br />
+`test` - folder containing all the tests, with subfolders for integration and unit testing<br />
+`.gitignore` - to ignore any dev dependent folders i.e. node_modules etc<br />
+`index.js` - root files for the project<br />
+`package.json` - contains dependecies and project information<br />
+
+# Tools for development
+
+Database - `mongodb compass`<br />
+- for local database testing, go to - https://docs.mongodb.com/compass/master/install/ - for setup<br />
+Creating HTTP Requests - `Postman` 
+- for creating GET, POST, PUT etc.. http requests to the project running locally i.e. API development environment; go to - https://www.getpostman.com/ - for downloading<br />
