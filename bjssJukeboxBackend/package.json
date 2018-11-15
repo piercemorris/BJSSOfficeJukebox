@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "next",
     "start": "node index.js",
     "watch": "nodemon index.js",
     "test": "jest --watchAll"
@@ -22,7 +23,10 @@
     "lodash": "^4.17.11",
     "mongodb": "^3.1.9",
     "mongoose": "^5.3.11",
+    "next": "^7.0.2",
     "querystring": "~0.2.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "request": "~2.83.0"
   },
   "devDependencies": {
