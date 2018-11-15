@@ -17,6 +17,10 @@ To run the tests
 
 # File structure
 
+`config` - contains all the information about database connections, private keys etc<br />
+`middleware` - contains middleware for express i.e. checking if someone is authorised<br />
+`models` - contains the models & schemas for the mongo database<br />
+`pages` - contains the files for rendering react files<br />
 `public` - contains all the static images/css files/javascript files<br />
 `routes` - defines all the routes to the project structure<br />
 `startup` - contains all the functions for on the project startup<br />
@@ -28,7 +32,9 @@ To run the tests
 # Tools for development
 
 Database - `mongodb compass`<br />
+
 - for local database testing, go to - https://docs.mongodb.com/compass/master/install/ - for setup<br />
 
-Creating HTTP Requests - `Postman` 
+Creating HTTP Requests - `Postman`
+
 - for creating GET, POST, PUT etc.. http requests to the project running locally i.e. API development environment; go to - https://www.getpostman.com/ - for downloading<br />
