@@ -25,7 +25,7 @@ class Layout extends Component {
             crossorigin="anonymous"
           />
         </Head>
-        <Navbar />
+        <Navbar navs={this.state.links} />
         <div className="container">{this.props.children}</div>
       </div>
     );
