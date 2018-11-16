@@ -33,9 +33,17 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  //check input
-  //compare passwords
-  //generate token
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let user = await User.findOne({ username: req.body.username });
+  if (!user) return res.status(400).send("Incorrect username or password");
+
+  const match = await bcrypt.compare(req.body.password, user.password);
+  if (match) {
+    const token = user.generateAuthToken();
+    res.header("x-auth-token", token).send(_.pick(user, ["_id", "username"]));
+  } else return res.status(400).send("Incorrect username or password");
 });
 
 // PUT update user
