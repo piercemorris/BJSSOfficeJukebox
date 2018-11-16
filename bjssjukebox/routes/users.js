@@ -7,7 +7,11 @@ const { User, validate } = require("../models/user");
 
 // GET logged in user
 router.get("/me", auth, async (req, res) => {
-  res.send(await User.findById(req.user._id).select("-password -isAdmin"));
+  const user = await User.findOne({ username: req.user.username }).select(
+    "-password -isAdmin"
+  );
+  if (!user) return res.send("No user found");
+  res.send(user);
 });
 
 // POST new user
@@ -32,6 +36,7 @@ router.post("/", async (req, res) => {
   res.header("x-auth-token", token).send(_.pick(user, ["_id", "username"]));
 });
 
+// POST login user
 router.post("/login", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
