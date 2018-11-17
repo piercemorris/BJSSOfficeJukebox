@@ -2,10 +2,21 @@
 
 _Make sure Node and npm is successfully installed by running_ `$ node -v` and `$ npm -v`
 
-1. Make sure you are in the root of the project i.e. `bjssJukeboxBackend $`
+## To run just the frontend service
+
+1. Make sure you are in the root of the project i.e. `bjssjukebox $`
 2. After every pull from the project, make sure to run `$ npm i` to install any other packages not installed
-3. Run the command `$ npm start` to start the project
-4. Head to `localhost:3000` in your web browser to view the `/` root of the project
+3. Run the command `$ npm run dev` to start the project
+4. This will run just the frontend service of the app
+5. Head to `localhost:3000` in your web browser to view the `/` root of the project
+
+## To run both backend and frontend services
+
+1. Make sure you are in the root of the project i.e. `bjssjukebox $`
+2. After every pull from the project, make sure to run `$ npm i` to install any other packages not installed
+3. Run the command `$ node index.js` to start the project
+4. This will run both the backend and frontend of the app
+5. Head to `localhost:3000` in your web browser to view the `/` root of the project
 
 # Tests
 
@@ -17,10 +28,11 @@ To run the tests
 
 # File structure
 
+`components` - contains all the components for react that are reusable<br />
 `config` - contains all the information about database connections, private keys etc<br />
 `middleware` - contains middleware for express i.e. checking if someone is authorised<br />
 `models` - contains the models & schemas for the mongo database<br />
-`pages` - contains the files for rendering react files<br />
+`pages` - contains the files for rendering react pages using the components<br />
 `public` - contains all the static images/css files/javascript files<br />
 `routes` - defines all the routes to the project structure<br />
 `startup` - contains all the functions for on the project startup<br />

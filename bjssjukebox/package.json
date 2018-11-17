@@ -1,7 +1,7 @@
 {
   "name": "bjssJukeboxBackend",
   "version": "1.0.0",
-  "description": "",
+  "description": "A online jukebox app for BJSS which allows multiple users to queue up songs",
   "main": "index.js",
   "scripts": {
     "dev": "next",
@@ -9,8 +9,12 @@
     "watch": "nodemon index.js",
     "test": "jest --watchAll"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Spotify",
+    "Music",
+    "Music Queue"
+  ],
+  "author": "Pierce Morris, James Bennett, Rob Laing, Xingko Song, Runzhuo Li, Yousef Ismail",
   "license": "ISC",
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
