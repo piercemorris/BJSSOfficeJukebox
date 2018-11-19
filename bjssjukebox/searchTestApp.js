@@ -93,29 +93,6 @@ app.get('/callback', function(req, res) {
 
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
-        
-        /*
-        var artist = {
-          url: 'https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg', // API call with Pitbull's ID.
-          headers: { 'Authorization': 'Bearer ' + access_token },
-          json: true
-        };
-        
-        request.get(artist, function(error, response, body) {
-          console.log(body);
-        });
-        
-        var options = {
-          url: 'https://api.spotify.com/v1/me',
-          headers: { 'Authorization': 'Bearer ' + access_token },
-          json: true
-        };
-
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
-        */
 
         var artistQuery = 'Michael Jackson';
 
@@ -131,6 +108,22 @@ app.get('/callback', function(req, res) {
                       "\nPopularity: "+result.popularity+
                       "\nID: "+result.id+"\n");
         });
+
+        var songQuery = 'Thriller';
+        var songSearch = {
+          url: 'https://api.spotify.com/v1/search?q='+songQuery+'&type=track&limit=1',
+          headers: {'Authorization': 'Bearer ' + access_token },
+          json: true
+        };
+
+        request.get(songSearch, function(error, response, body) {
+          var result = body.tracks.items[0];
+          console.log("\nName: "+result.name+
+            "\nPopularity: "+result.popularity+
+            "\nID: "+result.id+
+            "\nLength: "+result.duration_ms+"ms"+
+            "\nImage URL: "+result.album.images[1].url);
+        })
 
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
