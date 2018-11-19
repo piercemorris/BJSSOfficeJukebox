@@ -1,5 +1,5 @@
 {
-  "name": "bjssJukeboxBackend",
+  "name": "bjssjukebox",
   "version": "1.0.0",
   "description": "A online jukebox app for BJSS which allows multiple users to queue up songs",
   "main": "index.js",
