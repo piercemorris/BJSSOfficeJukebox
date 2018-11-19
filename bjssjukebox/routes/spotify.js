@@ -1,6 +1,5 @@
-var express = require("express");
+var express = require('express'); // Express web server framework
 var router = express.Router();
-
 /*
 Routes for handling spotify GET & POST requests
 */
