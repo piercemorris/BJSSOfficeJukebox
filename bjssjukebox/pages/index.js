@@ -1,12 +1,12 @@
 import React from "react";
 import Layout from "../components/Layout";
-import Songcard from "../components/Songcard";
+import Songcards from "../components/Songcards";
 
 export default () => (
   <Layout>
     <div>
       <h1>hi from index.js</h1>
-      <Songcard />
+      <Songcards />
     </div>
   </Layout>
 );

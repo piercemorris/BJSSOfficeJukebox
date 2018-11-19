@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 
 class Songcard extends Component {
-  state = {};
+  //this.props.info.songname
+  //this.props.info.album
+  //this.props.info.artist
   render() {
     return (
       <div>
-        <h1>Song card</h1>
+        <h1>{this.props.info.songname}</h1>
       </div>
     );
   }
