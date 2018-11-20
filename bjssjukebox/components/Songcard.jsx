@@ -6,7 +6,7 @@ class Songcard extends Component {
   //this.props.info.artist
   render() {
     return (
-      <div>
+      <div className="song-card">
         <h1>{this.props.info.songname}</h1>
       </div>
     );
