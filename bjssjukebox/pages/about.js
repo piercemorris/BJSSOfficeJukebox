@@ -5,6 +5,7 @@ export default () => (
   <Layout>
     <div>
       <h1>hi from about</h1>
+      <p>feoibfwinoewnfio nefiown</p>
     </div>
   </Layout>
 );
