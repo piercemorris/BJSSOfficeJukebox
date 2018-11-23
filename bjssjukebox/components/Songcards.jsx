@@ -24,6 +24,9 @@ class Songcards extends Component {
   render() {
     return (
       <div>
+        <h1>Currently Playing</h1>
+
+        <h1>Queue</h1>
         {this.state.info.map(card => (
           <Songcard info={card} />
         ))}

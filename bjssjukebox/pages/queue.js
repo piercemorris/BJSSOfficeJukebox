@@ -5,7 +5,7 @@ import Songcards from "../components/Songcards";
 export default () => (
   <Layout>
     <div>
-      <h1>Home</h1>
+      <Songcards />
     </div>
   </Layout>
 );

@@ -1,4 +1,5 @@
 .song-card {
   margin: 1em;
+  width: 18rem;
   border: 1px solid black;
 }
