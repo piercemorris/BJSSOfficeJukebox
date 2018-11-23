@@ -25,11 +25,13 @@ class Songcards extends Component {
     return (
       <div>
         <h1>Currently Playing</h1>
-
+        <Songcard info={this.state.info[0]} />
         <h1>Queue</h1>
-        {this.state.info.map(card => (
-          <Songcard info={card} />
-        ))}
+        {this.state.info
+          .filter(card => this.state.info.indexOf(card) != 0)
+          .map(card => (
+            <Songcard info={card} />
+          ))}
       </div>
     );
   }

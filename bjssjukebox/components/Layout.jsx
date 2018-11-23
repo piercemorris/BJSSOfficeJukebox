@@ -4,7 +4,11 @@ import Navbar from "./Navbar";
 
 class Layout extends Component {
   state = {
-    links: [{ title: "Home", url: "/" }, { title: "About", url: "/about" }]
+    links: [
+      { title: "Home", url: "/" },
+      { title: "About", url: "/about" },
+      { title: "Queue", url: "/queue" }
+    ]
   };
 
   render() {
