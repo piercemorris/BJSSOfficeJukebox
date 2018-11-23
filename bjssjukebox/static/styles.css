@@ -1,5 +1,9 @@
+.gutter {
+  margin: 2em;
+}
+
 .song-card {
   margin: 1em;
-  width: 18rem;
+  width: auto;
   border: 1px solid black;
 }
