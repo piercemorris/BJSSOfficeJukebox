@@ -7,17 +7,20 @@ class Songcards extends Component {
       {
         songname: "Devil in a new dress",
         album: "My Beautiful Dark Twisted Fantasy",
-        author: "Kanye West"
+        author: "Kanye West",
+        reqBy: "perjermer"
       },
       {
         songname: "Ultralight Beam",
         album: "The Life of Pablo",
-        author: "Kanye West"
+        author: "Kanye West",
+        reqBy: "perjermer"
       },
       {
         songname: "November",
         album: "Flower Boy",
-        author: "Tyler the Creator"
+        author: "Tyler the Creator",
+        reqBy: "perjermer"
       }
     ]
   };

@@ -4,8 +4,7 @@ import Layout from "../components/Layout";
 export default () => (
   <Layout>
     <div>
-      <h1>hi from about</h1>
-      <p>feoibfwinoewnfio nefiown</p>
+      <h1>About</h1>
     </div>
   </Layout>
 );

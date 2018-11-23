@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 
 class Songcard extends Component {
-  //this.props.info.songname
-  //this.props.info.album
-  //this.props.info.artist
   render() {
-    const { songname, album, author } = this.props.info;
+    const { songname, album, author, reqBy } = this.props.info;
 
     return (
       <div className="card song-card">
@@ -18,6 +15,7 @@ class Songcard extends Component {
           <a href="#" className="card-link">
             More info
           </a>
+          <p className="card-text song-card-user">Requested by user: {reqBy}</p>
         </div>
       </div>
     );
