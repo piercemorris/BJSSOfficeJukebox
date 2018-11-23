@@ -2,11 +2,13 @@ import React, { Component } from "react";
 
 class Songcard extends Component {
   render() {
-    const { songname, album, author, reqBy } = this.props.info;
+    const { songname, album, author, priority, reqBy } = this.props.info;
+
+    const colour = "priority-" + priority + " card-body";
 
     return (
       <div className="card song-card">
-        <div className="card-body">
+        <div className={colour}>
           <h5 className="card-title">{songname}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
             {album + ", " + author}
