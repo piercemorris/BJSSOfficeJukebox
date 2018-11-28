@@ -107,6 +107,7 @@ app.get('/callback', function(req, res) {
           console.log("\nName: "+result.name+
                       "\nPopularity: "+result.popularity+
                       "\nID: "+result.id+"\n");
+          
         });
 
         var songQuery = 'Thriller';
