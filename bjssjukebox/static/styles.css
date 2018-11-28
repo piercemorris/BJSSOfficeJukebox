@@ -1,0 +1,32 @@
+.gutter {
+  margin: 2em;
+}
+
+.song-card {
+  margin: 1em;
+  width: auto;
+  border: 1px solid black;
+  -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.7);
+}
+
+.song-card-user {
+  float: right;
+}
+
+.priority-1 {
+  background-color: rgba(255, 255, 0, 0.5);
+}
+.priority-2 {
+  background-color: rgba(255, 200, 0, 0.5);
+}
+.priority-3 {
+  background-color: rgba(255, 150, 0, 0.5);
+}
+.priority-4 {
+  background-color: rgba(255, 100, 0, 0.5);
+}
+.priority-5 {
+  background-color: rgba(255, 50, 0, 0.5);
+}
