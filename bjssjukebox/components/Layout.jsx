@@ -4,7 +4,11 @@ import Navbar from "./Navbar";
 
 class Layout extends Component {
   state = {
-    links: [{ title: "Home", url: "/" }, { title: "About", url: "/about" }]
+    links: [
+      { title: "Home", url: "/" },
+      { title: "About", url: "/about" },
+      { title: "Queue", url: "/queue" }
+    ]
   };
 
   render() {
@@ -13,20 +17,21 @@ class Layout extends Component {
         <Head>
           <title>BJSS Jukebox</title>
           <meta charSet="utf-8" />
+          <link rel="stylesheet" type="text/css" href="/static/styles.css" />
           <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
             integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-            crossorigin="anonymous"
+            crossOrigin="anonymous"
           />
           <script
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"
+            crossOrigin="anonymous"
           />
         </Head>
         <Navbar navs={this.state.links} />
-        <div className="container">{this.props.children}</div>
+        <div className="container gutter">{this.props.children}</div>
       </div>
     );
   }
