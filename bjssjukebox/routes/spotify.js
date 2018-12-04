@@ -36,7 +36,7 @@ router.get("/callback", (req, res) => {
   }
   request.post(authOptions, (error, response, body) => {
     var access_token = body.access_token
-    let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
+    let uri = process.env.FRONTEND_URI || 'http://localhost:3000/search'
     res.redirect(uri + '?access_token=' + access_token)
   })
 })

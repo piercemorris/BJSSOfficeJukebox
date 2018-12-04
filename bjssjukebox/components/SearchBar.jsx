@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 import Joi from 'joi';
+import axios from "axios";
+import queryString from "query-string";
 import Input from "./common/Input";
 import Submit from "./common/Submit";
 
 class SearchBar extends Component {
   state = { 
+    accessToken: "",
     search: {
       query: ""
     },
     errors: {
 
     }
+   }
+
+   componentDidMount() {
+     const parsed = queryString.parse(window.location.search);
+     this.setState({accessToken: parsed.access_token});
    }
 
    schema = {
@@ -33,14 +41,20 @@ class SearchBar extends Component {
     return errors;
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
 
-    console.log(this.state.search.query);
+    const { search, accessToken } = this.state;
+    let apiEndpoint = "https://api.spotify.com/v1/search?q=" + search.query + "&type=track";
+
+    const response = await axios.get(apiEndpoint, {
+      headers: { 'Authorization': 'Bearer ' + accessToken }});
+
+    console.log(response);
    }
 
   handleChange = e => {
