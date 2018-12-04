@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Joi from 'joi';
 import axios from "axios";
+import _ from "lodash";
 import queryString from "query-string";
 import Input from "./common/Input";
 import Submit from "./common/Submit";
@@ -11,9 +12,8 @@ class SearchBar extends Component {
     search: {
       query: ""
     },
-    errors: {
-
-    }
+    errors: {},
+    result: {}
    }
 
    componentDidMount() {
@@ -43,7 +43,6 @@ class SearchBar extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
@@ -54,7 +53,8 @@ class SearchBar extends Component {
     const response = await axios.get(apiEndpoint, {
       headers: { 'Authorization': 'Bearer ' + accessToken }});
 
-    console.log(response);
+    console.log(response.data);
+    this.setState({ result: response.data });
    }
 
   handleChange = e => {
@@ -66,23 +66,46 @@ class SearchBar extends Component {
 
   render() {
     
-    const { search, errors } = this.state;
-    
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <Input
-            name="query"
-            type="text"
-            value={search.query}
-            label="Search for a song"
-            error={errors.query}
-            onChange={this.handleChange}
-          />
-          <Submit />
-        </form>
-      </div>
-     );
+    const { search, errors, result } = this.state;
+
+    if(_.isEmpty(result)) {
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <Input
+              name="query"
+              type="text"
+              value={search.query}
+              label="Search for a song"
+              error={errors.query}
+              onChange={this.handleChange}
+            />
+            <Submit />
+          </form>
+        </div> 
+      )
+    } else {
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <Input
+              name="query"
+              type="text"
+              value={search.query}
+              label="Search for a song"
+              error={errors.query}
+              onChange={this.handleChange}
+            />
+            <Submit />
+          </form>
+          {this.state.result.tracks.items.map(item => (
+            <div key={item.id}>
+              <p>{item.name + ", " + item.album.name + ", " + item.artists[0].name}</p>
+            </div>
+          ))}
+        </div> 
+      )
+    }
   }
 }
  
