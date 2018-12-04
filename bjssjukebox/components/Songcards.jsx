@@ -50,7 +50,7 @@ class Songcards extends Component {
         {this.state.info
           .filter(card => this.state.info.indexOf(card) != 0)
           .map(card => (
-            <Songcard info={card} />
+            <Songcard info={card} key={card.songname} />
           ))}
       </div>
     );
