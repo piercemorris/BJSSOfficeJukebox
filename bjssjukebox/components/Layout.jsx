@@ -7,7 +7,8 @@ class Layout extends Component {
     links: [
       { title: "Home", url: "/" },
       { title: "About", url: "/about" },
-      { title: "Queue", url: "/queue" }
+      { title: "Queue", url: "/queue" },
+      { title: "Search", url: "/search" }
     ]
   };
 
