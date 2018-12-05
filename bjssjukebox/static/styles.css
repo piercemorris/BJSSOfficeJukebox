@@ -12,8 +12,8 @@
   background-color: var(--bjssDarkBlue);
   color: white;
 }
-
-.navbar>.navbar-brand>img {
+.navbar-expand-lg,
+.navbar-brand {
   width: 80;
 }
 
