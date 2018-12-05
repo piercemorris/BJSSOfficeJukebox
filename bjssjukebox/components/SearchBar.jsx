@@ -5,7 +5,7 @@ import _ from "lodash";
 import queryString from "query-string";
 import Input from "./common/Input";
 import Submit from "./common/Submit";
-import SearchResult from "./SearchResult";
+import SearchTable from "./SearchTable";
 
 class SearchBar extends Component {
   state = {
@@ -100,11 +100,7 @@ class SearchBar extends Component {
             />
             <Submit />
           </form>
-          <div className="center">
-            {this.state.result.tracks.items.map(item => (
-              <SearchResult result={item} key={item.id} />
-            ))}
-          </div>
+            <SearchTable result={this.state.result.tracks.items}/>
         </div>
       );
     }
