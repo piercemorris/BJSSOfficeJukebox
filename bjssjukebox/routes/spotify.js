@@ -1,27 +1,57 @@
+<<<<<<< HEAD
 var express = require('express'); // Express web server framework
 var router = express.Router();
 /*
 Routes for handling spotify GET & POST requests
 */
+=======
+const express = require("express");
+const config = require("config");
+const request = require("request");
+const querystring = require("querystring");
+const router = express.Router();
 
-/*
+let redirect_uri =
+  process.env.REDIRECT_URI || "http://localhost:3000/api/spotify/callback";
+>>>>>>> 0dca91dca092cd87b9df2fbc1cffa545376483f6
+
 router.get("/login", (req, res) => {
-  login function from spotify?
-})
-*/
-
-router.get("/song", (req, res) => {
-  //look at passing query through url?
-  res.send("Spotify Get Request").status(200);
+  res.redirect(
+    "https://accounts.spotify.com/authorize?" +
+      querystring.stringify({
+        response_type: "code",
+        client_id: config.get("spotify-client-id"),
+        scope: "user-read-private user-read-email",
+        redirect_uri
+      })
+  );
 });
 
-router.post("/song", (req, res) => {
-  //post song to queue in database?
-  res
-    .json({
-      name: "Kanye"
-    })
-    .status(200);
+router.get("/callback", (req, res) => {
+  var code = req.query.code || null;
+  let authOptions = {
+    url: "https://accounts.spotify.com/api/token",
+    form: {
+      code: code,
+      redirect_uri,
+      grant_type: "authorization_code"
+    },
+    headers: {
+      Authorization:
+        "Basic " +
+        new Buffer(
+          config.get("spotify-client-id") +
+            ":" +
+            config.get("spotify-client-secret") //change to process.env.CLIENT_ID etc...
+        ).toString("base64")
+    },
+    json: true
+  };
+  request.post(authOptions, (error, response, body) => {
+    var access_token = body.access_token;
+    let uri = process.env.FRONTEND_URI || "http://localhost:3000/search";
+    res.redirect(uri + "?access_token=" + access_token);
+  });
 });
 
 module.exports = router;
