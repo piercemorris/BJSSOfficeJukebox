@@ -12,10 +12,16 @@ var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var SpotifyWebApi = require('spotify-web-api-node');
+
 
 var client_id = 'a11348b400434a2ba1cbcf618dadf888'; // Your client id
 var client_secret = 'c38b37d0392f4234bc44fe635c0b4596'; // Your secret
 var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+
+
+
+
 
 /**
  * Generates a random string containing numbers and letters
@@ -49,6 +55,7 @@ app.get('/login', function(req, res) {
 
   // your application requests authorization
   var scope = 'user-read-private user-read-email';
+  //could we hardcode a spotify account email and password here?
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -91,9 +98,33 @@ app.get('/callback', function(req, res) {
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
 
+        /*
         var access_token = body.access_token,
-            refresh_token = body.refresh_token;
+        */
+        refresh_token = body.refresh_token;
+        var spotifyApi = new SpotifyWebApi({
+          clientId: 'a11348b400434a2ba1cbcf618dadf888',
+          clientSecret: 'c38b37d0392f4234bc44fe635c0b4596'
+        });
+        
+        // Retrieve an access token
+        spotifyApi.clientCredentialsGrant().then(
+          function(data) {
+            console.log('The access token expires in ' + data.body['expires_in']);//Defaults to one hour.
+            console.log('The access token is ' + data.body['access_token']);
+        
+            // Save the access token so that it's used in future calls
+            spotifyApi.setAccessToken(data.body['access_token']);
+          },
+          function(err) {
+            console.log(
+              'Something went wrong when retrieving an access token',
+              err.message
+            );
+          }
+        );
 
+        var access_token = spotifyApi.getAccessToken();
         var artistQuery = 'Michael Jackson';
 
         var artistSearch = {
