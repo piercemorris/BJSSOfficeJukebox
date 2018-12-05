@@ -1,5 +1,16 @@
+:root {
+  --bjssDarkBlue:	#041E41;
+  --bjssLightBlue: #0047BB;
+}
+
 .gutter {
   margin: 2em;
+}
+
+.navbar,
+.navbar-default {
+  background-color: var(--bjssDarkBlue);
+  color: white;
 }
 
 .song-card {

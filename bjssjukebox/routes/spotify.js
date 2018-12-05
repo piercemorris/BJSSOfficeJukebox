@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-var express = require('express'); // Express web server framework
-var router = express.Router();
-/*
-Routes for handling spotify GET & POST requests
-*/
-=======
 const express = require("express");
 const config = require("config");
 const request = require("request");
@@ -13,7 +6,6 @@ const router = express.Router();
 
 let redirect_uri =
   process.env.REDIRECT_URI || "http://localhost:3000/api/spotify/callback";
->>>>>>> 0dca91dca092cd87b9df2fbc1cffa545376483f6
 
 router.get("/login", (req, res) => {
   res.redirect(
