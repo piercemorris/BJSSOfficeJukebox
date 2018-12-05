@@ -2,6 +2,23 @@
   margin: 2em;
 }
 
+.center {
+  margin: auto;
+}
+
+.search-result-card {
+  float: left;
+  width: 18rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0.5em;
+}
+
+.card-image-top {
+  width: 280px;
+  height: 280px;
+}
+
 .song-card {
   margin: 1em;
   width: auto;
