@@ -12,10 +12,11 @@
   background-color: var(--bjssDarkBlue);
   color: white;
 }
-.navbar-expand-lg,
-.navbar-brand {
-  width: 80;
+
+img.navbar-brand {
+  width: 80px;
 }
+
 
 .song-card {
   margin: 1em;
