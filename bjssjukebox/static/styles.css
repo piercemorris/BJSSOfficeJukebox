@@ -13,6 +13,10 @@
   color: white;
 }
 
+.navbar>.navbar-brand>img {
+  width: 80;
+}
+
 .song-card {
   margin: 1em;
   width: auto;
