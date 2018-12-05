@@ -1,33 +1,34 @@
-import React, { Component } from 'react'
-import Joi from 'joi';
+import React, { Component } from "react";
+import Joi from "joi";
 import axios from "axios";
 import _ from "lodash";
 import queryString from "query-string";
 import Input from "./common/Input";
 import Submit from "./common/Submit";
+import SearchResult from "./SearchResult";
 
 class SearchBar extends Component {
-  state = { 
+  state = {
     accessToken: "",
     search: {
       query: ""
     },
     errors: {},
     result: {}
-   }
+  };
 
-   componentDidMount() {
-     const parsed = queryString.parse(window.location.search);
-     this.setState({accessToken: parsed.access_token});
-   }
+  componentDidMount() {
+    const parsed = queryString.parse(window.location.search);
+    this.setState({ accessToken: parsed.access_token });
+  }
 
-   schema = {
+  schema = {
     query: Joi.string()
       .required()
       .label("Query")
-   }
+  };
 
-   validate = () => {
+  validate = () => {
     const options = {
       abortEarly: false
     };
@@ -48,14 +49,16 @@ class SearchBar extends Component {
     if (errors) return;
 
     const { search, accessToken } = this.state;
-    let apiEndpoint = "https://api.spotify.com/v1/search?q=" + search.query + "&type=track";
+    let apiEndpoint =
+      "https://api.spotify.com/v1/search?q=" + search.query + "&type=track";
 
     const response = await axios.get(apiEndpoint, {
-      headers: { 'Authorization': 'Bearer ' + accessToken }});
+      headers: { Authorization: "Bearer " + accessToken }
+    });
 
     console.log(response.data);
     this.setState({ result: response.data });
-   }
+  };
 
   handleChange = e => {
     const search = { ...this.state.search };
@@ -65,10 +68,9 @@ class SearchBar extends Component {
   };
 
   render() {
-    
     const { search, errors, result } = this.state;
 
-    if(_.isEmpty(result)) {
+    if (_.isEmpty(result)) {
       return (
         <div>
           <form onSubmit={this.handleSubmit}>
@@ -82,8 +84,8 @@ class SearchBar extends Component {
             />
             <Submit />
           </form>
-        </div> 
-      )
+        </div>
+      );
     } else {
       return (
         <div>
@@ -98,15 +100,15 @@ class SearchBar extends Component {
             />
             <Submit />
           </form>
-          {this.state.result.tracks.items.map(item => (
-            <div key={item.id}>
-              <p>{item.name + ", " + item.album.name + ", " + item.artists[0].name}</p>
-            </div>
-          ))}
-        </div> 
-      )
+          <div className="center">
+            {this.state.result.tracks.items.map(item => (
+              <SearchResult result={item} key={item.id} />
+            ))}
+          </div>
+        </div>
+      );
     }
   }
 }
- 
+
 export default SearchBar;
