@@ -13,6 +13,12 @@
   color: white;
 }
 
+ul.navbar-nav {
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+}
+
 img.navbar-brand {
   width: 80px;
 }
