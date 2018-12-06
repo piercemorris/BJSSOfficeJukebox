@@ -3,7 +3,8 @@ import Link from "next/link";
 
 const Navbar = props => (
   <div>
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg">
+      <img className="navbar-brand" src="static/BJSS-280x150-white.png"/>
       <ul className="navbar-nav">
         {props.navs.map(link => (
           <Link className="nav-item" href={link.url} key={link.url}>
