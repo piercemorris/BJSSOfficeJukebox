@@ -46,7 +46,7 @@ class Songcards extends Component {
         reqBy: "perjermer"
       }
     ],
-    songs: []
+    songs: null
   };
 
   async componentDidMount() {
@@ -55,7 +55,7 @@ class Songcards extends Component {
       .get(apiEndpoint)
       .then()
       .catch(err => console.log(err));
-    //console.log(response);
+    console.log(response.data);
     this.setState({ songs: response.data });
   }
 
@@ -63,13 +63,14 @@ class Songcards extends Component {
     return (
       <div>
         <h1>Currently Playing</h1>
-        <Songcard info={this.state.songs[0]} />
+        {this.state && this.state.songs && (
+          <Songcard song={this.state.songs[0].song} />
+        )}
         <h1>Queue</h1>
-        {this.state.songs
-          .filter(song => this.state.songs.indexOf(song) != 0)
-          .map(song => (
-            <Songcard info={song} key={song._id} />
-          ))}
+        {this.state.songs &&
+          this.state.songs
+            .filter(song => this.state.songs.indexOf(song) != 0)
+            .map(song => <Songcard song={song.song} key={song._id} />)}
       </div>
     );
   }
