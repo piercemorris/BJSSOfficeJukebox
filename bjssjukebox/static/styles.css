@@ -17,6 +17,11 @@
   margin: auto;
 }
 
+.bjss-info {
+  color: #e6e8ed;
+  background-color: #374a73;
+}
+
 .search-table-data {
   vertical-align: center;
 }

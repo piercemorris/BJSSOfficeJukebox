@@ -20,7 +20,7 @@ class SearchTable extends Component {
         </thead>
         <tbody>
           {this.props.result.map(item => (
-            <tr className={item.explicit ? "search-table-row table-warning" : "search-table-row"}>
+            <tr className={item.explicit ? "search-table-row bjss-info" : "search-table-row"}>
               <td><img src={item.album.images[2].url} /></td>
               <td>{item.name}</td>
               <td>{item.album.name}</td>

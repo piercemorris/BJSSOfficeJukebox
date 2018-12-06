@@ -8,7 +8,7 @@ class Layout extends Component {
       { title: "Home", url: "/" },
       { title: "About", url: "/about" },
       { title: "Queue", url: "/queue" },
-      { title: "Search", url: "/search" }
+      { title: "Search", url: "/api/spotify/login" }
     ]
   };
 
