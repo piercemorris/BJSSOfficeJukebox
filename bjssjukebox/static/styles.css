@@ -1,6 +1,35 @@
+:root {
+  --bjssDarkBlue:	#041E43;
+  --bjssLightBlue: #0047BB;
+}
+html * {
+  font-family: 'Catamaran', sans-serif;
+}
+
+.table {
+  margin-top: 1em;
+}
+
 .gutter {
   margin: 2em;
 }
+
+.navbar,
+.navbar-default {
+  background-color: var(--bjssDarkBlue);
+  color: white;
+}
+
+ul.navbar-nav {
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+img.navbar-brand {
+  width: 80px;
+}
+
 
 .center {
   margin: auto;
@@ -17,23 +46,32 @@
   -moz-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.7);
   box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.7);
 }
-
+.card-table th{
+  padding: 0px;
+}
+#text{
+  text-shadow: 0px 0px 2px #697896;
+}
+.card-link{
+  color: black;
+  text-decoration: underline;
+}
 .song-card-user {
   float: right;
 }
 
 .priority-1 {
-  background-color: rgba(255, 255, 0, 0.5);
+  background-color: #e6e8ed;
 }
 .priority-2 {
-  background-color: rgba(255, 200, 0, 0.5);
+  background-color: #b4bbca;
 }
 .priority-3 {
-  background-color: rgba(255, 150, 0, 0.5);
+  background-color: #697896;
 }
 .priority-4 {
-  background-color: rgba(255, 100, 0, 0.5);
+  background-color: #374a73;
 }
 .priority-5 {
-  background-color: rgba(255, 50, 0, 0.5);
+  background-color: #1e3462 ;
 }

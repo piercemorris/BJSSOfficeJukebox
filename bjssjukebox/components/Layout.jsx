@@ -18,6 +18,7 @@ class Layout extends Component {
         <Head>
           <title>BJSS Jukebox</title>
           <meta charSet="utf-8" />
+          <link rel="icon" href="static/jukebox-icon.ico"/>
           <link rel="stylesheet" href="/static/styles.css" />
           <link
             rel="stylesheet"
