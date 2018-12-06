@@ -1,21 +1,12 @@
-<<<<<<< HEAD
 :root {
   --bjssDarkBlue:	#041E43;
   --bjssLightBlue: #0047BB;
-
-  --lightest: #697896;
-  --lighter: #506185;
-  --light: #374a73;
-  --dark: #1e3462;
-  --darker: #061e51;
 }
 
 .table {
   margin-top: 1em;
 }
 
-=======
->>>>>>> 192e3c39c193fd24da6f1c8cbe3429697c67f35c
 .gutter {
   margin: 2em;
 }
