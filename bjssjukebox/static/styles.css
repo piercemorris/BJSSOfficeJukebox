@@ -1,6 +1,11 @@
 :root {
   --bjssDarkBlue:	#041E43;
   --bjssLightBlue: #0047BB;
+  --lightest: #697896;
+  --lighter: #506185;
+  --light: #374a73;
+  --dark: #1e3462;
+  --darker: #061e51;
 }
 html * {
   font-family: 'Catamaran', sans-serif;
@@ -35,9 +40,31 @@ img.navbar-brand {
   margin: auto;
 }
 
+.bjss-info {
+  color: #e6e8ed;
+  background-color: #374a73;
+}
+
 .search-table-data {
   vertical-align: center;
 }
+
+.navbar,
+.navbar-default {
+  background-color: var(--bjssDarkBlue);
+  color: white;
+}
+
+ul.navbar-nav {
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+img.navbar-brand {
+  width: 80px;
+}
+
 
 .song-card {
   margin: 1em;

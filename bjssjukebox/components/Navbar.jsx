@@ -7,11 +7,11 @@ const Navbar = props => (
       <img className="navbar-brand" src="static/BJSS-280x150-white.png"/>
       <ul className="navbar-nav">
         {props.navs.map(link => (
-          <Link className="nav-item" href={link.url} key={link.url}>
-            <li className="nav-link" key={link.title}>
-              {link.title}
-            </li>
-          </Link>
+          <li className="nav-item" key={link.url}>
+            <Link href={link.url}>
+              <a className="nav-link">{link.title}</a>
+            </Link>
+          </li>
         ))}
       </ul>
     </nav>
