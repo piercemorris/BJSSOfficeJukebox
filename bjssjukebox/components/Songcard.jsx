@@ -9,16 +9,15 @@ class Songcard extends Component {
     return (
       <div className="card song-card">
         <table className="card-table" width="100%"><tr>
-          <th width="161">
-            <img className="card-art" src={artpath} width="161"/>
+          <th width="121">
+            <img className="card-art" src={artpath} width="121"/>
           </th>
           <th>
-            <div className={colour}>
+            <div id="text" className={colour}>
               <h5 className="card-title">{songname}</h5>
-              <h6 className="card-subtitle mb-2 text-muted">
+              <h6 className="card-subtitle mb-2">
                 {album + ", " + author}
               </h6>
-              <p className="card-text">a description of the song</p>
               <a href="#" className="card-link">
                 More info
               </a>

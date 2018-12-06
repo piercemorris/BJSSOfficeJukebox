@@ -47,6 +47,9 @@ img.navbar-brand {
 .card-table th{
   padding: 0px;
 }
+#text{
+  text-shadow: 0px 0px 2px #697896;
+}
 .song-card-user {
   float: right;
 }
