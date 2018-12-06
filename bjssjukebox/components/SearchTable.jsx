@@ -1,15 +1,20 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class SearchTable extends Component {
-  state = { 
+  state = {
     headers: ["#", "Song name", "Album", "Artist", ""]
-   }
+  };
 
-  render() { 
+  async handleAdd(song) {
+    const apiEndpoint = "http://localhost:3000/api/songs/";
+    const response = await axios.post(apiEndpoint, { song });
+  }
 
+  render() {
     const { result } = this.props;
 
-    return ( 
+    return (
       <table className="center text-center">
         <thead>
           <tr>
@@ -20,18 +25,33 @@ class SearchTable extends Component {
         </thead>
         <tbody>
           {this.props.result.map(item => (
-            <tr className={item.explicit ? "search-table-row bjss-info" : "search-table-row"}>
-              <td><img src={item.album.images[2].url} /></td>
+            <tr
+              className={
+                item.explicit
+                  ? "search-table-row bjss-info"
+                  : "search-table-row"
+              }
+            >
+              <td>
+                <img src={item.album.images[2].url} />
+              </td>
               <td>{item.name}</td>
               <td>{item.album.name}</td>
               <td>{item.artists[0].name}</td>
-              <td><button className="btn btn-primary">Add</button></td>
+              <td>
+                <button
+                  onClick={() => this.handleAdd(item)}
+                  className="btn btn-primary"
+                >
+                  Add
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-     );
+    );
   }
 }
- 
+
 export default SearchTable;

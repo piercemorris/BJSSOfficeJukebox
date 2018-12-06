@@ -8,7 +8,7 @@ app.prepare().then(() => {
   const server = express();
 
   require("express-async-errors");
-  //require("./startup/db")();
+  require("./startup/db")();
   require("./startup/routes")(server);
 
   server.get("*", (req, res) => {
