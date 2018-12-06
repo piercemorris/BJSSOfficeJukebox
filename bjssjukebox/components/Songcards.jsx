@@ -6,7 +6,7 @@ class Songcards extends Component {
     info: [
       {
         artpath: "static/sample-album-art1.png",
-        songname: "Devil in a new dress",
+        songname: "Devil in a New Dress",
         album: "My Beautiful Dark Twisted Fantasy",
         author: "Kanye West",
         priority: 1,

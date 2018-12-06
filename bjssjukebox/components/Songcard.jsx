@@ -21,7 +21,7 @@ class Songcard extends Component {
               <a href="#" className="card-link">
                 More info
               </a>
-              <p className="card-text song-card-user">Requested by user: {reqBy}</p>
+              <p className="card-text song-card-user">Requested by: {reqBy}</p>
             </div>
           </th>
         </tr></table>
