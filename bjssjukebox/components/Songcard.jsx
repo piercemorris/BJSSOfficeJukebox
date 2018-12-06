@@ -6,12 +6,13 @@ class Songcard extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.song);
     this.setState({ song: this.props.song });
   }
 
   render() {
     const song = this.state.song;
+    const priority = this.props.priority;
+    const colour = "priority-" + priority + " card-body";
 
     return (
       <div className="card song-card">
@@ -25,8 +26,8 @@ class Songcard extends Component {
                   width="121"
                 />
               </th>
-              <th className="card-header-body">
-                <div id="text" className="">
+              <th className={colour + " card-header-body"}>
+                <div id="text">
                   <h5 className="card-title">{song.name}</h5>
                   <h6 className="card-subtitle mb-2">
                     {song.album.name + ", " + song.artists[0].name}

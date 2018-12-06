@@ -4,48 +4,6 @@ import axios from "axios";
 
 class Songcards extends Component {
   state = {
-    info: [
-      {
-        artpath: "static/sample-album-art1.png",
-        songname: "Devil in a New Dress",
-        album: "My Beautiful Dark Twisted Fantasy",
-        author: "Kanye West",
-        priority: 1,
-        reqBy: "perjermer"
-      },
-      {
-        artpath: "static/sample-album-art2.png",
-        songname: "Ultralight Beam",
-        album: "The Life of Pablo",
-        author: "Kanye West",
-        priority: 2,
-        reqBy: "perjermer"
-      },
-      {
-        artpath: "static/sample-album-art3.png",
-        songname: "November",
-        album: "Flower Boy",
-        author: "Tyler the Creator",
-        priority: 3,
-        reqBy: "perjermer"
-      },
-      {
-        artpath: "static/sample-album-art4.png",
-        songname: "NO FUN",
-        album: "BALLADS1",
-        author: "Joji",
-        priority: 4,
-        reqBy: "perjermer"
-      },
-      {
-        artpath: "static/sample-album-art5.png",
-        songname: "All Mine",
-        album: "Ye",
-        author: "Kanye West",
-        priority: 5,
-        reqBy: "perjermer"
-      }
-    ],
     songs: null
   };
 
@@ -70,7 +28,13 @@ class Songcards extends Component {
         {this.state.songs &&
           this.state.songs
             .filter(song => this.state.songs.indexOf(song) != 0)
-            .map(song => <Songcard song={song.song} key={song._id} />)}
+            .map(song => (
+              <Songcard
+                song={song.song}
+                priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
+                key={song._id}
+              />
+            ))}
       </div>
     );
   }
