@@ -5,6 +5,7 @@ class Songcards extends Component {
   state = {
     info: [
       {
+        artpath: "static/sample-album-art1.png",
         songname: "Devil in a new dress",
         album: "My Beautiful Dark Twisted Fantasy",
         author: "Kanye West",
@@ -12,6 +13,7 @@ class Songcards extends Component {
         reqBy: "perjermer"
       },
       {
+        artpath: "static/sample-album-art2.png",
         songname: "Ultralight Beam",
         album: "The Life of Pablo",
         author: "Kanye West",
@@ -19,6 +21,7 @@ class Songcards extends Component {
         reqBy: "perjermer"
       },
       {
+        artpath: "static/sample-album-art3.png",
         songname: "November",
         album: "Flower Boy",
         author: "Tyler the Creator",
@@ -26,6 +29,7 @@ class Songcards extends Component {
         reqBy: "perjermer"
       },
       {
+        artpath: "static/sample-album-art4.png",
         songname: "NO FUN",
         album: "BALLADS1",
         author: "Joji",
@@ -33,6 +37,7 @@ class Songcards extends Component {
         reqBy: "perjermer"
       },
       {
+        artpath: "static/sample-album-art5.png",
         songname: "All Mine",
         album: "Ye",
         author: "Kanye West",
