@@ -1,6 +1,6 @@
 :root {
-  --bjssDarkBlue:	#041E43;
-  --bjssLightBlue: #0047BB;
+  --bjssDarkBlue: #041e43;
+  --bjssLightBlue: #0047bb;
   --lightest: #697896;
   --lighter: #506185;
   --light: #374a73;
@@ -8,7 +8,7 @@
   --darker: #061e51;
 }
 html * {
-  font-family: 'Catamaran', sans-serif;
+  font-family: "Catamaran", sans-serif;
 }
 
 .table {
@@ -35,7 +35,6 @@ img.navbar-brand {
   width: 80px;
 }
 
-
 .center {
   margin: auto;
 }
@@ -56,7 +55,7 @@ img.navbar-brand {
 }
 
 ul.navbar-nav {
-  font-family: 'Catamaran', sans-serif;
+  font-family: "Catamaran", sans-serif;
   font-weight: 700;
   font-size: 17px;
 }
@@ -65,7 +64,6 @@ img.navbar-brand {
   width: 80px;
 }
 
-
 .song-card {
   margin: 1em;
   border: 1px solid black;
@@ -73,13 +71,18 @@ img.navbar-brand {
   -moz-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.7);
   box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.7);
 }
-.card-table th{
-  padding: 0px;
+.card-image {
+  padding: 0em;
 }
-#text{
+
+.card-header-body {
+  padding: 0em 1em;
+}
+
+#text {
   text-shadow: 0px 0px 2px #697896;
 }
-.card-link{
+.card-link {
   color: black;
   text-decoration: underline;
 }
@@ -100,5 +103,5 @@ img.navbar-brand {
   background-color: #374a73;
 }
 .priority-5 {
-  background-color: #1e3462 ;
+  background-color: #1e3462;
 }
