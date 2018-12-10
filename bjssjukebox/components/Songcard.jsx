@@ -22,7 +22,7 @@ class Songcard extends Component {
               <th width="121" className="card-image">
                 <img
                   className="card-art"
-                  src={song.album.images[2].url}
+                  src={song.album.images[1].url}
                   width="121"
                 />
               </th>
