@@ -15,7 +15,6 @@ router.get("/me", auth, async (req, res) => {
 });
 
 // HTTP POST request to create a new user account then log them in immediately
-
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -31,7 +30,6 @@ router.post("/", async (req, res) => {
 
   // Generate a hash function to encrypt the passwords that are going to be
   // stored in the database
-
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
@@ -77,7 +75,6 @@ router.put("/me", auth, async (req, res) => {
 });
 
 // HTTP DELETE request to delete a given user
-
 router.delete("/me", auth, async (req, res) => {
   const user = await User.findByIdAndRemove(req.user._id);
   if (!user)
