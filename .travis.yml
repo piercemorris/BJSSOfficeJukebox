@@ -4,4 +4,4 @@ node_js:
 before-install:
   - npm i
 scripts:
-  - cd bjssjukebox npm test
+  - npm test
