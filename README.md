@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/perjermer/BJSSOfficeJukebox.svg?token=bRjYuEycjukqcCagxs72&branch=master)](https://travis-ci.com/perjermer/BJSSOfficeJukebox)
+
 # Group 14 BJSS Office Jukebox
 
 ## Useful links
