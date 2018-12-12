@@ -10,7 +10,7 @@
     "dev": "next",
     "start": "node index.js",
     "watch": "nodemon index.js",
-    "test": "jest --detectOpenHandles",
+    "test": "jest",
     "testing": "jest --watchAll"
   },
   "keywords": [
