@@ -12,6 +12,6 @@ describe("api/songs/", () => {
     it("should return all songs", async () => {
       const res = await request(httpServer).get("/api/songs/");
       expect(await res.status).toBe(200);
-    });
+    }, 30000);
   });
 });
