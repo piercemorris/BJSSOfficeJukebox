@@ -1,5 +1,6 @@
 const request = require("supertest");
 const serverPromise = require("../../index");
+const server = require("../../index");
 const config = require("config");
 let httpServer;
 
@@ -11,9 +12,7 @@ describe("api/songs/", () => {
 
   describe("GET /", () => {
     it("should return all songs", async () => {
-      const res = await request(`http://localhost:${config.get("port")}`).get(
-        "/api/songs"
-      );
+      const res = await request("http://localhost:3000").get("/api/songs");
       expect(await res.status).toBe(200);
     });
   });

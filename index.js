@@ -18,7 +18,6 @@ server.get("*", (req, res) => {
 module.exports = app
   .prepare()
   .then(() => {
-    console.log("running server");
     server.listen(port, () => console.log(`Listening on port ${port}`));
   })
   .catch(console.error);
