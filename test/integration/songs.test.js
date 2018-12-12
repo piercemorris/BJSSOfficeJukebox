@@ -12,7 +12,7 @@ describe("api/songs/", () => {
 
   describe("GET /", () => {
     it("should return all songs", async () => {
-      const res = await request("http://localhost:3000").get("/api/songs");
+      const res = await request("http://127.0.0.1:3000").get("/api/songs");
       expect(await res.status).toBe(200);
     });
   });
