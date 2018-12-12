@@ -1,5 +1,6 @@
 const request = require("supertest");
 const serverPromise = require("../../index");
+let httpServer;
 
 describe("api/songs/", () => {
   beforeAll(async () => {
