@@ -28,7 +28,8 @@ To run the tests
 
 # File structure
 
-`components` - contains all the components for react that are reusable<br />
+`components` - contains all the components for react<br />
+`components/common` - contains all the components for react that are reusable<br />
 `config` - contains all the information about database connections, private keys etc<br />
 `middleware` - contains middleware for express i.e. checking if someone is authorised<br />
 `models` - contains the models & schemas for the mongo database<br />
@@ -45,8 +46,14 @@ To run the tests
 
 Database - `mongodb compass`<br />
 
-- for local database testing, go to - https://docs.mongodb.com/compass/master/install/ - for setup<br />
+- for local database testing, go to - https://docs.mongodb.com/compass/master/install/ - for setup
+  <br />
 
 Creating HTTP Requests - `Postman`
 
-- for creating GET, POST, PUT etc.. http requests to the project running locally i.e. API development environment; go to - https://www.getpostman.com/ - for downloading<br />
+- for creating GET, POST, PUT etc.. http requests to the project running locally i.e. API development environment; go to - https://www.getpostman.com/ - for downloading
+  <br />
+
+## Live database
+
+Created using <a href="https://mlab.com/databases/jukebox/">mLab</a>

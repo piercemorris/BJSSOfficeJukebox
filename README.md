@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/perjermer/BJSSOfficeJukebox.svg?token=bRjYuEycjukqcCagxs72&branch=master)](https://travis-ci.com/perjermer/BJSSOfficeJukebox)
+
 # Group 14 BJSS Office Jukebox
 
 ## Useful links
@@ -8,8 +10,7 @@ Google drive document repository: https://drive.google.com/drive/u/0/folders/1xX
 
 ## Contents / project structure
 
-`bjssJukeboxBackend/` - contains the Node.js backend of the project i.e. the web server <br />
-`bjssjukeboxfrontend/` - contains the React.js frontend of the project i.e. the web interface
+`bjssjukebox/` - contains the base project files; i.e. database connection, backend web server and server-side rendered pages<br />
 
 ## Dependencies
 
@@ -18,11 +19,7 @@ Google drive document repository: https://drive.google.com/drive/u/0/folders/1xX
 1. To download and install go to -> https://nodejs.org/en/ and download the current stable version - this will download both Node.js and NPM which is a package manager for node.
 2. To test if the download is successful, type into the commandline/terminal `$ node -v` which checks the version downloaded and means it's been installed globally.
 
-To run `bjssJukeboxBackend/`:
-
-- **Read the README.md in the root of the folder**
-
-To run `bjssjukeboxfrontend/`:
+To run `bjssjukebox/`:
 
 - **Read the README.md in the root of the folder**
 

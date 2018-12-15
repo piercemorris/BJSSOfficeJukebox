@@ -2,12 +2,15 @@
   "name": "bjssjukebox",
   "version": "1.0.0",
   "description": "A online jukebox app for BJSS which allows multiple users to queue up songs",
+  "repository": {
+    "url": "https://github.com/perjermer/BJSSOfficeJukebox"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "next",
     "start": "node index.js",
     "watch": "nodemon index.js",
-    "test": "jest --watchAll"
+    "test": "jest"
   },
   "keywords": [
     "Spotify",
