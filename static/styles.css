@@ -90,6 +90,20 @@ img.navbar-brand {
   float: right;
 }
 
+.card-priority {
+  float: right;
+}
+
+.circle {
+  height: 25px;
+  width: 25px;
+  background-color: #555;
+  border-radius: 50%;
+  float: right;
+  padding-left: 10px;
+}
+}
+
 .priority-1 {
   background-color: #e6e8ed;
 }
