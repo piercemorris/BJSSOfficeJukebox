@@ -22,7 +22,10 @@ class Songcards extends Component {
       <div>
         <h1>Currently Playing</h1>
         {this.state && this.state.songs && (
-          <Songcard song={this.state.songs[0].song} />
+          <Songcard 
+            song={this.state.songs[0].song}
+            priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)} 
+          />
         )}
         <h1>Queue</h1>
         {this.state.songs &&

@@ -97,9 +97,9 @@ img.navbar-brand {
 .circle {
   height: 25px;
   width: 25px;
-  border-radius: 50%;
+  border-radius: 15%;
   float: right;
-  padding-left: 10px;
+  margin-top: -6%;
   text-shadow: 0 0 0px #041e43;
 
 }
