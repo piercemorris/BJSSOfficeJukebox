@@ -26,10 +26,10 @@ class Songcard extends Component {
                   width="121"
                 />
               </th>
-              <th className={colour + " card-header-body"}>
+              <th className={"card-header-body"}>
                 <div id="text">
                   <p className="card-priority">
-                    Priority   <div class="circle"></div>
+                    Priority&nbsp; <div className={colour + " circle"}></div>
                   </p>
                   <h5 className="card-title">{song.name}</h5>
                   <h6 className="card-subtitle mb-2">

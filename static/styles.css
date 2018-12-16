@@ -97,15 +97,15 @@ img.navbar-brand {
 .circle {
   height: 25px;
   width: 25px;
-  background-color: #555;
   border-radius: 50%;
   float: right;
   padding-left: 10px;
-}
+  text-shadow: 0 0 0px #041e43;
+
 }
 
 .priority-1 {
-  background-color: #e6e8ed;
+  background-color: #c2d3ff;
 }
 .priority-2 {
   background-color: #b4bbca;
