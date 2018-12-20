@@ -5,7 +5,7 @@ const { Song, validate } = require("../models/song");
 router.get("/", async (req, res) => {
   const songs = await Song.find();
 
-  res.send(songs);
+  res.send(songs).status(200);
 });
 
 router.post("/", async (req, res) => {
@@ -16,7 +16,8 @@ router.post("/", async (req, res) => {
     song: req.body.song
   });
 
-  await song.save();
+  song = await song.save();
+  res.send(song).status(200);
 });
 
 module.exports = router;

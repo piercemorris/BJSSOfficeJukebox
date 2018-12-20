@@ -26,6 +26,8 @@ To run the tests
 2. Run this command in the terminal `$ npm test` to begin the testing phase
 3. If for some reason this command is not recognised, check the `package.json` file and under `scripts` there is a list of all the available commands
 
+NODE_ENV=test for test server
+
 # File structure
 
 `components` - contains all the components for react<br />
