@@ -1,59 +1,78 @@
-# BJSS Office Jukebox Brief
+# File structure
 
-A music queueing system for the offices of BJSS
+`components` - contains all the components for react<br />
+`components/common` - contains all the components for react that are reusable<br />
+`config` - contains all the information about database connections, private keys etc<br />
+`middleware` - contains middleware for express i.e. checking if someone is authorised<br />
+`models` - contains the models & schemas for the mongo database<br />
+`pages` - contains the files for rendering react pages using the components<br />
+`public` - contains all the static images/css files/javascript files<br />
+`routes` - defines all the routes to the project structure<br />
+`startup` - contains all the functions for on the project startup<br />
+`test` - folder containing all the tests, with subfolders for integration and unit testing<br />
+`.gitignore` - to ignore any dev dependent folders i.e. node_modules etc<br />
+`index.js` - root files for the project<br />
+`package.json` - contains dependecies and project information<br />
 
-## Getting Started
+# Tools for local development
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Database - `mongodb compass`<br />
 
-### Prerequisites
+- for local database testing, go to - https://docs.mongodb.com/compass/master/install/ - for setup
+  <br />
 
-##### Node.js & NPM (node package manager)
+Creating HTTP Requests - `Postman`
 
-1. Head to https://nodejs.org/en/ to download the latest stable version of Node.js (this will install NPM too)
-2. Click and install the downloaded package
-3. To test if the installation is successful enter `node -v` & `npm -v` in the terminal/commandline
+- for creating GET, POST, PUT etc.. http requests to the project running locally i.e. API development environment; go to - https://www.getpostman.com/ - for downloading
+  <br />
 
-### Installing & Running
+## Live database
 
-How to get the development environment running:
+Created using <a href="https://mlab.com/databases/jukebox/">mLab</a>
 
-1. Clone from the GitHub repository `$ git clone https://github.com/perjermer/BJSSOfficeJukebox.git`
-2. Move into the newly cloned folder `$ cd BJSSOfficeJukebox`
-3. Install all the dependency modules `$ npm install`
-4. Run the project locally (with a live database connection) `$ node index.js`
-5. Head over to your favored web browser and go to the following url `http://localhost:3000`
+# Git Commands
 
-### Running the tests
+### Setup
 
-To run the tests:
+- `$ mkdir group14` - Create a directory for the project
+- `$ cd group14` - To locate to the new folder
+- `$ git init` - To initialise a git repository
+- `$ git clone https://github.com/perjermer/BJSSOfficeJukebox.git` - To download the repository
+- `$ git config user.name "<username>"` - To set your username
+- `$ git config user.email "<email address>"` - To set your email
 
-1. Change the environment to testing `$ export NODE_ENV=test`
-2. Run the test command `npm test`
-3. Results of the tests will follow in the command line
+### Making Changes
 
-```
-Test Suites: 3 passed, 3 total
-Tests:       4 passed, 4 total
-Snapshots:   0 total
-Time:        3.084s
-```
+- `$ git status` - Lists all new or modified files to be committed
+- `$ git add <file>` - Adds file ready to be committed
+- `$ git add .` - Adds all files/changes ready to be committed
+- `$ git commit -m "<descriptive message>"` - Records files permanently in version history
+- `$ git push <branch name>` - Pushes committed changes to the branch
 
-## Built With
+#### Commits
 
-- [Node & npm](https://nodejs.org/en/) - Backend framework and dependency management
-- [React.js & Next.js](https://nextjs.org/) - Frontend library and server-side rendering framework
-- [Express.js](https://expressjs.com/) - Minimalist web framework with Node
-- [Bootstrap](https://getbootstrap.com/) - CSS framework
+For the `<descriptive message>` they need to be _descriptive_ as the name implies, and in the present tense for example:
+`$ git commit -m "add post route to create a new user"`
 
-## Contributing
+#### Branches
 
-Please read CONTRIBUTING.md for details on our code of conduct, and the process of submitting pull requests.
+- `$ git branch` - Lists all of the local branches in the current repository
+- `$ git branch <branch name>` - Creates a new branch
+- `$ git checkout <branch name>` - Switches to the specified branch
+- `$ git merge <branch name>` - Merges the specified branch's history into the current branch
 
-## Authors
+For the `<branch name>` they too need to be descriptive and should be clear what the branch is set out to accomplish, and prefixed with whatever project you are working on followed by a hyphen; then use camelCase for the feature you are working on. For example:
 
-- **Pierce James Morris** - _Group Administrator & Git Master_ - [perjermer](https://github.com/perjermer)
-- **James Bennett** - _Project Lead_ - [JPUF](https://github.com/JPUF)
-- **Robert Laing** - [robLaing2](https://github.com/robLaing2)
-- **Yousef Ismail** - [Psyyi](https://github.com/Psyyi)
-- **Sinco Song** - [SincoSong](https://github.com/SincoSong)
+- `$ git branch node-postUser`
+- `$ git branch react-queueComponent`
+- `$ git branch python-createData`
+
+# Development Instructions
+
+### Development IDE/Code editor
+
+You can choose any IDE or code editor for the project. Most popular with Node applications and development in general is:
+
+- Visual Studio Code (my choice)
+- Atom
+- Sublime Text
