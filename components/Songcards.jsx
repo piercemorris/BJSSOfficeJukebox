@@ -19,7 +19,7 @@ class Songcards extends Component {
 
   render() {
     return (
-      <div>
+      <div className="songcards">
         <h1>Currently Playing</h1>
         {this.state && this.state.songs && (
           <Songcard song={this.state.songs[0].song} />

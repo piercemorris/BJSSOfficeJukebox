@@ -10,6 +10,12 @@
 html * {
   font-family: "Catamaran", sans-serif;
 }
+html,body{
+  width: 100%; 
+  margin: 0px; 
+  padding: 0px;
+
+}
 
 .table {
   margin-top: 1em;
@@ -46,6 +52,22 @@ img.navbar-brand {
 
 .search-table-data {
   vertical-align: center;
+}
+.SearchTable{
+  position: absolute;
+  background:#374a73;
+  z-index: 1;
+  color:#e6e8ed
+}
+.SearchTable tr:hover{
+  background: #e6e8ed;
+  cursor: pointer;
+  color:#374a73;
+}
+.songcards{
+  position: absolute;
+  z-index: 0;
+  width:50%
 }
 
 .navbar,

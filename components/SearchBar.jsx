@@ -35,7 +35,6 @@ class SearchBar extends Component {
     const { error } = Joi.validate(this.state.search, this.schema, options);
 
     if (!error) return null;
-
     const errors = {};
 
     for (let item of error.details) errors[item.path[0]] = item.message;
@@ -43,11 +42,16 @@ class SearchBar extends Component {
   };
 
   handleSubmit = async e => {
-    e.preventDefault();
+    console.log("aaa\n");
+    event.preventDefault();
     const errors = this.validate();
-    this.setState({ errors: errors || {} });
-    if (errors) return;
-
+    this.setState({
+       errors: errors || {} 
+    });
+    if (errors) {
+      this.state.result=null
+      return;
+    }
     const { search, accessToken } = this.state;
     let apiEndpoint =
       "https://api.spotify.com/v1/search?q=" + search.query + "&type=track";
@@ -65,8 +69,9 @@ class SearchBar extends Component {
     const component = e.currentTarget.name;
     search[component] = e.currentTarget.value;
     this.setState({ search });
+    this.handleSubmit();
   };
-
+  
   render() {
     const { search, errors, result } = this.state;
 
@@ -78,11 +83,9 @@ class SearchBar extends Component {
               name="query"
               type="text"
               value={search.query}
-              label="Search for a song"
               error={errors.query}
               onChange={this.handleChange}
             />
-            <Submit />
           </form>
         </div>
       );
@@ -94,13 +97,11 @@ class SearchBar extends Component {
               name="query"
               type="text"
               value={search.query}
-              label="Search for a song"
               error={errors.query}
-              onChange={this.handleChange}
-            />
-            <Submit />
+              onChange={this.handleChange}/>
           </form>
-            <SearchTable result={this.state.result.tracks.items}/>
+          <SearchTable result={this.state.result.tracks.items}/>
+            
         </div>
       );
     }

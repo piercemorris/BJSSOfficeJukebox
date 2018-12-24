@@ -37,8 +37,9 @@
     "next": "^7.0.2",
     "query-string": "^6.2.0",
     "querystring": "~0.2.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.7.0",
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "^16.7.0",
     "request": "^2.83.0",
     "spotify-web-api-node": "^4.0.0"
   },
