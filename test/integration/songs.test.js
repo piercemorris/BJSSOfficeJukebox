@@ -8,7 +8,6 @@ describe("api/songs/", () => {
   beforeAll(async () => {
     httpServer = await serverPromise;
   });
-  afterAll(() => httpServer.close());
 
   describe("GET /", () => {
     it("should return all songs", async () => {
@@ -16,4 +15,6 @@ describe("api/songs/", () => {
       expect(await res.status).toBe(200);
     });
   });
+
+  afterAll(() => httpServer.close());
 });

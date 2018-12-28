@@ -18,7 +18,7 @@ server.get("*", (req, res) => {
 module.exports = app
   .prepare()
   .then(() => {
-    server.listen(port, () => console.log(`Listening on port ${port}`));
+    return server.listen(port, () => console.log(`Listening on port ${port}`));
   })
   .catch(console.error);
 //morgan

@@ -44,9 +44,7 @@
     "spotify-web-api-node": "^4.0.0"
   },
   "devDependencies": {
-    "assert": "^1.4.1",
     "jest": "^23.6.0",
-    "node-mocks-http": "^1.7.3",
     "supertest": "^3.3.0"
   }
 }
