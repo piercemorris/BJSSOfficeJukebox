@@ -16,7 +16,8 @@ router.post("/", async (req, res) => {
     song: req.body.song
   });
 
-  await song.save();
+  song = await song.save();
+  res.send(song).status(200);
 });
 
 module.exports = router;
