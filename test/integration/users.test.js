@@ -12,7 +12,7 @@ describe("api/users/", () => {
   afterAll(() => httpServer.close());
 
   afterEach(async () => {
-    await User.remove({});
+    //await User.remove({});
   });
 
   describe("GET /me", () => {
@@ -27,87 +27,91 @@ describe("api/users/", () => {
       const res = await request(`http://127.0.0.1:${httpServer.address().port}`).get(endpoint);
       expect(await res.status).toBe(200);
     });
+  });
 
-    describe("POST /", () => {
-      endpoint = "/api/users";
+  describe("POST /", () => {
+    endpoint = "/api/users";
 
-      it("should return 400 if the request is not valid", async () => {
-        //todo
-      });
+    it("should return 400 if the request is not valid", async () => {
+      const res = await request(`http://127.0.0.1:${httpServer.address().port}`)
+        .post(endpoint)
+        .send("Invalid POST request");
 
-      it("should return 400 if client tries registering with a username already in use", async () => {
-        //todo
-      });
-
-      it("should store the user & details in the database", async () => {
-        //todo
-      });
-
-      it("should return the user details if successfully created an account", async () => {
-        //todo
-      });
+      expect(res.status).toBe(400);
     });
 
-    describe("POST /login", () => {
-      endpoint = "/api/users/login";
-
-      it("should return 400 if the request is not valid", async () => {
-        //todo
-      });
-
-      it("should return 400 if the user wasn't found in the database", async () => {
-        //todo
-      });
-
-      it("should return 400 if the passwords don't match", async () => {
-        //todo
-      });
-
-      it("should return the user just logged in", async () => {
-        //todo
-      });
+    it("should return 400 if client tries registering with a username already in use", async () => {
+      //todo
     });
 
-    describe("PUT /me", () => {
-      endpoint = "/api/users/me";
-
-      it("should return 401 if the client is not logged in", async () => {
-        const res = await request(`http://127.0.0.1:${httpServer.address().port}`).get(endpoint);
-        expect(await res.status).toBe(401);
-      });
-
-      it("should return 400 if the request is not valid", async () => {
-        //todo
-      });
-
-      it("should return 404 if the user wasn't found in the database", async () => {
-        //todo
-      });
-
-      it("should update the user in the database", async () => {
-        //todo
-      });
-
-      it("should return the user who has just been updated", async () => {
-        //todo
-      });
+    it("should store the user & details in the database", async () => {
+      //todo
     });
 
-    describe("DELETE /me", () => {
-      endpoint = "/api/users/me";
+    it("should return the user details if successfully created an account", async () => {
+      //todo
+    });
+  });
 
-      it("should return 401 if the client is not logged in", async () => {
-        const res = await request(`http://127.0.0.1:${httpServer.address().port}`).get(endpoint);
-        expect(await res.status).toBe(401);
-      });
+  describe("POST /login", () => {
+    endpoint = "/api/users/login";
 
-      it("should return 404 if the user wasn't found in the database", async () => {
-        //todo
-      });
+    it("should return 400 if the request is not valid", async () => {
+      //todo
+    });
 
-      it("should successfully delete the user", async () => {
-        //todo
-      });
+    it("should return 400 if the user wasn't found in the database", async () => {
+      //todo
+    });
+
+    it("should return 400 if the passwords don't match", async () => {
+      //todo
+    });
+
+    it("should return the user just logged in", async () => {
+      //todo
+    });
+  });
+
+  describe("PUT /me", () => {
+    endpoint = "/api/users/me";
+
+    it("should return 401 if the client is not logged in", async () => {
+      const res = await request(`http://127.0.0.1:${httpServer.address().port}`).get(endpoint);
+      expect(await res.status).toBe(401);
+    });
+
+    it("should return 400 if the request is not valid", async () => {
+      //todo
+    });
+
+    it("should return 404 if the user wasn't found in the database", async () => {
+      //todo
+    });
+
+    it("should update the user in the database", async () => {
+      //todo
+    });
+
+    it("should return the user who has just been updated", async () => {
+      //todo
+    });
+  });
+
+  describe("DELETE /me", () => {
+    endpoint = "/api/users/me";
+
+    it("should return 401 if the client is not logged in", async () => {
+      const res = await request(`http://127.0.0.1:${httpServer.address().port}`).get(endpoint);
+      expect(await res.status).toBe(401);
+    });
+
+    it("should return 404 if the user wasn't found in the database", async () => {
+      //todo
+    });
+
+    it("should successfully delete the user", async () => {
+      //todo
     });
   });
 });
