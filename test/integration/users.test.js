@@ -35,9 +35,9 @@ describe("api/users/", () => {
     it("should return 400 if the request is not valid", async () => {
       const res = await request(`http://127.0.0.1:${httpServer.address().port}`)
         .post(endpoint)
-        .send("Invalid POST request");
+        .send({ username: "p", password: "below" });
 
-      expect(res.status).toBe(400);
+      expect(await res.status).toBe(400);
     });
 
     it("should return 400 if client tries registering with a username already in use", async () => {
