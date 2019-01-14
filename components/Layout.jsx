@@ -8,7 +8,9 @@ class Layout extends Component {
       { title: "Home", url: "/" },
       { title: "About", url: "/about" },
       { title: "Queue", url: "/queue" },
-      { title: "Search", url: "/api/spotify/login" }
+      { title: "Search", url: "/api/spotify/login" },
+      { title: "Log in", url: "/login" },
+      { title: "Sign up", url: "/signup" }
     ]
   };
 
@@ -18,7 +20,7 @@ class Layout extends Component {
         <Head>
           <title>BJSS Jukebox</title>
           <meta charSet="utf-8" />
-          <link rel="icon" href="static/jukebox-icon.ico"/>
+          <link rel="icon" href="static/jukebox-icon.ico" />
           <link rel="stylesheet" href="/static/styles.css" />
           <link
             rel="stylesheet"
