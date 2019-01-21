@@ -105,3 +105,20 @@ img.navbar-brand {
 .priority-5 {
   background-color: #1e3462;
 }
+
+/* Forms */
+/* form styling */
+.form {
+  padding: 1em;
+  margin: auto;
+  width: 800px;
+}
+
+.form-row {
+  justify-content: center;
+  margin: auto;
+}
+
+.offset-title {
+  margin: 2em 0 2em 15em;
+}
