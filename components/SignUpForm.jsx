@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
-import axios from "axios";
 import Joi from "joi-browser";
+import Form from "./common/Form";
 import Input from './common/Input';
 import Submit from "./common/Submit";
 
-class SignUpForm extends Component {
-  state = {
-    signupform: {
-      username: "",
-      password: "",
-      confirmpassword: ""
-    },
-    errors: {}
-  }
+class SignUpForm extends Form {
 
   schema = {
     username: Joi.string()
@@ -21,77 +13,45 @@ class SignUpForm extends Component {
     password: Joi.string()
       .required()
       .label("Password"),
-    confirmpassword: Joi.string()
+    confirmpassword: Joi
+      .string()
       .required()
-      .valid(Joi.ref("password"))
-      .label("Confirm password")
+      .options({
+        language: {
+          any: {
+            allowOnly: '!!Passwords do not match',
+          }
+        }
+      })
   };
 
-  validate = () => {
-    const options = {
-      abortEarly: false
-    };
-    const { error } = Joi.validate(this.state.signupform, this.schema, options);
+  doSubmit = () => {
+    console.log(this.state.data);
 
-    if (!error) return null;
-
-    const errors = {};
-
-    for (let item of error.details) errors[item.path[0]] = item.message;
-    return errors;
   };
-
-  handleChange = e => {
-    const signupform = { ...this.state.signupform };
-    const component = e.currentTarget.name;
-    signupform[component] = e.currentTarget.value;
-    this.setState({ signupform });
-  }
 
   render() {
-    const { errors, signupform } = this.state;
     return (
       <div className="form">
         <div className="offset-title">
           <h1>Sign up</h1>
           <span>Sign up for a new Jukebox account</span>
         </div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="form-row">
             <div className="col-md-8">
-              <Input
-                name="username"
-                type="text"
-                label="Username"
-                value={signupform.username}
-                error={errors.username}
-                onChange={this.handleChange}
-              />
+              {this.renderInput("username", "Username", "Username")}
             </div>
           </div>
           <div className="form-row">
             <div className="col-md-4">
-              <Input
-                name="password"
-                type="password"
-                label="Password"
-                value={signupform.password}
-                error={errors.password}
-                onChange={this.handleChange}
-              />
+              {this.renderInput("password", "Password", "", "password")}
             </div>
             <div className="col-md-4">
-              <Input
-                name="confirmpassword"
-                type="password"
-                label="Confirm password"
-                value={signupform.confirmpassword}
-                error={errors.confirmpassword}
-                onChange={this.handleChange}
-              />
+              {this.renderInput("confirmpassword", "Confirm Password", "", "password")}
             </div>
           </div>
-          <Submit />
+          {this.renderButton()}
         </form>
       </div>
     );
