@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "jest": "^23.6.0",
+    "node-pre-gyp": "^0.12.0",
     "supertest": "^3.3.0"
   }
 }
