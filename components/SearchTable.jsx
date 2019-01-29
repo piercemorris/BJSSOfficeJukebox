@@ -24,32 +24,12 @@ class SearchTable extends Component {
     const response = await axios.post(apiEndpoint, { song });
   }
 
-  createTable(table,num){
-    let length=3
-    if(num==1){
-      length=this.props.result.length
-    }
-      for (var i = 0; i < length; i++) {
-      let children = []
-      console.log(222)
-      // create children
-      children.push(<td><img src={this.props.result[i].album.images[2].url} /></td>)
-      children.push(<td>{this.props.result[i].name}</td>)
-      children.push(<td>{this.props.result[i].artists[0].name}</td>)
-      //Create the parent and add the children
-      table.push(<tr onClick={() => this.handleAdd(this.props.result[i])}>{children}</tr>)
-    }
-}
   render() {
-    const { result } = this.props;
-    let table=[]
-    {this.createTable(table,0)}
     return(
       <table className="SearchTable center center-text ">
       <thead>
       </thead>
       <tbody>
-
         {this.props.result.slice(0, this.state.itemsToShow).map((song, i) =>
           <tr onClick={() => this.handleAdd(song) }>
           <td key={i}><img src={song.album.images[2].url} /></td>
@@ -57,7 +37,6 @@ class SearchTable extends Component {
           <td>{song.artists[0].name}</td>
           </tr>
         )}
-      
         <tr onClick={this.showMore}>
           <a onClick={this.showMore}>  
             {this.state.expanded ? (
@@ -72,7 +51,6 @@ class SearchTable extends Component {
 
     </table>
     );
-  
   }
 }
 

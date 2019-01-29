@@ -37,7 +37,7 @@ class SearchBar extends Component {
     if (!error) return null;
     const errors = {};
 
-    for (let item of error.details) errors[item.path[0]] = item.message;
+    for (let item of error.details) errors[item.path[0]] = item.message; 
     return errors;
   };
 
@@ -78,8 +78,9 @@ class SearchBar extends Component {
     if (_.isEmpty(result)) {
       return (
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form autoComplete="off" onKeyUp={this.handleSubmit}>
             <Input
+              autoComplete="off"              
               name="query"
               type="text"
               value={search.query}
@@ -92,8 +93,9 @@ class SearchBar extends Component {
     } else {
       return (
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form form autoComplete="off" onKeyUp={this.handleSubmit}>
             <Input
+              autoComplete="off"
               name="query"
               type="text"
               value={search.query}
