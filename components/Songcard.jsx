@@ -28,6 +28,7 @@ class Songcard extends Component {
               </th>
               <th className={"card-header-body"}>
                 <div id="text">
+                  
                   <p className="card-priority">
                     Priority&nbsp; <div className={colour + " circle"}></div>
                   </p>
@@ -35,9 +36,8 @@ class Songcard extends Component {
                   <h6 className="card-subtitle mb-2">
                     {song.album.name + ", " + song.artists[0].name}
                   </h6>
-                  <a href="#" className="card-link">
-                    More info
-                  </a>
+                  {song.explicit ?  <img id="explicit_tag" src="static/explicit.png" width="70px"/>: null}
+                  <a href="#" className="card-link">More info</a>
                   <p className="card-text song-card-user">
                     Requested by: a user
                   </p>

@@ -83,6 +83,10 @@ img.navbar-brand {
 #text {
   text-shadow: 0px 0px 2px #697896;
 }
+
+#explicit_tag {
+  margin-right: 10px;
+}
 .card-link {
   color: black;
   text-decoration: underline;
