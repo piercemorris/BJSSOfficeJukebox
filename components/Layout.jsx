@@ -5,10 +5,12 @@ import Navbar from "./Navbar";
 class Layout extends Component {
   state = {
     links: [
-      { title: "Home", url: "/" },
-      { title: "About", url: "/about" },
-      { title: "Queue", url: "/queue" },
-      { title: "Search", url: "/api/spotify/login" }
+      { title: "Home", url: "/", float: "left" },
+      { title: "About", url: "/about", float: "left" },
+      { title: "Queue", url: "/queue", float: "left" },
+      { title: "Search", url: "/api/spotify/login", float: "left" },
+      { title: "Log in", url: "/login", float: "right" },
+      { title: "Sign up", url: "/signup", float: "right" }
     ]
   };
 
@@ -18,7 +20,7 @@ class Layout extends Component {
         <Head>
           <title>BJSS Jukebox</title>
           <meta charSet="utf-8" />
-          <link rel="icon" href="static/jukebox-icon.ico"/>
+          <link rel="icon" href="static/jukebox-icon.ico" />
           <link rel="stylesheet" href="/static/styles.css" />
           <link
             rel="stylesheet"

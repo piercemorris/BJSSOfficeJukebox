@@ -17,13 +17,21 @@ class Songcards extends Component {
     this.setState({ songs: response.data });
   }
 
+  renderSongs = () => {
+    const { songs } = this.state;
+    if (songs === undefined || songs === null || songs.length === 0) {
+      return null;
+    }
+    else {
+      return <Songcard song={songs[0].song} />;
+    }
+  }
+
   render() {
     return (
       <div>
         <h1>Currently Playing</h1>
-        {this.state && this.state.songs && (
-          <Songcard song={this.state.songs[0].song} />
-        )}
+        {this.renderSongs()}
         <h1>Queue</h1>
         {this.state.songs &&
           this.state.songs
