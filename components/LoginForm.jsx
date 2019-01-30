@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Joi from "joi-browser";
 import Form from "./common/Form";
 
@@ -20,7 +20,7 @@ class SignUpForm extends Form {
   render() {
     return (
       <div className="form">
-        {this.renderTitle("Sign up", "Sign up for a new Jukebox account")}
+        {this.renderTitle("Log in", "Log in to your Jukebox account")}
         <form onSubmit={this.handleSubmit}>
           <div className="form-row">
             <div className="col-md-8">

@@ -48,7 +48,6 @@ class Form extends Component {
 
   renderInput(name, label, placeholder, type = 'text') {
     const { data, errors } = this.state;
-
     return (
       <div className="form-row">
         <div className="col-md-8">
@@ -62,6 +61,15 @@ class Form extends Component {
             placeholder={placeholder}
           />
         </div>
+      </div>
+    );
+  }
+
+  renderTitle(title, desc) {
+    return (
+      <div className="offset-title">
+        <h1>{title}</h1>
+        <span>{desc}</span>
       </div>
     );
   }
