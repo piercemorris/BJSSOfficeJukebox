@@ -87,6 +87,11 @@ img.navbar-brand {
 #explicit_tag {
   margin-right: 10px;
 }
+
+.placeholder {
+  margin-left: 25px;
+}
+
 .card-link {
   color: black;
   text-decoration: underline;
