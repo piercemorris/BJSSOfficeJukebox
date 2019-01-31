@@ -10,7 +10,7 @@ router.get("/me", auth, async (req, res) => {
   const user = await User.findOne({ username: req.user.username }).select(
     "-password -isAdmin"
   );
-  if (!user) return res.send("No user found");
+  if (!user) return res.send("No user found").status(404);
   res.send(user);
 });
 
@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
 
   // Generate a json web token for authenticating the user upon authorization
   const token = user.generateAuthToken();
-  res.header("x-auth-token", token).send(_.pick(user, ["_id", "username"]));
+  res.header("x-auth-token", token).send(_.pick(user, ["_id", "username"]).status(200));
 });
 
 // HTTP POST request to login a user if the credentials are correct
