@@ -100,7 +100,7 @@ class SearchBar extends Component {
             />
             <Submit />
           </form>
-            <SearchTable result={this.state.result.tracks.items}/>
+            <SearchTable result={this.state.result.tracks.items} />
         </div>
       );
     }
