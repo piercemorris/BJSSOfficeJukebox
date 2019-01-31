@@ -3,7 +3,7 @@ import axios from "axios";
 
 class SearchTable extends Component {
   state = {
-    headers: ["#", "Song name", "Album", "Artist", ""]
+    headers: ["#", "Song name", "Album", "Artist", "Explicit", ""]
   };
 
   async handleAdd(song) {
@@ -26,11 +26,7 @@ class SearchTable extends Component {
         <tbody>
           {this.props.result.map(item => (
             <tr
-              className={
-                item.explicit
-                  ? "search-table-row bjss-info"
-                  : "search-table-row"
-              }
+              className={"search-table-row"}
             >
               <td>
                 <img src={item.album.images[2].url} />
@@ -38,6 +34,7 @@ class SearchTable extends Component {
               <td>{item.name}</td>
               <td>{item.album.name}</td>
               <td>{item.artists[0].name}</td>
+              <td>{item.explicit ?  <img id="explicit_tag" src="static/explicit.png" width="60px"/>: null}</td>
               <td>
                 <button
                   onClick={() => this.handleAdd(item)}

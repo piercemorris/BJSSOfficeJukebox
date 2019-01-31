@@ -31,8 +31,23 @@ class Songcards extends Component {
     return (
       <div>
         <h1>Currently Playing</h1>
-        {this.renderSongs()}
+        {!this.state.songs && (
+          <div class="placeholder">
+            <p><img src="static/no-songs.png"/> Songs added to the queue will appear here</p>
+          </div>
+        )}
+        {this.state && this.state.songs && (
+          <Songcard 
+            song={this.state.songs[0].song}
+            priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)} 
+          />
+        )}
         <h1>Queue</h1>
+        {!this.state.songs && (
+          <div class="placeholder">
+            <p><img src="static/no-songs.png"/> Songs added to the queue will appear here</p>
+          </div>
+        )}
         {this.state.songs &&
           this.state.songs
             .filter(song => this.state.songs.indexOf(song) != 0)
