@@ -53,15 +53,20 @@ class SearchBar extends Component {
       return;
     }
     const { search, accessToken } = this.state;
-    let apiEndpoint =
-      "https://api.spotify.com/v1/search?q=" + search.query + "&type=track";
+    
+    if((search.query.length)>3){
 
-    const response = await axios.get(apiEndpoint, {
-      headers: { Authorization: "Bearer " + accessToken }
-    });
+      let apiEndpoint =
+        "https://api.spotify.com/v1/search?q=" + search.query + "&type=track";
 
-    console.log(response.data);
-    this.setState({ result: response.data });
+      const response = await axios.get(apiEndpoint, {
+        headers: { Authorization: "Bearer " + accessToken }
+      });
+
+      console.log(response.data);
+      this.setState({ result: response.data });
+  }
+
   };
 
   handleChange = e => {
@@ -69,7 +74,8 @@ class SearchBar extends Component {
     const component = e.currentTarget.name;
     search[component] = e.currentTarget.value;
     this.setState({ search });
-    this.handleSubmit();
+    console.log(search.query.length);
+      this.handleSubmit();
   };
   
   render() {
