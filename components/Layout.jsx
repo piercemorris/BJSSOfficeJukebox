@@ -1,16 +1,33 @@
 import React, { Component } from "react";
+import jwtDecode from "jwt-decode";
 import Head from "next/head";
 import Navbar from "./Navbar";
 
 class Layout extends Component {
   state = {
+    user: {
+
+    },
     links: [
-      { title: "Home", url: "/" },
-      { title: "About", url: "/about" },
-      { title: "Queue", url: "/queue" },
-      { title: "Search", url: "/api/spotify/login" }
+      { title: "Home", url: "/", float: "left" },
+      { title: "About", url: "/about", float: "left" },
+      { title: "Queue", url: "/queue", float: "left" },
+      { title: "Search", url: "/api/spotify/login", float: "left" },
+      { title: "Log in", url: "/login", float: "right" },
+      { title: "Sign up", url: "/signup", float: "right" }
     ]
   };
+
+  componentDidMount() {
+    try {
+      const jwt = localStorage.getItem('token');
+      const user = jwtDecode(jwt);
+      this.setState({ user });
+    }
+    catch (ex) {
+
+    }
+  }
 
   render() {
     return (
@@ -18,7 +35,7 @@ class Layout extends Component {
         <Head>
           <title>BJSS Jukebox</title>
           <meta charSet="utf-8" />
-          <link rel="icon" href="static/jukebox-icon.ico"/>
+          <link rel="icon" href="static/jukebox-icon.ico" />
           <link rel="stylesheet" href="/static/styles.css" />
           <link
             rel="stylesheet"
@@ -32,7 +49,7 @@ class Layout extends Component {
             crossOrigin="anonymous"
           />
         </Head>
-        <Navbar navs={this.state.links} />
+        <Navbar user={this.state.user} navs={this.state.links} />
         <div className="container gutter">{this.props.children}</div>
       </div>
     );
