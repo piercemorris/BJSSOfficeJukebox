@@ -12,10 +12,6 @@ class Songcards extends Component {
     songs: null,
   };
 
-  playFrontOfQueue() {
-    spotifyApi.play({"uris": [this.state.songs[0].song]});
-  }
-
   async componentDidMount() {
     const parsed = queryString.parse(window.location.search);
     this.setState({ accessToken: parsed.access_token });
@@ -29,14 +25,11 @@ class Songcards extends Component {
     console.log(response.data);
     this.setState({ songs: response.data });
 
-    playFrontOfQueue();
   }
 
   playQueue(song) {
     spotifyApi.play({"uris": [song.uri]});
   }
-
-  
 
   render() {
     return (
