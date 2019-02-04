@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import Link from "next/link";
 
 const Navbar = ({ user, navs }) => (
@@ -17,7 +18,7 @@ const Navbar = ({ user, navs }) => (
           ))}
       </ul>
       <ul className="navbar-nav ml-auto">
-        {!user ?
+        {_.isEmpty(user) ?
           navs
             .filter(link => link.float === "right")
             .map(link => (

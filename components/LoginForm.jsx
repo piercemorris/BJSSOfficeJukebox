@@ -1,7 +1,7 @@
 import React from 'react';
-import axios from 'axios';
 import Joi from "joi-browser";
 import Form from "./common/Form";
+import { login } from "../services/userService";
 
 class LoginForm extends Form {
 
@@ -15,13 +15,21 @@ class LoginForm extends Form {
   };
 
   doSubmit = async () => {
-    console.log(this.state.data); // obj (username, password);
-    const { data } = this.state;
+    try {
+      const { data } = this.state;
+      const { data: jwt } = await login(data);
+      console.log("syccscs")
+      localStorage.setItem("token", jwt);
+      window.location = '/';
+    }
+    catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username - ex.response.data;
+        this.setState({ errors });
+      }
+    }
 
-    await axios.post('http://localhost:3000/api/users/login')
-      .send(data)
-      .then("Successful post")
-      .catch(err => console.log(err));
   };
 
   render() {

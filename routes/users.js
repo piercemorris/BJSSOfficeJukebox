@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
   const match = await bcrypt.compare(req.body.password, user.password);
   if (match) {
     const token = user.generateAuthToken();
-    res.header("x-auth-token", token).send(_.pick(user, ["_id", "username"]));
+    res.header("x-auth-token", token).send(token); //.send(_.pick(user, ["_id", "username"]));
   } else return res.status(400).send("Incorrect username or password");
 });
 
