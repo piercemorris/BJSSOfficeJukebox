@@ -5,8 +5,5 @@ const apiUrl = baseUrl;
 const apiEndpoint = apiUrl + "/api/users";
 
 export function register(user) {
-  return axios.post(apiEndpoint, {
-    username: user.username,
-    password: user.password
-  });
+  return axios.post(apiEndpoint, user);
 }

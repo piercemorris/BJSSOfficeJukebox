@@ -17,8 +17,10 @@ class SignUpForm extends Form {
   doSubmit = async () => {
     try {
       const { data } = this.state;
-      const { data: jwt } = await register(data.username, data.password);
+      const { data: jwt } = await register(data);
       console.log(jwt);
+      localStorage.setItem("token", jwt);
+      window.location('/');
     }
     catch (ex) {
       if (ex.response && ex.response.status === 400) {
