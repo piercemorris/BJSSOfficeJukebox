@@ -1,8 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 import Joi from "joi-browser";
 import Form from "./common/Form";
 
-class SignUpForm extends Form {
+class LoginForm extends Form {
 
   schema = {
     username: Joi.string()
@@ -13,8 +14,14 @@ class SignUpForm extends Form {
       .label("Password")
   };
 
-  doSubmit = () => {
-    console.log(this.state.data);
+  doSubmit = async () => {
+    console.log(this.state.data); // obj (username, password);
+    const { data } = this.state;
+
+    await axios.post('http://localhost:3000/api/users/login')
+      .send(data)
+      .then("Successful post")
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -39,4 +46,4 @@ class SignUpForm extends Form {
   }
 }
 
-export default SignUpForm;
+export default LoginForm;

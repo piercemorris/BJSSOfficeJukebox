@@ -5,5 +5,6 @@
   "spotify-client-secret": "c38b37d0392f4234bc44fe635c0b4596",
   "jwtPrivateKey": "privatekey",
   "base-url": "http://localhost:3000",
+  "baseUrl": "http://localhost:3000",
   "port": 3000
 }

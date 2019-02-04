@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Joi from "joi-browser";
 import Form from "./common/Form";
+import { register } from "../services/userService";
 
 class SignUpForm extends Form {
 
@@ -13,8 +14,19 @@ class SignUpForm extends Form {
       .label("Password")
   };
 
-  doSubmit = () => {
-    console.log(this.state.data);
+  doSubmit = async () => {
+    try {
+      const { data } = this.state;
+      const { data: jwt } = await register(data.username, data.password);
+      console.log(jwt);
+    }
+    catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username - ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {

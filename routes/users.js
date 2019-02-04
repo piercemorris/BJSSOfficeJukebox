@@ -16,8 +16,9 @@ router.get("/me", auth, async (req, res) => {
 
 // HTTP POST request to create a new user account then log them in immediately
 router.post("/", async (req, res) => {
+  console.log(req.body);
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message + "hihihihihih");
 
   let user = await User.findOne({ username: req.body.username });
   if (user) return res.status(400).send("User is already registered");
@@ -36,7 +37,7 @@ router.post("/", async (req, res) => {
 
   // Generate a json web token for authenticating the user upon authorization
   const token = user.generateAuthToken();
-  res.header("x-auth-token", token).send(_.pick(user, ["_id", "username"]).status(200));
+  res.header("x-auth-token", token).send(token).status(200);
 });
 
 // HTTP POST request to login a user if the credentials are correct
