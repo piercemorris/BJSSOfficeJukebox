@@ -29,11 +29,18 @@ const Navbar = ({ user, navs }) => (
               </li>
             ))
           :
-          <li className="nav-item">
-            <Link href="#">
-              <a className="nav-link">{user.username}</a>
-            </Link>
-          </li>
+          <React.Fragment>
+            <li className="nav-item">
+              <Link href="#">
+                <a className="nav-link">{user.username}</a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/logout">
+                <a className="nav-link">Logout</a>
+              </Link>
+            </li>
+          </React.Fragment>
         }
       </ul>
     </nav>
