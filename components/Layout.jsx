@@ -14,7 +14,7 @@ class Layout extends Component {
       { title: "Queue", url: "/queue", float: "left" },
       { title: "Search", url: "/api/spotify/login", float: "left" },
       { title: "Log in", url: "/login", float: "right" },
-      { title: "Sign up", url: "/signup", float: "right" }
+      { title: "Sign up", url: "/signup", float: "right" },
     ]
   };
 
