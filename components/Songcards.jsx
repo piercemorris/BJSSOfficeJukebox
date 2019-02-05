@@ -25,17 +25,32 @@ class Songcards extends Component {
     console.log(response.data);
     this.setState({ songs: response.data });
 
+    this.startMusic();
+    
   }
 
-  playQueue(song) {
-    spotifyApi.play({"uris": [song.uri]});
+  startMusic(){
+    spotifyApi.play({"uris": [this.state.songs[0].song.uri]});
   }
+
+  playMusic(song) {
+    spotifyApi.play({});
+  }
+
+  pauseMusic() {
+    spotifyApi.pause({});
+  }
+
 
   render() {
     return (
       <div>
         <h1>Currently Playing</h1>
-        <button onClick={() => this.playQueue(this.state.songs[0].song)}>Play on Device</button>
+        <div>
+          <button onClick={() => this.playMusic(this.state.songs[0].song)}>Resume</button>
+          <button onClick={() => this.pauseMusic()}>Pause</button>
+        </div>
+        
         {this.state && this.state.songs && (
           <Songcard song={this.state.songs[0].song} />
         )}
