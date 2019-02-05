@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import jwtDecode from "jwt-decode";
 import Head from "next/head";
 import Navbar from "./Navbar";
+import user from "../services/userService";
 
 class Layout extends Component {
   state = {
@@ -19,14 +19,8 @@ class Layout extends Component {
   };
 
   componentDidMount() {
-    try {
-      const jwt = localStorage.getItem('token');
-      const user = jwtDecode(jwt);
-      this.setState({ user });
-    }
-    catch (ex) {
-
-    }
+    const currentUser = user.getCurrentUser();
+    this.setState({ user: currentUser });
   }
 
   render() {

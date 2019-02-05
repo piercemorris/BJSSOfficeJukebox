@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import user from "../services/userService";
 
 class Logout extends Component {
   state = {}
 
   componentDidMount() {
     try {
-      localStorage.removeItem('token');
+      user.logout();
       window.location = '/';
     }
     catch (ex) {
