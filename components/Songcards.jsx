@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import Songcard from "./Songcard";
 import axios from "axios";
+import PriorityQueues from "./PriorityQueues";
+
 
 class Songcards extends Component {
+
   state = {
-    songs: null
+    songs: null,
+    temp: null
   };
 
   async componentDidMount() {
@@ -14,51 +18,43 @@ class Songcards extends Component {
       .then()
       .catch(err => console.log(err));
     console.log(response.data);
-    this.setState({ songs: response.data });
-  }
+    this.setState({ temp: response.data });
 
-  renderSongs = () => {
-    const { songs } = this.state;
-    if (songs === undefined || songs === null || songs.length === 0) {
-      return null;
-    }
-    else {
-      return <Songcard song={songs[0].song} />;
-    }
-  }
 
+    console.log(this.state.temp[1].song.track_number);
+    
+    var songsQueue = new PriorityQueues(); // initially empty
+    this.state.temp.map(song => (
+      songsQueue.enqueue(song,song.song.track_number)
+    ))
+    this.setState({ songs: songsQueue });
+    console.log(this.state.songs);
+
+  }
   render() {
     return (
-      <div>
+      <div className="songcards">
         <h1>Currently Playing</h1>
-        {!this.state.songs && (
-          <div class="placeholder">
-            <p><img src="static/no-songs.png"/> Songs added to the queue will appear here</p>
-          </div>
-        )}
         {this.state && this.state.songs && (
-          <Songcard 
-            song={this.state.songs[0].song}
-            priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)} 
-          />
-        )}
-        <h1>Queue</h1>
-        {!this.state.songs && (
-          <div class="placeholder">
-            <p><img src="static/no-songs.png"/> Songs added to the queue will appear here</p>
-          </div>
-        )}
-        {this.state.songs &&
-          this.state.songs
-            .filter(song => this.state.songs.indexOf(song) != 0)
-            .map(song => (
-              <Songcard
-                song={song.song}
-                priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
-                key={song._id}
+                <Songcard 
+                song={this.state.songs.items[0].element.song}
+                priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)} 
               />
+        
+          
+)}
+        <h1>Queue</h1>
+        {this.state && this.state.songs && this.state.songs.items
+            .filter(song => this.state.songs.items.indexOf(song) != 0)
+            .map(song => (
+              <Songcard 
+              song={song.element.song}
+              priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)} 
+            />
             ))}
-      </div>
+
+
+</div>
     );
   }
 }

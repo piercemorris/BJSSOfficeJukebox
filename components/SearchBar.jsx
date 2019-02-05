@@ -35,29 +35,38 @@ class SearchBar extends Component {
     const { error } = Joi.validate(this.state.search, this.schema, options);
 
     if (!error) return null;
-
     const errors = {};
 
-    for (let item of error.details) errors[item.path[0]] = item.message;
+    for (let item of error.details) errors[item.path[0]] = item.message; 
     return errors;
   };
 
   handleSubmit = async e => {
-    e.preventDefault();
+    console.log("aaa\n");
+    event.preventDefault();
     const errors = this.validate();
-    this.setState({ errors: errors || {} });
-    if (errors) return;
-
-    const { search, accessToken } = this.state;
-    let apiEndpoint =
-      "https://api.spotify.com/v1/search?q=" + search.query + "&type=track";
-
-    const response = await axios.get(apiEndpoint, {
-      headers: { Authorization: "Bearer " + accessToken }
+    this.setState({
+       errors: errors || {} 
     });
+    if (errors) {
+      this.state.result=null
+      return;
+    }
+    const { search, accessToken } = this.state;
+    
+    if((search.query.length)>3){
 
-    console.log(response.data);
-    this.setState({ result: response.data });
+      let apiEndpoint =
+        "https://api.spotify.com/v1/search?q=" + search.query + "&type=track";
+
+      const response = await axios.get(apiEndpoint, {
+        headers: { Authorization: "Bearer " + accessToken }
+      });
+
+      console.log(response.data);
+      this.setState({ result: response.data });
+  }
+
   };
 
   handleChange = e => {
@@ -65,42 +74,42 @@ class SearchBar extends Component {
     const component = e.currentTarget.name;
     search[component] = e.currentTarget.value;
     this.setState({ search });
+    console.log(search.query.length);
+      this.handleSubmit();
   };
-
+  
   render() {
     const { search, errors, result } = this.state;
 
     if (_.isEmpty(result)) {
       return (
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form autoComplete="off" onKeyUp={this.handleSubmit}>
             <Input
+              autoComplete="off"              
               name="query"
               type="text"
               value={search.query}
-              label="Search for a song"
               error={errors.query}
               onChange={this.handleChange}
             />
-            <Submit />
           </form>
         </div>
       );
     } else {
       return (
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form form autoComplete="off" onKeyUp={this.handleSubmit}>
             <Input
+              autoComplete="off"
               name="query"
               type="text"
               value={search.query}
-              label="Search for a song"
               error={errors.query}
-              onChange={this.handleChange}
-            />
-            <Submit />
+              onChange={this.handleChange}/>
           </form>
-            <SearchTable result={this.state.result.tracks.items} />
+          <SearchTable result={this.state.result.tracks.items}/>
+            
         </div>
       );
     }
