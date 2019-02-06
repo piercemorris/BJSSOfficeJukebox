@@ -4,6 +4,7 @@ import { baseUrl } from "../config/default.json";
 
 const apiUrl = baseUrl;
 const apiEndpoint = apiUrl + "/api/users";
+const tokenKey = "token";
 
 export function register(user) {
   return axios.post(apiEndpoint, user);
@@ -11,20 +12,20 @@ export function register(user) {
 
 export async function login(user) {
   const { data: jwt } = await axios.post(apiEndpoint + "/login", user);
-  localStorage.setItem("token", jwt);
+  localStorage.setItem(tokenKey, jwt);
 }
 
 export function loginWithJwt(jwt) {
-  localStorage.setItem("token", jwt);
+  localStorage.setItem(tokenKey, jwt);
 }
 
 export function logout() {
-  localStorage.removeItem('token');
+  localStorage.removeItem(tokenKey);
 }
 
 export function getCurrentUser() {
   try {
-    const jwt = localStorage.getItem('token');
+    const jwt = localStorage.getItem(tokenKey);
     return jwtDecode(jwt);
   }
   catch (ex) {
