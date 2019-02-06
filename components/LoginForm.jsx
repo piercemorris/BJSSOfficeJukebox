@@ -1,8 +1,9 @@
 import React from 'react';
 import Joi from "joi-browser";
 import Form from "./common/Form";
+import user from "../services/userService";
 
-class SignUpForm extends Form {
+class LoginForm extends Form {
 
   schema = {
     username: Joi.string()
@@ -13,8 +14,20 @@ class SignUpForm extends Form {
       .label("Password")
   };
 
-  doSubmit = () => {
-    console.log(this.state.data);
+  doSubmit = async () => {
+    try {
+      const { data } = this.state;
+      await user.login(data);
+      window.location = '/';
+    }
+    catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username - ex.response.data;
+        this.setState({ errors });
+      }
+    }
+
   };
 
   render() {
@@ -39,4 +52,4 @@ class SignUpForm extends Form {
   }
 }
 
-export default SignUpForm;
+export default LoginForm;
