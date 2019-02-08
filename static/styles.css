@@ -80,6 +80,11 @@ img.navbar-brand {
   padding: 0em 1em;
 }
 
+.delete-song {
+  width: 130px;
+  text-align: center;
+}
+
 #text {
   text-shadow: 0px 0px 2px #697896;
 }
@@ -146,3 +151,5 @@ img.navbar-brand {
 .offset-title {
   margin: 2em 0 2em 15em;
 }
+
+/*  */
