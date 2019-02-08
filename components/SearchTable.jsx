@@ -9,7 +9,9 @@ class SearchTable extends Component {
   };
 
   async handleAdd(song) {
-    const response = songs.addSong({ song });
+    const currentUser = await user.getCurrentUser();
+    console.log(currentUser);
+    const response = songs.addSong({ song }, currentUser._id, currentUser.username);
   }
 
   async componentWillMount() {
@@ -43,9 +45,7 @@ class SearchTable extends Component {
           </thead>
           <tbody>
             {result.map(item => (
-              <tr
-                className={"search-table-row"}
-              >
+              <tr className="search-table-row">
                 <td>
                   <img src={item.album.images[2].url} />
                 </td>
@@ -60,7 +60,6 @@ class SearchTable extends Component {
                   >
                     Add
                 </button>
-
                 </td>
               </tr>
             ))}

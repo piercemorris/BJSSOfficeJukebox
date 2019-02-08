@@ -34,6 +34,7 @@
     "fs": "0.0.1-security",
     "joi": "^14.0.6",
     "joi-browser": "^13.4.0",
+    "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.3.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",

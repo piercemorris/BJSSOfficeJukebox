@@ -8,8 +8,8 @@ export function getSongs() {
   //
 }
 
-export async function addSong(song, user) {
-  return await axios.post(apiEndpoint, song);
+export async function addSong(song, user, username) {
+  return await axios.post(apiEndpoint, { song, requestedBy: user, username });
 }
 
 export default {
