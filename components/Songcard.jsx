@@ -1,13 +1,6 @@
 import React, { Component } from "react";
-import song from "../services/songService";
 
 class Songcard extends Component {
-
-  handleDelete = (id) => {
-    const response = song.deleteSong(id);
-    window.location = "/queue";
-  }
-
   render() {
     const { songObj, priority } = this.props;
     const song = songObj.song.song;
@@ -43,7 +36,7 @@ class Songcard extends Component {
                   </p>
                 </td>
                 <td className="delete-song">
-                  <button onClick={() => this.handleDelete(songObj._id)} type="button" class="btn btn-danger">Delete</button>
+                  <button onClick={() => this.props.onDelete(songObj._id)} type="button" class="btn btn-danger">Delete</button>
                 </td>
               </tr>
             </table>
