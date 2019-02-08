@@ -22,4 +22,11 @@ router.post("/", async (req, res) => {
   res.send(song).status(200);
 });
 
+router.delete("/:id", async (req, res) => {
+  const song = await Song.findByIdAndRemove(req.params.id);
+  if (!song)
+    return res.status(404).send("The song with the given id was not found");
+  res.send(song).status(200);
+});
+
 module.exports = router;

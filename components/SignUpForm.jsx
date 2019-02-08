@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Joi from "joi-browser";
 import Form from "./common/Form";
 import user from "../services/userService";
