@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import Songcard from "./Songcard";
+import song from "../services/songService";
 import axios from "axios";
 
 class Songcards extends Component {
@@ -15,6 +17,12 @@ class Songcards extends Component {
       .catch(err => console.log(err));
     console.log(response.data)
     this.setState({ songs: response.data });
+  }
+
+  handleDelete = (id) => {
+    const songs = _.filter(this.state.songs, song => { return song._id !== id });
+    this.setState({ songs });
+    const response = song.deleteSong(id);
   }
 
   checkSongs = () => {
@@ -39,7 +47,7 @@ class Songcards extends Component {
   renderPlaceholder = () => {
     return (
       <div className="placeholder">
-        <p><img src="static/no-songs.png"/> Songs added to the queue will appear here</p>
+        <p><img src="static/no-songs.png" /> Songs added to the queue will appear here</p>
       </div>
     );
   }
@@ -50,7 +58,7 @@ class Songcards extends Component {
 
     return (
       <div>
-        { !areThereSongs 
+        {!areThereSongs
           ?
           <React.Fragment>
             <h1>Queue</h1>
@@ -59,24 +67,26 @@ class Songcards extends Component {
           :
           <React.Fragment>
             <h1>Currently Playing</h1>
-            <Songcard 
+            <Songcard
               songObj={this.state.songs[0]}
-              priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)} 
+              onDelete={this.handleDelete}
+              priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
             />
             <h1>Queue</h1>
-            { !this.areSongsInQueue() 
+            {!this.areSongsInQueue()
               ?
               this.renderPlaceholder()
               :
               this.state.songs
-              .filter(song => this.state.songs.indexOf(song) != 0)
-              .map(song => (
-                <Songcard
-                  songObj={song}
-                  priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
-                  key={song._id}
-                />
-              ))}
+                .filter(song => this.state.songs.indexOf(song) != 0)
+                .map(song => (
+                  <Songcard
+                    songObj={song}
+                    onDelete={this.handleDelete}
+                    priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
+                    key={song._id}
+                  />
+                ))}
           </React.Fragment>
         }
       </div>
