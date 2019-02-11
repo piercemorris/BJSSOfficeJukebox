@@ -82,6 +82,10 @@ class Songcards extends Component {
 
     return (
       <div>
+        <div>
+          <button onClick={() => this.playMusic(this.state.songs[0].song)}>Resume</button>
+          <button onClick={() => this.pauseMusic()}>Pause</button>
+        </div>
         {!areThereSongs
           ?
           <React.Fragment>
