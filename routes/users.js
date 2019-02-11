@@ -6,8 +6,8 @@ const auth = require("../middleware/auth");
 const { User, validate } = require("../models/user");
 
 // HTTP GET request to retrieve information about the currently logged in user
-router.get("/me", auth, async (req, res) => {
-  const user = await User.findOne({ username: req.user.username }).select(
+router.get("/:id", async (req, res) => { //auth for middleware
+  const user = await User.findById(req.params.id).select(
     "-password -isAdmin"
   );
   if (!user) return res.send("No user found").status(404);

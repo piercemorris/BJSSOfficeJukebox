@@ -15,12 +15,10 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   //increments the songs added by the current user by one
-  const user = User.findByIdAndUpdate(
-    { _id: req.body.user },
-    {
-      $inc: { 'songsAdded': 1 }
-    });
+  const user =
+    await User.findByIdAndUpdate(req.body.requestedBy, { $inc: { songsAdded: 1 } });
   if (!user) return res.status(404).send("The user with the given id could not be found::add song");
+  await user.save();
 
   //creates new song object
   let song = new Song({
