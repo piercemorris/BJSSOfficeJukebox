@@ -58,6 +58,7 @@ ul.navbar-nav {
   font-family: "Catamaran", sans-serif;
   font-weight: 700;
   font-size: 17px;
+  color: white;
 }
 
 img.navbar-brand {
@@ -79,9 +80,23 @@ img.navbar-brand {
   padding: 0em 1em;
 }
 
+.delete-song {
+  width: 130px;
+  text-align: center;
+}
+
 #text {
   text-shadow: 0px 0px 2px #697896;
 }
+
+#explicit_tag {
+  margin-right: 10px;
+}
+
+.placeholder {
+  margin-left: 25px;
+}
+
 .card-link {
   color: black;
   text-decoration: underline;
@@ -90,8 +105,22 @@ img.navbar-brand {
   float: right;
 }
 
+.card-priority {
+  float: right;
+}
+
+.circle {
+  height: 25px;
+  width: 25px;
+  border-radius: 15%;
+  float: right;
+  margin-top: -6%;
+  text-shadow: 0 0 0px #041e43;
+
+}
+
 .priority-1 {
-  background-color: #e6e8ed;
+  background-color: #c2d3ff;
 }
 .priority-2 {
   background-color: #b4bbca;
@@ -105,3 +134,22 @@ img.navbar-brand {
 .priority-5 {
   background-color: #1e3462;
 }
+
+/* Forms */
+/* form styling */
+.form {
+  padding: 1em;
+  margin: auto;
+  width: 800px;
+}
+
+.form-row {
+  justify-content: center;
+  margin: auto;
+}
+
+.offset-title {
+  margin: 2em 0 2em 15em;
+}
+
+/*  */

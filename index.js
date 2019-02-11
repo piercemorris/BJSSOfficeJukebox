@@ -1,6 +1,8 @@
 const express = require("express");
 const next = require("next");
 const dev = process.env.NODE_ENV !== "production";
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
 const server = express();
 const app = next({ dev });

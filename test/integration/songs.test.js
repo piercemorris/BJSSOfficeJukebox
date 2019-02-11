@@ -8,7 +8,6 @@ describe("api/songs/", () => {
   beforeAll(async () => {
     httpServer = await serverPromise;
   });
-  afterAll(() => httpServer.close());
 
   afterEach(async () => {
     await Song.remove({});
@@ -32,7 +31,7 @@ describe("api/songs/", () => {
       ]);
 
       const res = await request(
-        `http://127.0.0.1:${httpServer.address().port}`
+        `http://127.0.0.1:3000`
       ).get("/api/songs");
       expect(res.status).toBe(200);
       expect(res.body.length).toBe(2);
@@ -47,7 +46,7 @@ describe("api/songs/", () => {
 
   describe("POST /", () => {
     it("should return 400 if data body is not valid", async () => {
-      const res = await request(`http://127.0.0.1:${httpServer.address().port}`)
+      const res = await request(`http://127.0.0.1:3000`)
         .post("/api/songs")
         .send("Invalid POST request");
 
@@ -55,7 +54,7 @@ describe("api/songs/", () => {
     });
 
     it("should post a new song to the database", async () => {
-      const res = await request(`http://127.0.0.1:${httpServer.address().port}`)
+      const res = await request(`http://127.0.0.1:3000`)
         .post("/api/songs")
         .send({
           song: {
@@ -68,4 +67,6 @@ describe("api/songs/", () => {
       expect(res.body.song.id === "3QHPHLAkYV5cQBUYs6rowx").toBeTruthy();
     }, 5000);
   });
+
+  afterAll(() => httpServer.close());
 });
