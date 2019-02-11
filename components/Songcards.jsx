@@ -75,12 +75,17 @@ class Songcards extends Component {
     spotifyApi.pause({});
   }
 
+  repeatTrack() {
+    spotifyApi.setRepeat("track", {});
+  }
+
   handleDelete = (id) => {
     const songs = _.filter(this.state.songs, song => { return song._id !== id });
     this.state = {songs};
     this.setState({ songs });
     const response = song.deleteSong(id);
   }
+
 
   checkSongs = () => {
     const { songs } = this.state;
@@ -116,10 +121,11 @@ class Songcards extends Component {
     return (
       <div>
         <div>
-          <button onClick={() => this.startMusic()}>Start</button>
+          
           <button onClick={() => this.playMusic()}>Resume</button>
           <button onClick={() => this.pauseMusic()}>Pause</button>
           <button onClick={() => this.skipMusic()}>Skip</button>
+          <button onClick={() => this.repeatTrack()}>Repeat</button>
         </div>
         {!areThereSongs
           ?
