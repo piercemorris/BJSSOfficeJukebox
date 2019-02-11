@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import ReactHover from '..'
+import ReactHover from 'react-hover';
+
+const hoverOptions = {
+}
 
 class Songcard extends Component {
+
   render() {
     const { songObj, priority } = this.props;
     const song = songObj.song.song;
@@ -25,12 +29,21 @@ class Songcard extends Component {
                   />
                 </td>
                 <td className="card-header-body">
-                  <ReactHover>
+                  <ReactHover options={hoverOptions}>
                     <ReactHover.Trigger type='trigger'>
-                      <p className="card-position">Position:&nbsp;1 <i>(+2)</i></p>
+                      <div className='card-position'>
+                        <p>
+                          Position:&nbsp;1 <i>(+2) </i>
+                          <img src='static/question-mark.png' width='16' height='16'/>
+                        </p>
+                      </div>
                     </ReactHover.Trigger>
                     <ReactHover.Hover type='hover'>
-                      <p>Information Here</p>
+                      <div className='information-hover'>
+                        <p>
+                          <i>This song has been raised 2 positions in the queue.</i>
+                        </p>
+                      </div>
                     </ReactHover.Hover>
                   </ReactHover>
                   <h5 className="card-title">{song.name}</h5>

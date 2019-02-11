@@ -109,6 +109,13 @@ img.navbar-brand {
   float: right;
 }
 
+.information-hover {
+  position: relative;
+  left: 350px;
+  top: 25px;
+  background-color: #697896;
+}
+
 .circle {
   height: 25px;
   width: 25px;
