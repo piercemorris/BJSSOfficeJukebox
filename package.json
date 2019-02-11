@@ -22,10 +22,12 @@
   "license": "ISC",
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
+    "aws-sdk": "^2.400.0",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
     "boostrap": "^2.0.0",
     "bootstrap": "^4.2.1",
+    "child_process": "^1.0.2",
     "config": "^2.0.1",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
@@ -38,6 +40,7 @@
     "jsonwebtoken": "^8.3.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
+    "module": "^1.2.5",
     "mongodb": "^3.1.9",
     "mongoose": "^5.3.11",
     "net": "^1.0.2",
@@ -46,8 +49,11 @@
     "querystring": "~0.2.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-hover": "^1.3.4",
+    "readline": "^1.3.0",
     "request": "^2.83.0",
-    "spotify-web-api-node": "^4.0.0"
+    "spotify-web-api-node": "^4.0.0",
+    "tls": "0.0.1"
   },
   "devDependencies": {
     "jest": "^23.6.0",

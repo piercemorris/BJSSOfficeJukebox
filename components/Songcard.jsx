@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactHover from '..'
 
 class Songcard extends Component {
   render() {
@@ -24,7 +25,14 @@ class Songcard extends Component {
                   />
                 </td>
                 <td className="card-header-body">
-                  <p className="card-priority">Priority:&nbsp;<span className={colour + " circle"}></span></p>
+                  <ReactHover>
+                    <ReactHover.Trigger type='trigger'>
+                      <p className="card-position">Position:&nbsp;1 <i>(+2)</i></p>
+                    </ReactHover.Trigger>
+                    <ReactHover.Hover type='hover'>
+                      <p>Information Here</p>
+                    </ReactHover.Hover>
+                  </ReactHover>
                   <h5 className="card-title">{song.name}</h5>
                   <h6 className="card-subtitle mb-2">
                     {song.album.name + ", " + song.artists[0].name}
