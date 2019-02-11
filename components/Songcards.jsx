@@ -3,7 +3,6 @@ import _ from "lodash";
 import Songcard from "./Songcard";
 import song from "../services/songService";
 import axios from "axios";
-import _ from "lodash";
 import queryString from "query-string";
 
 import SpotifyWebApi from 'spotify-web-api-js';
@@ -24,15 +23,48 @@ class Songcards extends Component {
       .get(apiEndpoint)
       .then()
       .catch(err => console.log(err));
-    console.log(response.data)
+    console.log(response.data);
     this.setState({ songs: response.data });
 
     this.startMusic();
     
   }
+  initalisePlaylist() {
+    //spotifyApi.createPlaylist('robbbbb_', {name: "my new playlist"})
+    var songsInQueue = "";
+    var qSong;
 
-  startMusic(){
-    spotifyApi.play({"uris": [this.state.songs[0].song.uri]});
+    for (i = 0; i < this.state.songs.length; i++) {
+      console.log(songsInQueue);
+      console.log(this.state.songs[i].song.song.uri);
+
+      songsInQueue += qSong.song.uri
+      songsInQueue += ","
+    }
+
+    //spotifyApi.addTracksToPlaylist('spotify:user:robbbbb_:playlist:4wlOw4FPH7qnPozfsiIrmn')
+  }
+
+  playNextSong() {
+    console.log(this.state.songs[0]._id);
+    //handleDelete(this.state.songs[0]._id);
+    //spotifyApi.play({"uris": [song.uri]});
+    
+  }
+
+  playNextSong() {
+    spotifyApi.play({"uris": [this.state.songs[0].song.song.uri]});
+  }
+
+  startMusic(song){
+    spotifyApi.play({"uris": [this.state.songs[0].song.song.uri]});
+    //console.log("play in 5");
+    //setTimeout(function() { playNextSong(); }.bind(this), 5000);
+  }
+
+  skipMusic() {
+    this.handleDelete(this.state.songs[0]._id);
+    this.startMusic();
   }
 
   playMusic(song) {
@@ -45,6 +77,7 @@ class Songcards extends Component {
 
   handleDelete = (id) => {
     const songs = _.filter(this.state.songs, song => { return song._id !== id });
+    this.state = {songs};
     this.setState({ songs });
     const response = song.deleteSong(id);
   }
@@ -83,8 +116,10 @@ class Songcards extends Component {
     return (
       <div>
         <div>
-          <button onClick={() => this.playMusic(this.state.songs[0].song)}>Resume</button>
+          <button onClick={() => this.startMusic()}>Start</button>
+          <button onClick={() => this.playMusic()}>Resume</button>
           <button onClick={() => this.pauseMusic()}>Pause</button>
+          <button onClick={() => this.skipMusic()}>Skip</button>
         </div>
         {!areThereSongs
           ?
