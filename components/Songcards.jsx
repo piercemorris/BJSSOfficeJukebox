@@ -30,10 +30,11 @@ class Songcards extends Component {
   }
 
   startMusic() {
-    spotifyApi.play({ "uris": [this.state.songs[0].song.uri] });
+    console.log(this.state.songs[0].song.song.uri);
+    spotifyApi.play({ "uris": [this.state.songs[0].song.song.uri] });
   }
 
-  playMusic(song) {
+  playMusic() {
     spotifyApi.play({});
   }
 
