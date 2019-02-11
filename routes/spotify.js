@@ -13,7 +13,7 @@ router.get("/login", (req, res) => {
       querystring.stringify({
         response_type: "code",
         client_id: config.get("spotify-client-id"),
-        scope: "user-read-private user-read-email",
+        scope: "user-read-private user-read-email user-read-playback-state user-modify-playback-state",
         redirect_uri
       })
   );

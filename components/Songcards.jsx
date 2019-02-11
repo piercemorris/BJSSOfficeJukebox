@@ -3,13 +3,22 @@ import _ from "lodash";
 import Songcard from "./Songcard";
 import song from "../services/songService";
 import axios from "axios";
+import _ from "lodash";
+import queryString from "query-string";
+
+import SpotifyWebApi from 'spotify-web-api-js';
+const spotifyApi = new SpotifyWebApi();
 
 class Songcards extends Component {
   state = {
-    songs: null
+    songs: null,
   };
 
   async componentDidMount() {
+    const parsed = queryString.parse(window.location.search);
+    this.setState({ accessToken: parsed.access_token });
+    spotifyApi.setAccessToken(parsed.access_token);
+
     const apiEndpoint = "http://localhost:3000/api/songs/";
     const response = await axios
       .get(apiEndpoint)
@@ -17,6 +26,21 @@ class Songcards extends Component {
       .catch(err => console.log(err));
     console.log(response.data)
     this.setState({ songs: response.data });
+
+    this.startMusic();
+    
+  }
+
+  startMusic(){
+    spotifyApi.play({"uris": [this.state.songs[0].song.uri]});
+  }
+
+  playMusic(song) {
+    spotifyApi.play({});
+  }
+
+  pauseMusic() {
+    spotifyApi.pause({});
   }
 
   handleDelete = (id) => {
@@ -58,6 +82,10 @@ class Songcards extends Component {
 
     return (
       <div>
+        <div>
+          <button onClick={() => this.playMusic(this.state.songs[0].song)}>Resume</button>
+          <button onClick={() => this.pauseMusic()}>Pause</button>
+        </div>
         {!areThereSongs
           ?
           <React.Fragment>
