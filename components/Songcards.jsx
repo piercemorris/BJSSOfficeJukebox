@@ -3,7 +3,6 @@ import _ from "lodash";
 import Songcard from "./Songcard";
 import song from "../services/songService";
 import axios from "axios";
-import _ from "lodash";
 import queryString from "query-string";
 
 import SpotifyWebApi from 'spotify-web-api-js';
@@ -28,11 +27,10 @@ class Songcards extends Component {
     this.setState({ songs: response.data });
 
     this.startMusic();
-    
   }
 
-  startMusic(){
-    spotifyApi.play({"uris": [this.state.songs[0].song.uri]});
+  startMusic() {
+    spotifyApi.play({ "uris": [this.state.songs[0].song.uri] });
   }
 
   playMusic(song) {
