@@ -23,6 +23,10 @@ export function logout() {
   localStorage.removeItem(tokenKey);
 }
 
+export async function getInfo(id) {
+  return await axios.get(apiEndpoint + "/" + id);
+}
+
 export function getCurrentUser() {
   try {
     const jwt = localStorage.getItem(tokenKey);
@@ -38,5 +42,6 @@ export default {
   login,
   loginWithJwt,
   logout,
-  getCurrentUser
+  getCurrentUser,
+  getInfo
 }

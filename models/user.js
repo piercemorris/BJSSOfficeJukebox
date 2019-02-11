@@ -20,10 +20,14 @@ const userSchema = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
     required: true
+  },
+  songsAdded: {
+    type: Number,
+    required: true
   }
 });
 
-userSchema.methods.generateAuthToken = function() {
+userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
     {
       _id: this._id,
