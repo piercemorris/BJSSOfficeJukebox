@@ -10,12 +10,12 @@ let redirect_uri =
 router.get("/login", (req, res) => {
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
-      querystring.stringify({
-        response_type: "code",
-        client_id: config.get("spotify-client-id"),
-        scope: "user-read-private user-read-email user-read-playback-state user-modify-playback-state",
-        redirect_uri
-      })
+    querystring.stringify({
+      response_type: "code",
+      client_id: config.get("spotify-client-id"),
+      scope: "user-read-private user-read-email user-read-playback-state user-modify-playback-state",
+      redirect_uri
+    })
   );
 });
 
@@ -33,15 +33,15 @@ router.get("/callback", (req, res) => {
         "Basic " +
         new Buffer(
           config.get("spotify-client-id") +
-            ":" +
-            config.get("spotify-client-secret") //change to process.env.CLIENT_ID etc...
+          ":" +
+          config.get("spotify-client-secret") //change to process.env.CLIENT_ID etc...
         ).toString("base64")
     },
     json: true
   };
   request.post(authOptions, (error, response, body) => {
     var access_token = body.access_token;
-    let uri = process.env.FRONTEND_URI || "http://localhost:3000/search";
+    let uri = process.env.FRONTEND_URI || "http://localhost:3000/";
     res.redirect(uri + "?access_token=" + access_token);
   });
 });
