@@ -3,6 +3,7 @@ const router = express.Router();
 const { Song, validate } = require("../models/song");
 const { User } = require("../models/user");
 
+//http://localhost:3000/api/songs/ GET
 router.get("/", async (req, res) => {
   const songs = await Song.find();
 
