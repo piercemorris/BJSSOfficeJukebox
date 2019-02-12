@@ -5,9 +5,6 @@ import PlayerWrapper from "../components/PlayerWrapper";
 import song from "../services/songService";
 import Spotify from "../services/spotifyService";
 
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
-
 class Songcards extends Component {
   state = {
     songs: null,
@@ -16,25 +13,10 @@ class Songcards extends Component {
   async componentDidMount() {
     const token = Spotify.getSpotifyAccessToken();
     this.setState({ accessToken: token });
-    spotifyApi.setAccessToken(token);
+    Spotify.setToken(token);
 
     const response = await song.getSongs();
     this.setState({ songs: response.data });
-  }
-
-  startMusic = (uri) => {
-    console.log("start");
-    spotifyApi.play({ "uris": [this.state.songs[0].song.song.uri] });
-  }
-
-  playMusic = () => {
-    console.log("play");
-    spotifyApi.play({});
-  }
-
-  pauseMusic = () => {
-    console.log("pause");
-    spotifyApi.pause({});
   }
 
   handleDelete = (id) => {
@@ -84,7 +66,7 @@ class Songcards extends Component {
           </React.Fragment>
           :
           <React.Fragment>
-            <PlayerWrapper start={this.startMusic} play={this.playMusic} pause={this.pauseMusic}>
+            <PlayerWrapper start={Spotify.startMusic} play={Spotify.playMusic} pause={Spotify.pauseMusic} uri={this.state.songs[0].song.song.uri}>
               <Songcard
                 currentSong="true"
                 songObj={this.state.songs[0]}

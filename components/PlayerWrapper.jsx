@@ -9,7 +9,7 @@ class PlayerWrapper extends Component {
     return (
       <React.Fragment>
         <div className="player-container">
-          <button className="player-btn-left" onClick={() => start()}>Play</button>
+          <button className="player-btn-left" onClick={() => start(uri)}>Play</button>
           <button className="player-btn" onClick={() => play()}>Resume</button>
           <button className="player-btn-right" onClick={() => pause()}>Pause</button>
         </div>
