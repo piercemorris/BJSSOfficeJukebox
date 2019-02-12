@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi";
-import axios from "axios";
 import _ from "lodash";
-import queryString from "query-string";
+import Spotify from "../services/spotifyService";
 import Input from "./common/Input";
 import Submit from "./common/Submit";
 import SearchTable from "./SearchTable";
@@ -17,16 +16,16 @@ class SearchBar extends Component {
     result: {}
   };
 
-  componentDidMount() {
-    const parsed = queryString.parse(window.location.search);
-    this.setState({ accessToken: parsed.access_token });
-  }
-
   schema = {
     query: Joi.string()
       .required()
       .label("Query")
   };
+
+  componentDidMount() {
+    const token = Spotify.getSpotifyAccessToken();
+    this.setState({ accessToken: token });
+  }
 
   validate = () => {
     const options = {
@@ -49,15 +48,9 @@ class SearchBar extends Component {
     if (errors) return;
 
     const { search, accessToken } = this.state;
-    let apiEndpoint =
-      "https://api.spotify.com/v1/search?q=" + search.query + "&type=track";
-
-    const response = await axios.get(apiEndpoint, {
-      headers: { Authorization: "Bearer " + accessToken }
-    });
-
-    console.log(response.data);
-    this.setState({ result: response.data });
+    //console.log(search, accessToken);
+    const response = await Spotify.searchSpotifyQuery(search.query, accessToken);
+    this.setState({ result: response });
   };
 
   handleChange = e => {
@@ -73,6 +66,7 @@ class SearchBar extends Component {
     if (_.isEmpty(result)) {
       return (
         <div>
+          {this.state.accessToken}
           <form onSubmit={this.handleSubmit}>
             <Input
               name="query"
@@ -89,6 +83,7 @@ class SearchBar extends Component {
     } else {
       return (
         <div>
+          {this.state.accessToken}
           <form onSubmit={this.handleSubmit}>
             <Input
               name="query"
@@ -100,7 +95,7 @@ class SearchBar extends Component {
             />
             <Submit />
           </form>
-            <SearchTable result={this.state.result.tracks.items} />
+          <SearchTable result={this.state.result.tracks.items} />
         </div>
       );
     }

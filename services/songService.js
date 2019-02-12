@@ -4,8 +4,8 @@ import { baseUrl } from "../config/default.json";
 const apiUrl = baseUrl;
 const apiEndpoint = apiUrl + "/api/songs/";
 
-export function getSongs() {
-  //
+export async function getSongs() {
+  return await axios.get(apiEndpoint);
 }
 
 export async function addSong(song, user, username) {
