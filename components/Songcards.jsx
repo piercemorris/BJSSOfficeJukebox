@@ -67,7 +67,23 @@ class Songcards extends Component {
     this.startMusic();
   }
 
-  playMusic(song) {
+  // playOrPauseMusic() {
+
+  //   spotifyApi.getMyCurrentPlaybackState({}, function(err, data) {
+  //     console.log(data);
+
+  //     if (data.is_playing == false) {
+  //       console.log("hi");
+  //       spotifyApi.play({});
+  //     }
+  //     else {
+  //       spotifyApi.pause({});
+  //     }
+  //   });
+
+  // }
+
+  playMusic() {
     spotifyApi.play({});
   }
 
