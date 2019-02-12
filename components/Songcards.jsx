@@ -3,8 +3,6 @@ import _ from "lodash";
 import Songcard from "./Songcard";
 import song from "../services/songService";
 import Spotify from "../services/spotifyService";
-import axios from "axios";
-import queryString from "query-string";
 
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
@@ -21,8 +19,6 @@ class Songcards extends Component {
 
     const response = await song.getSongs();
     this.setState({ songs: response.data });
-
-    this.startMusic();
   }
 
   startMusic() {
@@ -78,6 +74,7 @@ class Songcards extends Component {
     return (
       <div>
         <div>
+          <button onClick={() => this.startMusic()}>Play</button>
           <button onClick={() => this.playMusic(this.state.songs[0].song)}>Resume</button>
           <button onClick={() => this.pauseMusic()}>Pause</button>
         </div>
