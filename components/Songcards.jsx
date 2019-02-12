@@ -2,21 +2,36 @@ import React, { Component } from "react";
 import _ from "lodash";
 import Songcard from "./Songcard";
 import song from "../services/songService";
-import axios from "axios";
+import Spotify from "../services/spotifyService";
+
+import SpotifyWebApi from 'spotify-web-api-js';
+const spotifyApi = new SpotifyWebApi();
 
 class Songcards extends Component {
   state = {
-    songs: null
+    songs: null,
   };
 
   async componentDidMount() {
-    const apiEndpoint = "http://localhost:3000/api/songs/";
-    const response = await axios
-      .get(apiEndpoint)
-      .then()
-      .catch(err => console.log(err));
-    console.log(response.data)
+    const token = Spotify.getSpotifyAccessToken();
+    this.setState({ accessToken: token });
+    spotifyApi.setAccessToken(token);
+
+    const response = await song.getSongs();
     this.setState({ songs: response.data });
+  }
+
+  startMusic() {
+    console.log(this.state.songs[0].song.song.uri);
+    spotifyApi.play({ "uris": [this.state.songs[0].song.song.uri] });
+  }
+
+  playMusic() {
+    spotifyApi.play({});
+  }
+
+  pauseMusic() {
+    spotifyApi.pause({});
   }
 
   handleDelete = (id) => {
@@ -58,6 +73,11 @@ class Songcards extends Component {
 
     return (
       <div>
+        <div>
+          <button onClick={() => this.startMusic()}>Play</button>
+          <button onClick={() => this.playMusic(this.state.songs[0].song)}>Resume</button>
+          <button onClick={() => this.pauseMusic()}>Pause</button>
+        </div>
         {!areThereSongs
           ?
           <React.Fragment>

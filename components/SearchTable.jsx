@@ -10,13 +10,11 @@ class SearchTable extends Component {
 
   async handleAdd(song) {
     const currentUser = await user.getCurrentUser();
-    console.log(currentUser);
     const response = songs.addSong({ song }, currentUser._id, currentUser.username);
   }
 
   async componentWillMount() {
     const response = await user.getCurrentUser();
-    console.log(response)
     if (response) {
       this.setState({ userActive: true });
     }

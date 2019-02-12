@@ -52,6 +52,7 @@ img.navbar-brand {
 .navbar-default {
   background-color: var(--bjssDarkBlue);
   color: white;
+  min-height: 70px;
 }
 
 ul.navbar-nav {
