@@ -26,46 +26,40 @@ class Songcards extends Component {
     console.log(response.data);
     this.setState({ songs: response.data });
 
-    this.startMusic();
+    // Starts music and loop which checks if song is finished
+    this.playFirstInQueue();
+    setTimeout(function() { this.checkIfFinishedLoop(); }.bind(this), 5000);
+
   }
 
-  startMusic(song){
+  playFirstInQueue(){
     spotifyApi.play({"uris": [this.state.songs[0].song.song.uri]});
-
-    setTimeout(function() { this.checkPlayState(); }.bind(this), 5000);
   }
 
   playNextSong() {
     this.handleDelete(this.state.songs[0]._id);
-    this.startMusic();
-    setTimeout(function() { this.checkPlayState(); }.bind(this), 5000);
+    this.playFirstInQueue();
   }
 
-  checkPlayState() {
+  //Loop calling itself every 5 seconds constantly whilst program is running, checking if loop is finished
+  checkIfFinishedLoop() {
+    setTimeout(function() { this.checkIfFinishedLoop(); }.bind(this), 5000);
 
     spotifyApi.getMyCurrentPlayingTrack({}, function(err, data) {
       var timeRemaining = data.item.duration_ms - data.progress_ms;
+      console.log(timeRemaining);
       if (timeRemaining < 5000 ) {
-        console.log("close");
-        this.playNextSong();
         setTimeout(function() { this.playNextSong(); }.bind(this), timeRemaining);
-      }
-      else {
-        setTimeout(function() { this.checkPlayState(); }.bind(this), 5000);
       }
     }.bind(this));
 
   }
 
-  
-
+  //Checks if music is currently playing or paused, then does the opposite
   playOrPauseMusic() {
-
     spotifyApi.getMyCurrentPlaybackState({}, function(err, data) {
-      console.log(data);
 
       if (data.is_playing == false) {
-        console.log("hi");
         spotifyApi.play({});
       }
       else {
@@ -73,22 +67,6 @@ class Songcards extends Component {
       }
     });
 
-  }
-
-  playMusic() {
-    spotifyApi.play({});
-  }
-
-  pauseMusic() {
-    spotifyApi.pause({});
-  }
-
-  repeatTrack() {
-    spotifyApi.setRepeat("track", {});
-  }
-
-  updateVolume(volume) {
-    console.log(volume);
   }
 
   handleDelete = (id) => {
@@ -133,12 +111,8 @@ class Songcards extends Component {
     return (
       <div>
         <div>
-          <button onClick={() => this.checkPlayState()}>Resume</button>
-          <button onClick={() => this.playMusic()}>Resume</button>
-          <button onClick={() => this.pauseMusic()}>Pause</button>
+          <button onClick={() => this.playOrPauseMusic()}>Play/Pause</button>
           <button onClick={() => this.playNextSong()}>Skip</button>
-          <button onClick={() => this.repeatTrack()}>Repeat</button>
-          <input type="range" id="start" name="volume" min="0" max="11" onInput={() => this.updateVolume(this.value)}></input>
         </div>
 
         {!areThereSongs
