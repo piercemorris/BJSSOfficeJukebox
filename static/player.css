@@ -1,6 +1,27 @@
+:root {
+  --bjssDarkBlue: #041e43;
+  --bjssLightBlue: #0047bb;
+  --lightest: #697896;
+  --lighter: #506185;
+  --light: #374a73;
+  --dark: #1e3462;
+  --darker: #061e51;
+  --white: #FFF;
+}
+
 .player-container {
   width: 100%;
   margin: auto;
+  border: 1px solid --bjssLightBlue;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px -2px 20px -4px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px -2px 20px -4px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px -2px 20px -4px rgba(0, 0, 0, 0.6);
+}
+
+.player-btn, .player-btn-left, .player-btn-right, .player-btn-bottom {
+  background-color: var(--bjssLightBlue); 
+  color: var(--white);
 }
 
 .player-btn-left {

@@ -84,7 +84,6 @@ class Songcards extends Component {
           </React.Fragment>
           :
           <React.Fragment>
-            <h1>Currently Playing</h1>
             <PlayerWrapper start={this.startMusic} play={this.playMusic} pause={this.pauseMusic}>
               <Songcard
                 currentSong="true"
