@@ -27,20 +27,52 @@ class Songcards extends Component {
     this.setState({ songs: response.data });
 
     this.startMusic();
-    
-  }
-
-  playNextSong() {
-    spotifyApi.play({"uris": [this.state.songs[0].song.song.uri]});
   }
 
   startMusic(song){
     spotifyApi.play({"uris": [this.state.songs[0].song.song.uri]});
+
+    setTimeout(function() { this.checkPlayState(); }.bind(this), 5000);
   }
 
-  skipMusic() {
+  playNextSong() {
     this.handleDelete(this.state.songs[0]._id);
     this.startMusic();
+    setTimeout(function() { this.checkPlayState(); }.bind(this), 5000);
+  }
+
+  checkPlayState() {
+
+    spotifyApi.getMyCurrentPlayingTrack({}, function(err, data) {
+      var timeRemaining = data.item.duration_ms - data.progress_ms;
+      if (timeRemaining < 5000 ) {
+        console.log("close");
+        this.playNextSong();
+        setTimeout(function() { this.playNextSong(); }.bind(this), timeRemaining);
+      }
+      else {
+        setTimeout(function() { this.checkPlayState(); }.bind(this), 5000);
+      }
+    }.bind(this));
+
+  }
+
+  
+
+  playOrPauseMusic() {
+
+    spotifyApi.getMyCurrentPlaybackState({}, function(err, data) {
+      console.log(data);
+
+      if (data.is_playing == false) {
+        console.log("hi");
+        spotifyApi.play({});
+      }
+      else {
+        spotifyApi.pause({});
+      }
+    });
+
   }
 
   playMusic() {
@@ -53,6 +85,10 @@ class Songcards extends Component {
 
   repeatTrack() {
     spotifyApi.setRepeat("track", {});
+  }
+
+  updateVolume(volume) {
+    console.log(volume);
   }
 
   handleDelete = (id) => {
@@ -97,12 +133,14 @@ class Songcards extends Component {
     return (
       <div>
         <div>
-          
+          <button onClick={() => this.checkPlayState()}>Resume</button>
           <button onClick={() => this.playMusic()}>Resume</button>
           <button onClick={() => this.pauseMusic()}>Pause</button>
-          <button onClick={() => this.skipMusic()}>Skip</button>
+          <button onClick={() => this.playNextSong()}>Skip</button>
           <button onClick={() => this.repeatTrack()}>Repeat</button>
+          <input type="range" id="start" name="volume" min="0" max="11" onInput={() => this.updateVolume(this.value)}></input>
         </div>
+
         {!areThereSongs
           ?
           <React.Fragment>
