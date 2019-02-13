@@ -10,12 +10,12 @@ let redirect_uri =
 router.get("/login", (req, res) => {
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
-    querystring.stringify({
-      response_type: "code",
-      client_id: config.get("spotify-client-id"),
-      scope: "user-read-private user-read-email user-read-playback-state user-modify-playback-state",
-      redirect_uri
-    })
+      querystring.stringify({
+        response_type: "code",
+        client_id: config.get("spotify-client-id"),
+        scope: "user-read-private user-read-email user-read-playback-state user-read-currently-playing user-modify-playback-state",
+        redirect_uri
+      })
   );
 });
 
