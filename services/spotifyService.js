@@ -1,5 +1,7 @@
 const SpotifyWebApi = require('spotify-web-api-js');
 const axios = require("axios");
+const _ = require("lodash");
+const song = require("./songService");
 
 const spotifyAccessToken = 'x-spotify-token';
 const spotifyTrackType = "&type=track";
@@ -19,10 +21,14 @@ const playMusic = () => {
   spotify.play({});
 }
 
-const pauseMusic = () => {
-  spotify.pause({});
+//Checks if music is currently playing or paused, then does the opposite
+const playPauseMusic = () => {
+  spotify.getMyCurrentPlaybackState({}, (err, data) => {
+    data.is_playing ? spotify.pause({}) : spotify.play({})
+  });
 }
 
+//searches for tracks with query provided a valid access token is available
 export async function searchSpotifyQuery(query, token) {
   const endpoint = spotifySearchEndpoint + query + spotifyTrackType;
   const response = await axios.get(endpoint, {
@@ -53,9 +59,10 @@ export function getSpotifyAccessToken() {
 }
 
 export default {
+  Client: spotify,
   startMusic,
   playMusic,
-  pauseMusic,
+  playPauseMusic,
   searchSpotifyQuery,
   getSpotifyAccessToken,
   setSpotifyAccessToken,

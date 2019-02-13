@@ -4,6 +4,23 @@ import { baseUrl } from "../config/default.json";
 const apiUrl = baseUrl;
 const apiEndpoint = apiUrl + "/api/songs/";
 
+const areSongs = (songs) => {
+  if (songs === undefined || songs === null || songs.length === 0) {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+const areSongsInQueue = (songs) => {
+  if (songs.length === 1)
+    return false;
+  else {
+    return true;
+  }
+}
+
 export async function getSongs() {
   return await axios.get(apiEndpoint);
 }
@@ -17,6 +34,8 @@ export async function deleteSong(id) {
 }
 
 export default {
+  areSongs,
+  areSongsInQueue,
   getSongs,
   addSong,
   deleteSong
