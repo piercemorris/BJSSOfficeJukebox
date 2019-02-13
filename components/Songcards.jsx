@@ -22,12 +22,11 @@ class Songcards extends Component {
 
     // Starts music and loop which checks if song is finished
     this.playFirstInQueue();
-    setTimeout(function() { this.checkIfFinishedLoop(); }.bind(this), 5000);
-
+    setTimeout(function () { this.checkIfFinishedLoop(); }.bind(this), 5000);
   }
 
-  playFirstInQueue(){
-    spotifyApi.play({"uris": [this.state.songs[0].song.song.uri]});
+  playFirstInQueue() {
+    spotifyApi.play({ "uris": [this.state.songs[0].song.song.uri] });
   }
 
   playNextSong() {
@@ -37,15 +36,16 @@ class Songcards extends Component {
 
   //Loop calling itself every 5 seconds constantly whilst program is running, checking if loop is finished
   checkIfFinishedLoop() {
-    setTimeout(function() { this.checkIfFinishedLoop(); }.bind(this), 5000);
+    setTimeout(function () { this.checkIfFinishedLoop(); }.bind(this), 5000);
 
-    spotifyApi.getMyCurrentPlayingTrack({}, function(err, data) {
+    spotifyApi.getMyCurrentPlayingTrack({}, function (err, data) {
       var timeRemaining = data.item.duration_ms - data.progress_ms;
       console.log(timeRemaining);
-      if (timeRemaining < 5000 ) {
-        setTimeout(function() { this.playNextSong(); }.bind(this), timeRemaining);
+      if (timeRemaining < 5000) {
+        setTimeout(function () { this.playNextSong(); }.bind(this), timeRemaining);
       }
     }.bind(this));
+  }
 
   startMusic() {
     console.log(this.state.songs[0].song.song.uri);
@@ -58,7 +58,7 @@ class Songcards extends Component {
 
   //Checks if music is currently playing or paused, then does the opposite
   playOrPauseMusic() {
-    spotifyApi.getMyCurrentPlaybackState({}, function(err, data) {
+    spotifyApi.getMyCurrentPlaybackState({}, function (err, data) {
 
       if (data.is_playing == false) {
         spotifyApi.play({});
@@ -72,7 +72,7 @@ class Songcards extends Component {
 
   handleDelete = (id) => {
     const songs = _.filter(this.state.songs, song => { return song._id !== id });
-    this.state = {songs};
+    this.state = { songs };
     this.setState({ songs });
     const response = song.deleteSong(id);
   }
