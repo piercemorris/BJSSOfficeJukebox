@@ -33,15 +33,15 @@ router.get("/callback", (req, res) => {
         "Basic " +
         new Buffer(
           config.get("spotify-client-id") +
-            ":" +
-            config.get("spotify-client-secret") //change to process.env.CLIENT_ID etc...
+          ":" +
+          config.get("spotify-client-secret") //change to process.env.CLIENT_ID etc...
         ).toString("base64")
     },
     json: true
   };
   request.post(authOptions, (error, response, body) => {
     var access_token = body.access_token;
-    let uri = process.env.FRONTEND_URI || "http://localhost:3000/search";
+    let uri = process.env.FRONTEND_URI || "http://localhost:3000/";
     res.redirect(uri + "?access_token=" + access_token);
   });
 });

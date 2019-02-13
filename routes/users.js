@@ -6,8 +6,8 @@ const auth = require("../middleware/auth");
 const { User, validate } = require("../models/user");
 
 // HTTP GET request to retrieve information about the currently logged in user
-router.get("/me", auth, async (req, res) => {
-  const user = await User.findOne({ username: req.user.username }).select(
+router.get("/:id", async (req, res) => { //auth for middleware
+  const user = await User.findById(req.params.id).select(
     "-password -isAdmin"
   );
   if (!user) return res.send("No user found").status(404);
@@ -18,7 +18,7 @@ router.get("/me", auth, async (req, res) => {
 router.post("/", async (req, res) => {
   console.log(req.body);
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message + "hihihihihih");
+  if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({ username: req.body.username });
   if (user) return res.status(400).send("User is already registered");
@@ -26,7 +26,8 @@ router.post("/", async (req, res) => {
   user = new User({
     username: req.body.username,
     password: req.body.password,
-    isAdmin: false
+    isAdmin: false,
+    songsAdded: 0
   });
 
   // Generate a hash function to encrypt the passwords that are going to be

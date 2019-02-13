@@ -1,9 +1,9 @@
 import React from "react";
 import Layout from "../components/Layout";
-import Index from "../components/Index";
+import UserAccount from "../components/UserAccount";
 
 export default () => (
   <Layout>
-    <Index />
+    <UserAccount />
   </Layout>
 );
