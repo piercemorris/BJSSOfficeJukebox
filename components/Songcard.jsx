@@ -13,7 +13,7 @@ class Songcard extends Component {
           ?
           <h1>You shouldn't be seeing this</h1>
           :
-          <div className="card song-card">
+          <div className={this.props.currentSong ? "song-card-play" : "song-card"}>
             <table className="card-table" width="100%">
               <tr>
                 <td width="121" className="card-image">

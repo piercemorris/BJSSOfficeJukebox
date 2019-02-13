@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import Songcard from "./Songcard";
+import PlayerWrapper from "../components/PlayerWrapper";
 import song from "../services/songService";
 import Spotify from "../services/spotifyService";
-
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
 
 class Songcards extends Component {
   state = {
@@ -15,7 +13,7 @@ class Songcards extends Component {
   async componentDidMount() {
     const token = Spotify.getSpotifyAccessToken();
     this.setState({ accessToken: token });
-    spotifyApi.setAccessToken(token);
+    Spotify.setToken(token);
 
     const response = await song.getSongs();
     this.setState({ songs: response.data });
@@ -118,7 +116,6 @@ class Songcards extends Component {
           <button onClick={() => this.playMusic(this.state.songs[0].song)}>Resume</button>
           <button onClick={() => this.pauseMusic()}>Pause</button>
         </div>
-
         {!areThereSongs
           ?
           <React.Fragment>
@@ -127,12 +124,14 @@ class Songcards extends Component {
           </React.Fragment>
           :
           <React.Fragment>
-            <h1>Currently Playing</h1>
-            <Songcard
-              songObj={this.state.songs[0]}
-              onDelete={this.handleDelete}
-              priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
-            />
+            <PlayerWrapper start={Spotify.startMusic} play={Spotify.playMusic} pause={Spotify.pauseMusic} uri={this.state.songs[0].song.song.uri}>
+              <Songcard
+                currentSong="true"
+                songObj={this.state.songs[0]}
+                onDelete={this.handleDelete}
+                priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
+              />
+            </PlayerWrapper>
             <h1>Queue</h1>
             {!this.areSongsInQueue()
               ?
