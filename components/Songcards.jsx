@@ -74,7 +74,7 @@ class Songcards extends Component {
               <Songcard
                 currentSong="true"
                 songObj={songs[0]}
-                onDelete={this.handleDelete}
+                onDelete={this.playNextSong}
                 priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
               />
             </PlayerWrapper>
