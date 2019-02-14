@@ -3,29 +3,29 @@ const router = express.Router();
 const { Song, validate } = require("../models/song");
 const { User } = require("../models/user");
 
-//http://localhost:3000/api/songs/ GET
 router.get("/", async (req, res) => {
   const songs = await Song.find();
-
 
   res.send(songs).status(200);
 });
 
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message, ":: Error validating song");
 
   //increments the songs added by the current user by one
   const user =
     await User.findByIdAndUpdate(req.body.requestedBy, { $inc: { songsAdded: 1 } });
-  if (!user) return res.status(404).send("The user with the given id could not be found::add song");
+  if (!user) return res.status(404).send("The user with the given id could not be found :: add song");
   await user.save();
 
+  console.log("Up to saving song")
   //creates new song object
   let song = new Song({
     song: req.body.song,
     username: req.body.username,
-    requestedBy: req.body.requestedBy
+    requestedBy: req.body.requestedBy,
+    dateAdded: new Date(),
   });
 
   //saves the song object in the database
