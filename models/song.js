@@ -13,6 +13,10 @@ const songSchema = new mongoose.Schema({
   requestedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  dateAdded: {
+    type: Date,
+    required: true
   }
 });
 
