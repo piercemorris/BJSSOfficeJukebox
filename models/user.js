@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
   songsAdded: {
     type: Number,
     required: true
+  },
+  priority: {
+    type: mongoose.Types.Decimal128,
+    required: true
   }
 });
 

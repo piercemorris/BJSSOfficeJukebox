@@ -17,6 +17,10 @@ const songSchema = new mongoose.Schema({
   dateAdded: {
     type: Date,
     required: true
+  },
+  priority: {
+    type: mongoose.Types.Decimal128,
+    required: true
   }
 });
 
