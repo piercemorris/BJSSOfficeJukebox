@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
     password: req.body.password,
     isAdmin: false,
     songsAdded: 0,
+    lastAdd: 0,
     priority: 1
   });
 

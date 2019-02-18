@@ -15,7 +15,7 @@ const songSchema = new mongoose.Schema({
     ref: 'User'
   },
   dateAdded: {
-    type: Date,
+    type: Number,
     required: true
   },
   priority: {

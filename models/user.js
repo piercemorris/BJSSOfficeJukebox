@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  lastAdd: {
+    type: Number,
+    required: true
+  },
   priority: {
     type: mongoose.Types.Decimal128,
     required: true

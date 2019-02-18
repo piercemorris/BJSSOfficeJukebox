@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
     song: req.body.song,
     username: req.body.username,
     requestedBy: req.body.requestedBy,
-    dateAdded: new Date(),
+    dateAdded: Date.now(),
     priority: userPriority,
   });
 

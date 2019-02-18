@@ -1,5 +1,11 @@
 
 export function modifyUserPriority() {
+  const currentUserPriority;
+  const timeLastAdded;
+  const timeNow;
+  const timeConst;
+  const maxUserPriority;
+
 
 };
 
