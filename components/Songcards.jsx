@@ -37,7 +37,7 @@ class Songcards extends Component {
 
     Spotify.Client.getMyCurrentPlayingTrack({}, (err, data) => {
       let timeRemain = data.item.duration_ms - data.progress_ms;
-      console.log(timeRemain);
+      //console.log(timeRemain);
       if (timeRemain < timeCheck)
         setTimeout(() => {
           this.playNextSong();

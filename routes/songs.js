@@ -21,12 +21,18 @@ router.post("/", async (req, res) => {
   if (!user) return res.status(404).send("The user with the given id could not be found :: add song");
   await user.save();
 
+  //gets current user priority
+  const userPriority =
+    await User.findById(req.body.requestedBy, 'priority');
+  if (!userPriority) return res.status(404).send("The user with the given id could not be found :: get user priority");
+
   //creates new song object
   let song = new Song({
     song: req.body.song,
     username: req.body.username,
     requestedBy: req.body.requestedBy,
     dateAdded: new Date(),
+    priority: userPriority,
   });
 
   //saves the song object in the database
