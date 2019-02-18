@@ -15,11 +15,17 @@ router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message, ":: Error validating song");
 
-  //increments the songs added by the current user by one
   const user =
-    await User.findByIdAndUpdate(req.body.requestedBy, { $inc: { songsAdded: 1 } });
-  if (!user) return res.status(404).send("The user with the given id could not be found :: add song");
-  await user.save();
+    await User.findById(req.body.requestedBy);
+  if (!user) return res.status(404).send("The user with the given id was not found");
+
+
+
+  //increments the songs added by the current user by one
+  const userUpdate =
+    await User.findByIdAndUpdate(req.body.requestedBy, { $inc: { songsAdded: 1 }, });
+  if (!userUpdate) return res.status(404).send("The user with the given id could not be found :: add song");
+  await userUpdate.save();
 
   //gets current user priority
   const userPriority =
