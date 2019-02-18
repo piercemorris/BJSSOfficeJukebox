@@ -19,11 +19,11 @@ router.post("/", async (req, res) => {
     await User.findById(req.body.requestedBy);
   if (!user) return res.status(404).send("The user with the given id was not found");
 
-
+  const addTime = Date.now();
 
   //increments the songs added by the current user by one
   const userUpdate =
-    await User.findByIdAndUpdate(req.body.requestedBy, { $inc: { songsAdded: 1 }, });
+    await User.findByIdAndUpdate(req.body.requestedBy, { $inc: { songsAdded: 1 }, lastAdd: addTime });
   if (!userUpdate) return res.status(404).send("The user with the given id could not be found :: add song");
   await userUpdate.save();
 
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
     song: req.body.song,
     username: req.body.username,
     requestedBy: req.body.requestedBy,
-    dateAdded: Date.now(),
+    dateAdded: addTime,
     priority: userPriority,
   });
 
