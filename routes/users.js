@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
     isAdmin: false,
     songsAdded: 0,
     lastAdd: 0,
-    priority: 1
+    priority: 1.0
   });
 
   // Generate a hash function to encrypt the passwords that are going to be

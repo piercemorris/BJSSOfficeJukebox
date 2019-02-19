@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   priority: {
-    type: mongoose.Types.Decimal128,
+    type: Number,
     required: true
   }
 });
