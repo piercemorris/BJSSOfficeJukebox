@@ -37,10 +37,19 @@ To run the tests:
 3. Results of the tests will follow in the command line
 
 ```
-Test Suites: 3 passed, 3 total
-Tests:       4 passed, 4 total
+ PASS  test/unit/services/priority.test.js
+  Priority tests
+    Increase user prirority
+      √ should return the same user priority if it is the max priority (4ms)
+      √ should return the max user priority if last time added is longer than time constant
+      √ should return the new user priority which is greater than before (1ms)
+    ...
+
+Test Suites: 2 failed, 2 passed, 4 total
+Tests:       10 passed, 10 total
 Snapshots:   0 total
-Time:        3.084s
+Time:        3.486s
+Ran all test suites.
 ```
 
 ## Built With
