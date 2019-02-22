@@ -7,6 +7,13 @@ const priority = require("../services/priorityService");
 //gets all songs in the Song collection
 router.get("/", async (req, res) => {
   const songs = await Song.find();
+  songs.forEach( async (song) => {
+    const songUpdate = await Song.findByIdAndUpdate({ _id: song._id }, 
+      { 
+        priority: priority.increaseSongPriority(song.priority, song.dateAdded, Date.now()) 
+      });
+    console.log(song.priority + " diff " + songUpdate.priority);
+  });
 
   res.send(songs).status(200);
 });
