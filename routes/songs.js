@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
       { 
         priority: priority.increaseSongPriority(song.priority, song.dateAdded, Date.now()) 
       });
-    console.log(song.priority + " diff " + songUpdate.priority);
   });
 
   res.send(songs).status(200);
@@ -29,7 +28,6 @@ router.post("/", async (req, res) => {
   if (!user) return res.status(404).send("The user with the given id was not found");
 
   const userPriority = priority.increaseUserPriority(user.priority, user.lastAdd, addTime);
-  console.log(userPriority);
 
   //updates the user after new priority is calculated
   const userUpdate =
