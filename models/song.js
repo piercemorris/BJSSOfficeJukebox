@@ -15,11 +15,11 @@ const songSchema = new mongoose.Schema({
     ref: 'User'
   },
   dateAdded: {
-    type: Date,
+    type: Number,
     required: true
   },
   priority: {
-    type: mongoose.Types.Decimal128,
+    type: Number,
     required: true
   }
 });
