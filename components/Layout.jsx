@@ -5,9 +5,7 @@ import user from "../services/userService";
 
 class Layout extends Component {
   state = {
-    user: {
-
-    },
+    user: {},
     links: [
       { title: "Home", url: "/", float: "left" },
       { title: "About", url: "/about", float: "left" },

@@ -8,7 +8,6 @@ import SearchTable from "./SearchTable";
 
 class SearchBar extends Component {
   state = {
-    accessToken: "",
     search: {
       query: ""
     },
@@ -21,11 +20,6 @@ class SearchBar extends Component {
       .required()
       .label("Query")
   };
-
-  componentDidMount() {
-    const token = Spotify.getSpotifyAccessToken();
-    this.setState({ accessToken: token });
-  }
 
   validate = () => {
     const options = {
@@ -47,11 +41,8 @@ class SearchBar extends Component {
     this.setState({ errors: errors || {} });
     if (errors) return;
 
-    const { search, accessToken } = this.state;
-    //console.log(search, accessToken);
-    //const response = await Spotify.searchSpotifyQuery(search.query, accessToken);
+    const { search } = this.state; 
     const data = await Spotify.search(search.query);
-    console.log(data);
     this.setState({ result: data });
   };
 
@@ -68,7 +59,6 @@ class SearchBar extends Component {
     if (_.isEmpty(result)) {
       return (
         <div>
-          {this.state.accessToken}
           <form onSubmit={this.handleSubmit}>
             <Input
               name="query"
@@ -85,7 +75,6 @@ class SearchBar extends Component {
     } else {
       return (
         <div>
-          {this.state.accessToken}
           <form onSubmit={this.handleSubmit}>
             <Input
               name="query"

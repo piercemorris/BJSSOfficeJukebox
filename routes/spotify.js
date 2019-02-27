@@ -42,14 +42,23 @@ router.get("/refresh", async (req, res) => {
   spotifyApi.setAccessToken(response.body.access_token);
 });
 
-router.get("/start", async (req, res) => {
-
-});
-
 router.get("/search/:query", async (req, res) => {
   const query = req.params.query;
   const response = await spotifyApi.searchTracks(query);
   res.status(200).send(response.body.tracks.items);
+});
+
+router.post("/play", (req, res) => {
+  req.body.playing ? spotifyApi.pause({}) : spotifyApi.play({});
+});
+
+router.post("/start", (req, res) => {
+  spotifyApi.play({ uris: [req.body.uri] });
+});
+
+router.get("/getCurrent", async (req, res) => {
+  const response = await spotifyApi.getMyCurrentPlayingTrack({});
+  res.status(200).send(response);
 });
 
 module.exports = router;
