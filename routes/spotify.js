@@ -1,49 +1,64 @@
 const express = require("express");
 const config = require("config");
-const request = require("request");
-const querystring = require("querystring");
+const SpotifyWebApi = require('spotify-web-api-node');
 const router = express.Router();
 
-let redirect_uri =
-  process.env.REDIRECT_URI || "http://localhost:3000/api/spotify/callback";
+const scopes = [
+  "user-read-private",
+  "user-read-email",
+  "user-read-playback-state",
+  "user-read-currently-playing",
+  "user-modify-playback-state"
+];
+const state = "code";
+const url = process.env.FRONTEND_URL || config.get("base-url");
+const clientId = process.env.CLIENT_ID || config.get("spotify-client-id");
+const clientSecret = process.env.CLIENT_SECRET || config.get("spotify-client-secret");
+const redirectUri = process.env.REDIRECT_URI || config.get("redirect-uri");
 
-router.get("/login", (req, res) => {
-  res.redirect(
-    "https://accounts.spotify.com/authorize?" +
-      querystring.stringify({
-        response_type: "code",
-        client_id: config.get("spotify-client-id"),
-        scope: "user-read-private user-read-email user-read-playback-state user-read-currently-playing user-modify-playback-state",
-        redirect_uri
-      })
-  );
+const spotifyApi = new SpotifyWebApi({
+  clientId,
+  clientSecret,
+  redirectUri,
 });
 
-router.get("/callback", (req, res) => {
-  var code = req.query.code || null;
-  let authOptions = {
-    url: "https://accounts.spotify.com/api/token",
-    form: {
-      code: code,
-      redirect_uri,
-      grant_type: "authorization_code"
-    },
-    headers: {
-      Authorization:
-        "Basic " +
-        new Buffer(
-          config.get("spotify-client-id") +
-          ":" +
-          config.get("spotify-client-secret") //change to process.env.CLIENT_ID etc...
-        ).toString("base64")
-    },
-    json: true
-  };
-  request.post(authOptions, (error, response, body) => {
-    var access_token = body.access_token;
-    let uri = process.env.FRONTEND_URI || "http://localhost:3000/";
-    res.redirect(uri + "?access_token=" + access_token);
-  });
+router.get("/login", (req, res) => {
+  const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+  res.redirect(authorizeURL);
+});
+
+router.get("/callback", async (req, res) => {
+  const code = req.query.code || null;
+  const response = await spotifyApi.authorizationCodeGrant(code);
+
+  spotifyApi.setAccessToken(response.body.access_token);
+  spotifyApi.setRefreshToken(response.body.refresh_token);
+  res.redirect(url);
+});
+
+router.get("/refresh", async (req, res) => {
+  const response = await spotifyApi.refreshAccessToken();
+
+  spotifyApi.setAccessToken(response.body.access_token);
+});
+
+router.get("/search/:query", async (req, res) => {
+  const query = req.params.query;
+  const response = await spotifyApi.searchTracks(query);
+  res.status(200).send(response.body.tracks.items);
+});
+
+router.post("/play", (req, res) => {
+  req.body.playing ? spotifyApi.pause({}) : spotifyApi.play({});
+});
+
+router.post("/start", (req, res) => {
+  spotifyApi.play({ uris: [req.body.uri] });
+});
+
+router.get("/getCurrent", async (req, res) => {
+  const response = await spotifyApi.getMyCurrentPlayingTrack({});
+  res.status(200).send(response);
 });
 
 module.exports = router;

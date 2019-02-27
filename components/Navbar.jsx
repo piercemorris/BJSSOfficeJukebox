@@ -4,19 +4,6 @@ import Link from "next/link";
 import Spotify from "../services/spotifyService";
 
 class Navbar extends Component {
-  state = {
-    token: "",
-    tokenAvailable: false
-  }
-
-  componentDidMount() {
-    let token = Spotify.getSpotifyAccessToken();
-    if (token === "undefined" || token === null || token === "" || token === undefined) {
-      token = null;
-    }
-    this.setState({ token, tokenAvailable: true });
-  }
-
   render() {
     const { user, navs } = this.props;
     return (
@@ -33,28 +20,21 @@ class Navbar extends Component {
                   </Link>
                 </li>
               ))}
-            {
-              this.state.token
-                ?
-                <React.Fragment>
-                  <li className="nav-item">
-                    <Link href="/queue">
-                      <a className="nav-link">Queue</a>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link href="/search">
-                      <a className="nav-link">Search</a>
-                    </Link>
-                  </li>
-                </React.Fragment>
-                :
-                <li className="nav-item">
-                  <Link href="/api/spotify/login">
-                    <a className="nav-link">Authorise Spotify</a>
-                  </Link>
-                </li>
-            }
+            <li className="nav-item">
+              <Link href="/queue">
+                <a className="nav-link">Queue</a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/search">
+                <a className="nav-link">Search</a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/api/spotify/login">
+                <a className="nav-link">Authorise Spotify</a>
+              </Link>
+            </li>
           </ul>
           <ul className="navbar-nav ml-auto">
             {_.isEmpty(user) ?

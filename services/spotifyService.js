@@ -1,70 +1,32 @@
-const SpotifyWebApi = require('spotify-web-api-js');
 const axios = require("axios");
-const _ = require("lodash");
-const song = require("./songService");
 
-const spotifyAccessToken = 'x-spotify-token';
-const spotifyTrackType = "&type=track";
-const spotifySearchEndpoint = "https://api.spotify.com/v1/search?q=";
+const spotifyEndpoint = process.env.FRONTEND_URL || "http://localhost:3000/api/spotify";
 
-const spotify = new SpotifyWebApi();
-
-const setToken = (token) => {
-  spotify.setAccessToken(token);
+export async function search(query) {
+  const { data } = await axios.get(spotifyEndpoint + "/search/" + query);
+  return data;
 }
 
-const startMusic = (uri) => {
-  spotify.play({ "uris": [uri] });
+export async function play(playing) {
+  await axios.post(spotifyEndpoint + "/play", { playing });
 }
 
-const playMusic = () => {
-  spotify.play({});
+export async function playSong(uri) {
+  await axios.post(spotifyEndpoint + "/start", { uri });
 }
 
-//Checks if music is currently playing or paused, then does the opposite
-const playPauseMusic = () => {
-  spotify.getMyCurrentPlaybackState({}, (err, data) => {
-    data.is_playing ? spotify.pause({}) : spotify.play({})
-  });
-}
-
-//searches for tracks with query provided a valid access token is available
-export async function searchSpotifyQuery(query, token) {
-  const endpoint = spotifySearchEndpoint + query + spotifyTrackType;
-  const response = await axios.get(endpoint, {
-    headers: { Authorization: "Bearer " + token }
-  });
-
-  return response.data;
-}
-
-export function setSpotifyAccessToken(token) {
-  localStorage.setItem(spotifyAccessToken, token);
-}
-
-export function getSpotifyAccessToken() {
-  try {
-    const currentToken = localStorage.getItem(spotifyAccessToken);
-    if (currentToken === undefined || currentToken === "undefined") {
-      localStorage.removeItem(spotifyAccessToken);
-      return null;
-    }
-    else {
-      return currentToken;
-    }
-  }
-  catch (ex) {
-
-  }
+export async function getCurrentlyPlaying() {
+  const { data } = await axios.get(spotifyEndpoint + "/getCurrent");
+  const songObject = {
+    duration: data.body.item.duration_ms,
+    progress: data.body.progress_ms
+  };
+  return songObject;
 }
 
 export default {
-  Client: spotify,
-  startMusic,
-  playMusic,
-  playPauseMusic,
-  searchSpotifyQuery,
-  getSpotifyAccessToken,
-  setSpotifyAccessToken,
-  setToken
+  play,
+  playSong,
+  getCurrentlyPlaying,
+  search
 }

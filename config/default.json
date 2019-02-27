@@ -3,6 +3,7 @@
   "db-local": "mongodb://localhost/jukebox",
   "spotify-client-id": "a11348b400434a2ba1cbcf618dadf888",
   "spotify-client-secret": "c38b37d0392f4234bc44fe635c0b4596",
+  "redirect-uri": "http://localhost:3000/api/spotify/callback",
   "jwtPrivateKey": "privatekey",
   "base-url": "http://localhost:3000",
   "baseUrl": "http://localhost:3000",
