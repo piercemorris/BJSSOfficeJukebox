@@ -49,8 +49,10 @@ class SearchBar extends Component {
 
     const { search, accessToken } = this.state;
     //console.log(search, accessToken);
-    const response = await Spotify.searchSpotifyQuery(search.query, accessToken);
-    this.setState({ result: response });
+    //const response = await Spotify.searchSpotifyQuery(search.query, accessToken);
+    const data = await Spotify.search(search.query);
+    console.log(data);
+    this.setState({ result: data });
   };
 
   handleChange = e => {
@@ -95,7 +97,7 @@ class SearchBar extends Component {
             />
             <Submit />
           </form>
-          <SearchTable result={this.state.result.tracks.items} />
+          <SearchTable result={this.state.result} />
         </div>
       );
     }
