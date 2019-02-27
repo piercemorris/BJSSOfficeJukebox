@@ -7,10 +7,10 @@ const priority = require("../services/priorityService");
 //gets all songs in the Song collection
 router.get("/", async (req, res) => {
   const songs = await Song.find();
-  songs.forEach( async (song) => {
-    const songUpdate = await Song.findByIdAndUpdate({ _id: song._id }, 
-      { 
-        priority: priority.increaseSongPriority(song.priority, song.dateAdded, Date.now()) 
+  songs.forEach(async (song) => {
+    const songUpdate = await Song.findByIdAndUpdate({ _id: song._id },
+      {
+        priority: priority.increaseSongPriority(song.priority, song.dateAdded, Date.now())
       });
   });
 
@@ -31,11 +31,11 @@ router.post("/", async (req, res) => {
 
   //updates the user after new priority is calculated
   const userUpdate =
-    await User.findByIdAndUpdate(req.body.requestedBy, 
-      { 
-        $inc: { songsAdded: 1 }, 
-        lastAdd: addTime, 
-        priority: priority.decreaseUserPriority(userPriority) 
+    await User.findByIdAndUpdate(req.body.requestedBy,
+      {
+        $inc: { songsAdded: 1 },
+        lastAdd: addTime,
+        priority: priority.decreaseUserPriority(userPriority)
       });
   if (!userUpdate) return res.status(404).send("The user with the given id could not be found :: add song");
   await userUpdate.save();
