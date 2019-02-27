@@ -5,6 +5,10 @@ const spotifySchema = new mongoose.Schema({
   token: {
     type: String,
     required: true
+  },
+  time: {
+    type: Number,
+    required: true
   }
 });
 

@@ -48,7 +48,8 @@ router.get("/callback", (req, res) => {
     if (error) return res.status(400).send(error.details[0].message, ":: invalid access token");
 
     let accessToken = new Spotify({
-      token: accessToken
+      token: accessToken,
+      time: Date.now()
     })
 
     accessToken = await accessToken.save();
@@ -56,6 +57,10 @@ router.get("/callback", (req, res) => {
     let uri = process.env.FRONTEND_URI || "http://localhost:3000/";
     res.redirect(uri + "?access_token=" + access_token);
   });
+});
+
+router.get("/", (req, res) => {
+
 });
 
 module.exports = router;
