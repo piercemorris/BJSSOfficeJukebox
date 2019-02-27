@@ -10,6 +10,7 @@ import song from "../services/songService";
 class Songcards extends Component {
   state = {
     songs: null,
+    start: false,
     playing: false
   };
 
@@ -23,6 +24,7 @@ class Songcards extends Component {
     setTimeout(() => { this.handleFinish() }, timeCheck);
     let data = await Spotify.getCurrentlyPlaying();
     let timeRemain = data.duration - data.progress;
+    console.log(timeRemain);
     if(timeRemain < timeCheck) {
       setTimeout(() => {
         this.handleNext();
@@ -31,16 +33,16 @@ class Songcards extends Component {
   }
 
   handlePlay = () => {
-    this.setState({ playing: true });
-    const firstInQueueURI = this.state.songs[0].song.song.uri;
-    Spotify.playSong(firstInQueueURI);
-    this.handleFinish();
+    if(!this.state.start) {
+      this.setState({ start: true, playing: true });
+      const firstInQueueURI = this.state.songs[0].song.song.uri;
+      Spotify.playSong(firstInQueueURI);
+      this.handleFinish();
+    } else {
+      Spotify.play(this.state.playing);
+      this.setState({ playing: !this.state.playing });
+    }
   };
-
-  handlePause = () => {
-    Spotify.play(this.state.playing);
-    this.setState({ playing: !this.state.playing });
-  }
 
   handleDelete = (id) => {
     const songs = _.filter(this.state.songs, song => { return song._id !== id });
@@ -67,8 +69,7 @@ class Songcards extends Component {
           </React.Fragment>
           :
           <React.Fragment>
-            <button onClick={this.handlePlay}>Start Playing</button>
-            <PlayerWrapper playing={this.state.playing} start={this.handlePause}
+            <PlayerWrapper playing={this.state.playing} start={this.handlePlay}
               skip={this.handleNext} uri={songs[0].song.song.uri}>
               <Songcard
                 currentSong="true"
