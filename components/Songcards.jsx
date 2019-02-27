@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import Songcard from "./Songcard";
+import Info from "../components/common/Info";
 import PlayerWrapper from "../components/PlayerWrapper";
 import Placeholder from "../components/Placeholder";
-import song from "../services/songService";
 import Spotify from "../services/spotifyService";
+import song from "../services/songService";
 
 class Songcards extends Component {
   state = {
@@ -43,7 +44,6 @@ class Songcards extends Component {
 
   handleDelete = (id) => {
     const songs = _.filter(this.state.songs, song => { return song._id !== id });
-    this.state = { songs };
     this.setState({ songs });
     song.deleteSong(id);
   }
@@ -54,11 +54,11 @@ class Songcards extends Component {
     Spotify.playSong(firstInQueueURI);
   }
 
-
   render() {
     const { songs } = this.state;
     return (
       <div>
+        <Info text="A song in the queue will only play if you have Spotify opened on your account!" />
         {!song.areSongs(songs)
           ?
           <React.Fragment>
