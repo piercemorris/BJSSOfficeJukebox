@@ -8,8 +8,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "prestart": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "next build",
     "watch": "nodemon index.js",
     "test": "jest --detectOpenHandles --verbose",
     "testing": "jest --watchAll"
