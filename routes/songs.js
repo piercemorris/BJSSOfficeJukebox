@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const _ = require("lodash");
 const { Song, validate } = require("../models/song");
 const { User } = require("../models/user");
 const priority = require("../services/priorityService");
@@ -7,14 +8,16 @@ const priority = require("../services/priorityService");
 //gets all songs in the Song collection
 router.get("/", async (req, res) => {
   const songs = await Song.find();
+  let filtered;
   songs.forEach(async (song) => {
-    const songUpdate = await Song.findByIdAndUpdate({ _id: song._id },
+    await Song.findByIdAndUpdate({ _id: song._id },
       {
         priority: priority.increaseSongPriority(song.priority, song.dateAdded, Date.now())
       });
   });
+  filtered = _.orderBy(songs, ['priority'], ['desc']);
 
-  res.send(songs).status(200);
+  res.send(filtered).status(200);
 });
 
 //adds a song to the Song collection & updates user

@@ -25,7 +25,7 @@ class Songcards extends Component {
     let data = await Spotify.getCurrentlyPlaying();
     let timeRemain = data.duration - data.progress;
     console.log(timeRemain);
-    if(timeRemain < timeCheck) {
+    if (timeRemain < timeCheck) {
       setTimeout(() => {
         this.handleNext();
       }, timeRemain);
@@ -33,7 +33,7 @@ class Songcards extends Component {
   }
 
   handlePlay = () => {
-    if(!this.state.start) {
+    if (!this.state.start) {
       this.setState({ start: true, playing: true });
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       Spotify.playSong(firstInQueueURI);
@@ -46,6 +46,7 @@ class Songcards extends Component {
 
   handleDelete = (id) => {
     const songs = _.filter(this.state.songs, song => { return song._id !== id });
+    this.state = { songs };
     this.setState({ songs });
     song.deleteSong(id);
   }
@@ -75,7 +76,7 @@ class Songcards extends Component {
                 currentSong="true"
                 songObj={songs[0]}
                 onDelete={this.handleNext}
-                priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
+                priority={songs[0].priority}
               />
             </PlayerWrapper>
             <h1>Queue</h1>
@@ -89,7 +90,7 @@ class Songcards extends Component {
                   <Songcard
                     songObj={song}
                     onDelete={this.handleDelete}
-                    priority={Math.floor(Math.random() * (5 - 1 + 1) + 1)}
+                    priority={song.priority}
                     key={song._id}
                   />
                 ))}

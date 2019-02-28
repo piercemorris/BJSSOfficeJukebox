@@ -5,7 +5,6 @@ class Songcard extends Component {
     const { songObj, priority } = this.props;
     const song = songObj.song.song;
     const user = songObj.username;
-    const colour = "priority-" + priority + " card-body";
 
     return (
       <React.Fragment>
@@ -25,7 +24,7 @@ class Songcard extends Component {
                     />
                   </td>
                   <td className="card-header-body">
-                    <p className="card-priority">Priority:&nbsp;<span className={colour + " circle"}></span></p>
+                    <p className="card-priority">Priority:&nbsp;<span className="">{parseFloat(Math.round(priority * 100) / 100).toFixed(2)}</span></p>
                     <h5 className="card-title">{song.name}</h5>
                     <h6 className="card-subtitle mb-2">
                       {song.album.name + ", " + song.artists[0].name}
