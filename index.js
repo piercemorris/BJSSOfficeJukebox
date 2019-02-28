@@ -13,8 +13,8 @@ require("express-async-errors");
 require("./startup/db")();
 require("./startup/routes")(server);
 
-server.get("*", (req, res) => {
-  return handle(req, res);
+server.get('*', (request, response) => {
+  response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 module.exports = app

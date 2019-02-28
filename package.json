@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
+    "prestart": "next build",
     "start": "next start -p $PORT",
     "heroku-postbuild": "next build",
     "watch": "nodemon index.js",
