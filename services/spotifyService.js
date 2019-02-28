@@ -1,6 +1,5 @@
 const axios = require("axios");
-
-const spotifyEndpoint = process.env.FRONTEND_URL || "http://localhost:3000/api/spotify";
+const { spotifyEndpoint } = require("../config/default.json");
 
 export async function search(query) {
   const { data } = await axios.get(spotifyEndpoint + "/search/" + query);
