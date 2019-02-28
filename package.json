@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
+    "prestart": "next build",
     "start": "node index.js",
     "watch": "nodemon index.js",
     "test": "jest --detectOpenHandles --verbose",
