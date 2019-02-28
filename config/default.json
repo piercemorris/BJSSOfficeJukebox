@@ -7,6 +7,7 @@
   "jwtPrivateKey": "privatekey",
   "base-url": "http://localhost:3000",
   "baseUrl": "http://localhost:3000",
+  "baseUrlLive": "http://office-jukebox.herokuapp.com",
   "port": 3000,
   "dec-count": 0.05
 }
