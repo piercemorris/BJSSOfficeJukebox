@@ -7,11 +7,11 @@ export async function search(query) {
 }
 
 export async function play(playing) {
-  await axios.post(spotifyEndpoint + "/play", { playing });
+  await axios.get(spotifyEndpoint + "/play/" + playing ? 1 : 0);
 }
 
 export async function playSong(uri) {
-  await axios.post(spotifyEndpoint + "/start", { uri });
+  await axios.get(spotifyEndpoint + "/start/" + uri);
 }
 
 export async function getCurrentlyPlaying() {
