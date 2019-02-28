@@ -48,12 +48,12 @@ router.get("/search/:query", async (req, res) => {
   res.status(200).send(response.body.tracks.items);
 });
 
-router.post("/play", (req, res) => {
-  req.body.playing ? spotifyApi.pause({}) : spotifyApi.play({});
+router.post("/play", async (req, res) => {
+  req.body.playing ? await spotifyApi.pause({}) : await spotifyApi.play({});
 });
 
-router.post("/start", (req, res) => {
-  spotifyApi.play({ uris: [req.body.uri] });
+router.post("/start", async (req, res) => {
+  await spotifyApi.play({ uris: [req.body.uri] });
 });
 
 router.get("/getCurrent", async (req, res) => {
