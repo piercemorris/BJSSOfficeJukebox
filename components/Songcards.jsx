@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import SpotifyMeta from "../components/SpotifyMeta";
+import Devices from "../components/Devices";
 import PlayerWrapper from "../components/PlayerWrapper";
 import Placeholder from "../components/Placeholder";
 import Songcard from "./Songcard";
@@ -18,7 +18,6 @@ class Songcards extends Component {
   async componentDidMount() {
     const response = await song.getSongs();
     const spotifyData = await Spotify.getMeAndDevices();
-    console.log(spotifyData);
     this.setState({ songs: response.data, spotifyData });
   }
 
@@ -66,7 +65,7 @@ class Songcards extends Component {
       <div>
         {spotifyData
           ?
-          <SpotifyMeta user={spotifyData.body} devices={spotifyData.devices} />
+          <Devices user={spotifyData.body} devices={spotifyData.devices} />
           :
           <p>Authorise Spotify!</p>
         }

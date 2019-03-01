@@ -150,22 +150,6 @@ img.navbar-brand {
 
 }
 
-.priority-1 {
-  background-color: #c2d3ff;
-}
-.priority-2 {
-  background-color: #b4bbca;
-}
-.priority-3 {
-  background-color: #697896;
-}
-.priority-4 {
-  background-color: #374a73;
-}
-.priority-5 {
-  background-color: #1e3462;
-}
-
 /* Forms */
 /* form styling */
 .form {
@@ -181,4 +165,42 @@ img.navbar-brand {
 
 .offset-title {
   margin: 2em 0 2em 15em;
+}
+
+/* Device select */
+#device-select {
+  padding: 1em;
+  margin-bottom: 1em;
+  height: 70px;
+  border: 1px solid #EFEFEF;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.select-style {
+  border: 1px solid #ccc;
+  min-width: 200px;
+  float: right;
+  width: 60%;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.select-style select {
+  padding: 5px 8px;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+}
+
+.select-style select:focus {
+  outline: none;
+}
+
+.user {
+  height: auto;
+  float: left;
 }
