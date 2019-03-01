@@ -1,7 +1,7 @@
 import axios from "axios";
-import { baseUrlLive } from "../config/default.json";
+import { baseUrlLive, baseUrl } from "../config/default.json";
 
-const apiUrl = baseUrlLive;
+const apiUrl = (process.env.NODE_ENV === "production" ? baseUrlLive : baseUrl);
 const apiEndpoint = apiUrl + "/api/songs/";
 
 const areSongs = (songs) => {
