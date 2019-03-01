@@ -26,9 +26,16 @@ export async function getCurrentlyPlaying() {
   return songObject;
 }
 
+export async function getMeAndDevices() {
+  const { data } = await axios.get(apiEndpoint + "/getMe");
+
+  return data;
+}
+
 export default {
   play,
   playSong,
   getCurrentlyPlaying,
+  getMeAndDevices,
   search
 }
