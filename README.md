@@ -25,14 +25,14 @@ How to get the development environment running:
 1. Clone from the GitHub repository `$ git clone https://github.com/perjermer/BJSSOfficeJukebox.git`
 2. Move into the newly cloned folder `$ cd BJSSOfficeJukebox`
 3. Install all the dependency modules `$ npm install`
-4. Run the project locally (with a live database connection) `$ node index.js`
+4. Run the project locally (with a live database connection) `$ npm run dev`
 5. Head over to your favored web browser and go to the following url `http://localhost:3000`
 
 ### Running the tests
 
 To run the tests:
 
-1. Change the environment to testing `$ export NODE_ENV=test`
+1. Change the environment to testing; for OSX `$ export NODE_ENV=test`, for windows `$ set NODE_ENV=test`
 2. Run the test command `npm test`
 3. Results of the tests will follow in the command line
 
