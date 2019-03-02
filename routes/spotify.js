@@ -11,7 +11,7 @@ const scopes = [
   "user-modify-playback-state"
 ];
 const state = "code";
-const url = process.env.FRONTEND_URL || config.get("base-url");
+const url = process.env.FRONTEND_URL || config.get("baseUrl");
 const clientId = process.env.CLIENT_ID || config.get("spotify-client-id");
 const clientSecret = process.env.CLIENT_SECRET || config.get("spotify-client-secret");
 const redirectUri = process.env.REDIRECT_URI || config.get("redirect-uri");
@@ -49,7 +49,7 @@ router.get("/search/:query", async (req, res) => {
 });
 
 router.get("/play/:playing", async (req, res) => {
-  const response = req.body.playing ? await spotifyApi.pause({}) : await spotifyApi.play({});
+  const response = req.params.playing ? await spotifyApi.pause({}) : await spotifyApi.play({});
 
   res.status(200).send(response);
 });
@@ -63,6 +63,18 @@ router.get("/start/:uri", async (req, res) => {
 router.get("/getCurrent", async (req, res) => {
   const response = await spotifyApi.getMyCurrentPlayingTrack({});
   res.status(200).send(response);
+});
+
+router.get("/getMe", async (req, res) => {
+  const { body } = await spotifyApi.getMe();
+  const { body: data } = await spotifyApi.getMyDevices();
+
+  const payload = {
+    body,
+    devices: data.devices
+  };
+
+  res.status(200).send(payload);
 });
 
 module.exports = router;

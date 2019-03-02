@@ -1,8 +1,8 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { baseUrlLive } from "../config/default.json";
+import { baseUrlLive, baseUrl } from "../config/default.json";
 
-const apiUrl = baseUrlLive;
+const apiUrl = (process.env.NODE_ENV === "production" ? baseUrlLive : baseUrl);
 const apiEndpoint = apiUrl + "/api/users";
 const tokenKey = "token";
 

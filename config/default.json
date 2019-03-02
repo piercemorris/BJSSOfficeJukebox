@@ -5,8 +5,6 @@
   "spotify-client-secret": "c38b37d0392f4234bc44fe635c0b4596",
   "redirect-uri": "http://localhost:3000/api/spotify/callback",
   "jwtPrivateKey": "privatekey",
-  "spotifyEndpoint": "http://office-jukebox.herokuapp.com/api/spotify",
-  "base-url": "http://localhost:3000",
   "baseUrl": "http://localhost:3000",
   "baseUrlLive": "http://office-jukebox.herokuapp.com",
   "port": 3000,

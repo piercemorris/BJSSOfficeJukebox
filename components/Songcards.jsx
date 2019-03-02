@@ -1,22 +1,24 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import Songcard from "./Songcard";
-import Info from "../components/common/Info";
+import Devices from "../components/Devices";
 import PlayerWrapper from "../components/PlayerWrapper";
 import Placeholder from "../components/Placeholder";
+import Songcard from "./Songcard";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
 
 class Songcards extends Component {
   state = {
     songs: null,
+    spotifyData: null,
     start: false,
     playing: false
   };
 
   async componentDidMount() {
     const response = await song.getSongs();
-    this.setState({ songs: response.data });
+    const spotifyData = await Spotify.getMeAndDevices();
+    this.setState({ songs: response.data, spotifyData });
   }
 
   handleFinish = async () => {
@@ -58,10 +60,15 @@ class Songcards extends Component {
   }
 
   render() {
-    const { songs } = this.state;
+    const { songs, spotifyData } = this.state;
     return (
       <div>
-        <Info text="A song in the queue will only play if you have Spotify opened on your account!" />
+        {spotifyData
+          ?
+          <Devices user={spotifyData.body} devices={spotifyData.devices} />
+          :
+          <p>Authorise Spotify!</p>
+        }
         {!song.areSongs(songs)
           ?
           <React.Fragment>
