@@ -12,13 +12,21 @@ class Songcards extends Component {
     songs: null,
     spotifyData: null,
     start: false,
-    playing: false
+    playing: false,
+    device: null
   };
 
-  async componentDidMount() {
+  async componentWillMount() {
     const response = await song.getSongs();
     const spotifyData = await Spotify.getMeAndDevices();
     this.setState({ songs: response.data, spotifyData });
+  }
+
+  handleDeviceUpdate = () => {
+    const selection = document.getElementById("device-selection");
+    const device = selection.options[selection.selectedIndex];
+    this.setState({ device });
+    console.log(this.state.device);
   }
 
   handleFinish = async () => {
@@ -55,8 +63,9 @@ class Songcards extends Component {
 
   handleNext = () => {
     this.handleDelete(this.state.songs[0]._id);
-    const firstInQueueURI = this.state.songs[0].song.song.uri;
-    Spotify.playSong(firstInQueueURI);
+    this.state.songs[0].song.song.uri
+      ? Spotify.playSong(this.state.songs[0].song.song.uri)
+      : null;
   }
 
   render() {
@@ -65,7 +74,7 @@ class Songcards extends Component {
       <div>
         {spotifyData
           ?
-          <Devices user={spotifyData.body} devices={spotifyData.devices} />
+          <Devices handleUpdate={this.handleDeviceUpdate} user={spotifyData.body} devices={spotifyData.devices} />
           :
           <p>Authorise Spotify!</p>
         }

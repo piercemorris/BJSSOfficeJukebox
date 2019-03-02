@@ -49,7 +49,12 @@ router.get("/search/:query", async (req, res) => {
 });
 
 router.get("/play/:playing", async (req, res) => {
-  const response = req.params.playing ? await spotifyApi.pause({}) : await spotifyApi.play({});
+  let response;
+  if (req.params.playing === "1") {
+    response = spotifyApi.pause({});
+  } else {
+    response = spotifyApi.play({});
+  }
 
   res.status(200).send(response);
 });

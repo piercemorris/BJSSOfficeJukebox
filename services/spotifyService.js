@@ -10,7 +10,8 @@ export async function search(query) {
 }
 
 export async function play(playing) {
-  await axios.get(apiEndpoint + "/play/" + playing ? 1 : 0);
+  const action = playing ? 1 : 0;
+  await axios.get(apiEndpoint + "/play/" + action);
 }
 
 export async function playSong(uri) {
