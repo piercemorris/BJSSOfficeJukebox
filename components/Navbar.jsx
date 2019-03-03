@@ -1,67 +1,45 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import Link from "next/link";
-import Spotify from "../services/spotifyService";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { changeNavbarState } from "../services/stylingScript";
 
 class Navbar extends Component {
   render() {
     const { user, navs } = this.props;
     return (
       <div>
-        <nav className="navbar navbar-expand-lg">
-          <img className="navbar-brand" src="static/BJSS-280x150-white.png" />
-          <ul className="navbar-nav mr-auto">
-            {navs
-              .filter(link => link.float === "left")
+        <nav className="navbar-main" id="navbar-top">
+          <img className="navbar-image left" src="static/img/BJSS-280x150-white.png" />
+          {navs
+            .filter(link => link.float === "left")
+            .map(link => (
+              <Link href={link.url} key={link.url}>
+                <a className="left">{link.title}</a>
+              </Link>
+            ))}
+
+          {_.isEmpty(user) ?
+            navs
+              .filter(link => link.float === "right")
               .map(link => (
-                <li className="nav-item" key={link.url}>
-                  <Link href={link.url}>
-                    <a className="nav-link">{link.title}</a>
-                  </Link>
-                </li>
-              ))}
-            <li className="nav-item">
-              <Link href="/queue">
-                <a className="nav-link">Queue</a>
+                <Link href={link.url} key={link.url}>
+                  <a className="right">{link.title}</a>
+                </Link>
+              ))
+            :
+            <React.Fragment>
+              <Link href="/logout">
+                <a className="right">Logout</a>
               </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/search">
-                <a className="nav-link">Search</a>
+              <Link href="/account">
+                <a className="right">{user.username}</a>
               </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/api/spotify/login">
-                <a className="nav-link">Authorise Spotify</a>
-              </Link>
-            </li>
-          </ul>
-          <ul className="navbar-nav ml-auto">
-            {_.isEmpty(user) ?
-              navs
-                .filter(link => link.float === "right")
-                .map(link => (
-                  <li className="nav-item" key={link.url}>
-                    <Link href={link.url}>
-                      <a className="nav-link">{link.title}</a>
-                    </Link>
-                  </li>
-                ))
-              :
-              <React.Fragment>
-                <li className="nav-item">
-                  <Link href="/account">
-                    <a className="nav-link">{user.username}</a>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/logout">
-                    <a className="nav-link">Logout</a>
-                  </Link>
-                </li>
-              </React.Fragment>
-            }
-          </ul>
+            </React.Fragment>
+          }
+          <a href="javascript:void(0);" className="icon" onClick={changeNavbarState}>
+            <FontAwesomeIcon icon="bars" />
+          </a>
         </nav>
       </div>
     );

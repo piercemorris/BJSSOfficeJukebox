@@ -29,7 +29,7 @@ class Songcard extends Component {
                     <h6 className="card-subtitle mb-2">
                       {song.album.name + ", " + song.artists[0].name}
                     </h6>
-                    {song.explicit ? <img id="explicit_tag" src="static/explicit.png" width="70px" /> : null}
+                    {song.explicit ? <img id="explicit_tag" src="static/img/explicit.png" width="70px" /> : null}
                     <a href="#" className="card-link">More info</a>
                     <p className="card-text song-card-user">
                       Requested by: {user}

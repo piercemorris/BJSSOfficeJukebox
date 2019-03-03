@@ -11,30 +11,12 @@ html * {
   font-family: "Catamaran", sans-serif;
 }
 
-
 .table {
   margin-top: 1em;
 }
 
-
 .gutter {
   margin: 2em;
-}
-
-.navbar,
-.navbar-default {
-  background-color: var(--bjssDarkBlue);
-  color: white;
-}
-
-ul.navbar-nav {
-  font-weight: 700;
-  font-size: 17px;
-  cursor: pointer;
-}
-
-img.navbar-brand {
-  width: 80px;
 }
 
 .center {
@@ -48,24 +30,6 @@ img.navbar-brand {
 
 .search-table-data {
   vertical-align: center;
-}
-
-.navbar,
-.navbar-default {
-  background-color: var(--bjssDarkBlue);
-  color: white;
-  min-height: 70px;
-}
-
-ul.navbar-nav {
-  font-family: "Catamaran", sans-serif;
-  font-weight: 700;
-  font-size: 17px;
-  color: white;
-}
-
-img.navbar-brand {
-  width: 80px;
 }
 
 .song-card {
