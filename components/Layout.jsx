@@ -28,17 +28,7 @@ class Layout extends Component {
           <link rel="icon" href="static/jukebox-icon.ico" />
           <link rel="stylesheet" href="/static/player.css" />
           <link rel="stylesheet" href="/static/styles.css" />
-          <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-            crossOrigin="anonymous"
-          />
-          <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossOrigin="anonymous"
-          />
+          <link rel="stylesheet" href="/static/bootstrap.min.css" />
         </Head>
         <Navbar user={this.state.user} navs={this.state.links} />
         <div className="container gutter">{this.props.children}</div>
