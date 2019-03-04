@@ -34,6 +34,11 @@ router.get("/callback", async (req, res) => {
   spotifyApi.setAccessToken(response.body.access_token);
   spotifyApi.setRefreshToken(response.body.refresh_token);
   res.redirect(url);
+
+  setInterval(async () => {
+    const response = await spotifyApi.refreshAccessToken();
+    spotifyApi.setAccessToken(response.body.access_token);
+  }, 1740000);
 });
 
 router.get("/refresh", async (req, res) => {
