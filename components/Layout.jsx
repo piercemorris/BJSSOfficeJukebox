@@ -32,6 +32,7 @@ class Layout extends Component {
         <Head>
           <title>BJSS Jukebox</title>
           <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1.0" />
           <link rel="icon" href="static/img/jukebox-icon.ico" />
           <link rel="stylesheet" href="/static/css/navbar.css" />
           <link rel="stylesheet" href="/static/css/player.css" />

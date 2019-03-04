@@ -81,9 +81,7 @@ img.navbar-image {
     float: right;
     display: block;
   }
-}
 
-@media (max-width: 767px) {
   #navbar-top.responsive {
     position: relative;
   }
