@@ -81,7 +81,6 @@ class Songcards extends Component {
         {!song.areSongs(songs)
           ?
           <React.Fragment>
-            <h1>Queue</h1>
             <Placeholder />
           </React.Fragment>
           :
@@ -95,7 +94,6 @@ class Songcards extends Component {
                 priority={songs[0].priority}
               />
             </PlayerWrapper>
-            <h1>Queue</h1>
             {!song.areSongsInQueue(songs)
               ?
               <Placeholder />

@@ -32,90 +32,15 @@ html * {
   vertical-align: center;
 }
 
-.song-card {
-  margin: 1em;
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 0px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px -2px 20px -4px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px -2px 20px -4px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px -2px 20px -4px rgba(0, 0, 0, 0.6);
-}
-
-.song-card-play {
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  box-shadow: none;
-}
-
 .current-play {
   border: none;
-}
-
-.card-image {
-  padding: 0em;
-}
-
-.card-header-body {
-  padding: 0em 1em;
-}
-
-.delete-song {
-  width: 130px;
-  text-align: center;
 }
 
 #text {
   text-shadow: 0px 0px 2px #697896;
 }
 
-#explicit_tag {
-  margin-right: 10px;
-}
-
-.placeholder {
-  margin-left: 25px;
-}
-
-.card-link {
-  color: black;
-  text-decoration: underline;
-}
-.song-card-user {
-  float: right;
-}
-
-.card-priority {
-  float: right;
-}
-
-.circle {
-  height: 25px;
-  width: 25px;
-  border-radius: 15%;
-  float: right;
-  margin-top: -6%;
-  text-shadow: 0 0 0px #041e43;
-
-}
-
-/* Forms */
-/* form styling */
+/* forms */
 .form {
   padding: 1em;
   margin: auto;
@@ -176,4 +101,13 @@ html * {
   overflow: hidden;
   line-height: 40px;
   float: left;
+}
+
+@media screen and (max-width: 775px) {
+  .user 
+   {display: none;}
+  
+  .select-style {
+    width: 100%;
+  }
 }

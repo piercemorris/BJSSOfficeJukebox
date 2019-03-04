@@ -36,6 +36,7 @@ class Layout extends Component {
           <link rel="stylesheet" href="/static/css/navbar.css" />
           <link rel="stylesheet" href="/static/css/player.css" />
           <link rel="stylesheet" href="/static/css/styles.css" />
+          <link rel="stylesheet" href="/static/css/songcard.css" />
           <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
         </Head>
         <Navbar user={this.state.user} navs={this.state.links} />

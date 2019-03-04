@@ -50,7 +50,7 @@ class SearchTable extends Component {
                 <td>{item.name}</td>
                 <td>{item.album.name}</td>
                 <td>{item.artists[0].name}</td>
-                <td>{item.explicit ? <img id="explicit_tag" src="static/explicit.png" width="60px" /> : null}</td>
+                <td>{item.explicit ? <img id="explicit_tag" src="static/img/explicit.png" width="60px" /> : null}</td>
                 <td>
                   <button
                     onClick={() => this.handleAdd(item)}
