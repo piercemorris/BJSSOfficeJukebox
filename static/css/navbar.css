@@ -75,7 +75,7 @@ img.navbar-image {
   height: 100%;
 }
 
-@media screen and (max-width: 775px) {
+@media (max-width: 767px) {
   #navbar-top a:not(:first-child) {display: none;}
   #navbar-top a.icon {
     float: right;
@@ -83,7 +83,7 @@ img.navbar-image {
   }
 }
 
-@media screen and (max-width: 775px) {
+@media (max-width: 767px) {
   #navbar-top.responsive {
     position: relative;
   }
