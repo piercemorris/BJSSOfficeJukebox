@@ -3,8 +3,8 @@ import Head from "next/head";
 import Navbar from "./Navbar";
 import user from "../services/userService";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCoffee, faBars } from '@fortawesome/free-solid-svg-icons';
-library.add(faCoffee, faBars);
+import { faCoffee, faBars, faPlus } from '@fortawesome/free-solid-svg-icons';
+library.add(faCoffee, faBars, faPlus);
 
 class Layout extends Component {
   state = {

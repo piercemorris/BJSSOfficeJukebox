@@ -70,4 +70,17 @@
   .card-link, .delete-song, 
   .requested-by, .priority-no
    {display: none;}
+
+  .search-responsive 
+    {display: none;}
+
+  .search-table {
+    border-collapse: separate;
+    border-spacing: 1em; 
+  }
+  
+  .search-table-row {
+    height: 1em;
+  }
 }
+

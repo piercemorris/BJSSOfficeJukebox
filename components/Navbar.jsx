@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import Link from "next/link";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { changeNavbarState, addActive } from "../services/stylingScript";
 
 class Navbar extends Component {
