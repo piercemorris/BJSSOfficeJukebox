@@ -31,11 +31,13 @@ router.get("/callback", async (req, res) => {
   const code = req.query.code || null;
   const response = await spotifyApi.authorizationCodeGrant(code);
 
+  console.log("token set at time ", new Date());
   spotifyApi.setAccessToken(response.body.access_token);
   spotifyApi.setRefreshToken(response.body.refresh_token);
   res.redirect(url);
 
   setInterval(async () => {
+    console.log("token refreshed at time ", new Date());
     const response = await spotifyApi.refreshAccessToken();
     spotifyApi.setAccessToken(response.body.access_token);
   }, 1740000);
