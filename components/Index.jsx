@@ -8,7 +8,22 @@ class Index extends Component {
       <div>
         <h1>Welcome to the <b>BJSS Office Jukebox</b></h1>
         <p>Your office's very own DJ, who's always taking requests!</p>
-        <h3><b>Features:</b></h3>
+        <div className="contentsMenu">
+          <span>
+            <p>
+              <b>Contents: </b>
+              <ul>
+                <li><a href="localhost:3000/#features"><b>Features</b></a></li>
+                <li><a href="localhost:3000/#howto"><b>User Guide</b></a></li>
+                <ul>
+                  <li><a href="localhost:3000/#withoutSpotify">Without a Spotify Premium account</a></li>
+                  <li><a href="localhost:3000/#withSpotify">With a Spotify Premium account</a></li>
+                </ul>
+              </ul>
+            </p>
+          </span>
+        </div>
+        <h3 id="features"><b>Features:</b></h3>
         <ul>
           <li>Search for your favourite songs from Spotify</li>
           <li>Add them to the song queue</li>
@@ -31,10 +46,10 @@ class Index extends Component {
             </ul>
         </ul>
         <hr/>
-        <h3><b>How to use:</b></h3>
+        <h3 id="howto"><b>How to use:</b></h3>
         <p>This web app will play songs through your communal area's speaker system.</p>
         <p>In order to search for songs to add, you will need a Spotify <i>Premium</i> account. If you do not have one, you can always interact through the communal Alexa device <b>(WIP)</b>.</p>
-        <h4><i>"I <b>don't</b> have a Spotify Premium account"</i></h4>
+        <h4 id="withoutSpotify"><i>"I <b>don't</b> have a Spotify Premium account"</i></h4>
         <p>Many features are still available!</p>
         <ul>
           <li>
@@ -44,7 +59,7 @@ class Index extends Component {
             <b>View statistics:</b> select 'Stats' from the top navigation bar. <b>(WIP)</b>
           </li>
         </ul>
-        <h4><i>"I <b>do</b> have a Spotify Premium account"</i></h4>
+        <h4 id="withSpotify"><i>"I <b>do</b> have a Spotify Premium account"</i></h4>
         <p>You just need to sign up, and then authorise your Spotify account.</p>
         <ol>
           <li>
