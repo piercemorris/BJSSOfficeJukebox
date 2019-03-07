@@ -45,16 +45,34 @@ class Index extends Component {
           </li>
         </ul>
         <h4><i>"I <b>do</b> have a Spotify Premium account"</i></h4>
+        <p>You just need to sign up, and then authorise your Spotify account.</p>
         <ol>
+          <li>
+            <b>Sign up:</b>
+            <ul>
+              <p>
+                Create a new 'user' by clicking 'Sign Up', and filling in the form. Your password will be hashed, only you will know it!
+              </p>
+            </ul>
+          </li>
           <li>
               <b>Authorise your Spotify account:</b>
               <ul>
                 <p>
                   If this is your first time using the Jukebox, you will need to connect to your Spotify account. <br/>
                   So, simple click on 'Authorise Spotify', in the upper navigation bar. <br/>
-                  This will redirect you to a screen where you can enter your Spotify details (don't worry, they are not stored anywhere on this app)<br/>
+                  This will redirect you to a screen where you can enter your Spotify details (don't worry, they are not stored anywhere on this app).<br/>
                 </p>
               </ul>
+          </li>
+          <li>
+            <b>Add songs to the queue:</b>
+            <ul>
+              <p>
+                Navigate to 'Search'. Use the search bar to find the song you fancy.
+                From the search results, find your song, and click the '+'. The song is now queued!
+              </p>
+            </ul>
           </li>
         </ol>
       </div>      
