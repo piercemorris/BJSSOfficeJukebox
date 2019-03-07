@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import queryString from "query-string";
 import Spotify from "../services/spotifyService";
+import { baseUrlLive, baseUrl } from "../config/default.json";
 
 class Index extends Component {
   render() {
+    var url = (process.env.NODE_ENV === "production" ? baseUrlLive : baseUrl);
+    var text = "localhost:3000/#features";
     return (
       <div>
         <h1>Welcome to the <b>BJSS Office Jukebox</b></h1>
@@ -13,11 +16,11 @@ class Index extends Component {
             <p>
               <b>Contents: </b>
               <ul>
-                <li><a href="localhost:3000/#features"><b>Features</b></a></li>
-                <li><a href="localhost:3000/#howto"><b>User Guide</b></a></li>
+                <li><a href={url + "/#features"}><b>Features</b></a></li>
+                <li><a href={url + "/#howto"}><b>User Guide</b></a></li>
                 <ul>
-                  <li><a href="localhost:3000/#withoutSpotify">Without a Spotify Premium account</a></li>
-                  <li><a href="localhost:3000/#withSpotify">With a Spotify Premium account</a></li>
+                  <li><a href={url + "/#withoutSpotify"}>Without a Spotify Premium account</a></li>
+                  <li><a href={url + "/#withSpotify"}>With a Spotify Premium account</a></li>
                 </ul>
               </ul>
             </p>
