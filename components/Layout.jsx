@@ -41,7 +41,7 @@ class Layout extends Component {
           <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
         </Head>
         <Navbar user={this.state.user} navs={this.state.links} />
-        <div className="container gutter">{this.props.children}</div>
+        <div className="">{this.props.children}</div>
       </div>
     );
   }
