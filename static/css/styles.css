@@ -67,7 +67,7 @@ html * {
   border: 1px solid #EFEFEF;
   border-radius: 10px;
   text-align: center;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .select-style {

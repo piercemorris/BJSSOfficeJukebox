@@ -18,7 +18,9 @@ class Songcards extends Component {
 
   async componentWillMount() {
     const response = await song.getSongs();
+    console.log("songs: ", response);
     const spotifyData = await Spotify.getMeAndDevices();
+    console.log(spotifyData);
     this.setState({ songs: response.data, spotifyData });
   }
 
