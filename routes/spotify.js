@@ -64,6 +64,14 @@ router.get("/play/:playing", async (req, res) => {
   res.status(200).send(response);
 });
 
+router.get("/volume/:newVolume", async (req, res) => {
+  const volume = req.params.newVolume;
+  console.log(volume);
+  const response = await spotifyApi.setVolume(volume,{});
+
+  res.status(200).send(response);
+})
+
 router.get("/start/:uri", async (req, res) => {
   const response = await spotifyApi.play({ uris: [req.params.uri] });
 
