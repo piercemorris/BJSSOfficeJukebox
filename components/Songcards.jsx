@@ -13,28 +13,29 @@ class Songcards extends Component {
     spotifyData: null,
     start: false,
     playing: false,
-    device: null
+    currentSongDuration: 0,
+    currentSongPosition: 0
   };
 
-  async componentWillMount() {
+  async componentDidMount() {
     const response = await song.getSongs();
-    console.log("songs: ", response);
     const spotifyData = await Spotify.getMeAndDevices();
-    console.log(spotifyData);
     this.setState({ songs: response.data, spotifyData });
+    this.updateCurrentSongDuration();
   }
 
-  handleDeviceUpdate = () => {
-    const selection = document.getElementById("device-selection");
-    const device = selection.options[selection.selectedIndex];
-    this.setState({ device });
-    console.log(this.state.device);
+  updateCurrentSongDuration = () => {
+    this.setState({
+      currentSongDuration: this.state.songs[0].song.song.duration_ms,
+      currentSongPosition: 0
+    });
   }
 
   handleFinish = async () => {
     const timeCheck = 5000;
     setTimeout(() => { this.handleFinish() }, timeCheck);
     let data = await Spotify.getCurrentlyPlaying();
+    this.setState({currentSongPosition:data.progress});
     let timeRemain = data.duration - data.progress;
     console.log(timeRemain);
     if (timeRemain < timeCheck) {
@@ -65,9 +66,9 @@ class Songcards extends Component {
 
   handleNext = () => {
     this.handleDelete(this.state.songs[0]._id);
-    this.state.songs[0].song.song.uri
-      ? Spotify.playSong(this.state.songs[0].song.song.uri)
-      : null;
+    const firstInQueueURI = this.state.songs[0].song.song.uri;
+    Spotify.playSong(firstInQueueURI);
+    this.updateCurrentSongDuration();
   }
 
   render() {
@@ -88,7 +89,8 @@ class Songcards extends Component {
           :
           <React.Fragment>
             <PlayerWrapper playing={this.state.playing} start={this.handlePlay}
-              skip={this.handleNext} uri={songs[0].song.song.uri}>
+              skip={this.handleNext} uri={songs[0].song.song.uri} currentSongDuration={this.state.currentSongDuration}
+              currentSongPosition={this.state.currentSongPosition}>
               <Songcard
                 currentSong="true"
                 songObj={songs[0]}
@@ -96,6 +98,7 @@ class Songcards extends Component {
                 priority={songs[0].priority}
               />
             </PlayerWrapper>
+            <h2>Queue</h2>
             {!song.areSongsInQueue(songs)
               ?
               <Placeholder />

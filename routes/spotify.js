@@ -69,7 +69,6 @@ router.get("/play/:playing", async (req, res) => {
 
 router.get("/volume/:newVolume", async (req, res) => {
   const volume = req.params.newVolume;
-  console.log(volume);
   const response = await spotifyApi.setVolume(volume,{});
 
   res.status(200).send(response);

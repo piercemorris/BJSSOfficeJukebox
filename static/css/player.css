@@ -87,6 +87,6 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: var(--lighter);
+  background: var(--lightest);
   cursor: pointer;
 }
