@@ -1,0 +1,86 @@
+:root {
+  --bjssDarkBlue: #041e43;
+  --bjssLightBlue: #0047bb;
+  --lightest: #697896;
+  --lighter: #506185;
+  --light: #374a73;
+  --dark: #1e3462;
+  --darker: #061e51;
+}
+
+.song-card {
+  margin: 1em;
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px -2px 20px -4px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px -2px 20px -4px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px -2px 20px -4px rgba(0, 0, 0, 0.6);
+}
+
+.song-card-play {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  box-shadow: none;
+}
+
+.delete-song {
+  width: 130px;
+  text-align: center;
+}
+
+.card-link {
+  color: black;
+  text-decoration: underline;
+}
+
+.placeholder {
+  margin-left: 25px;
+}
+
+.card-image {
+  padding: 0em;
+}
+
+.card-header-body {
+  padding: 0em 1em;
+}
+
+
+#explicit_tag {
+  margin-right: 10px;
+}
+
+@media (max-width: 767px) {
+  .card-link, .delete-song, 
+  .requested-by, .priority-no
+   {display: none;}
+
+  .search-responsive 
+    {display: none;}
+
+  .search-table {
+    border-collapse: separate;
+    border-spacing: 1em; 
+  }
+  
+  .search-table-row {
+    height: 1em;
+  }
+}
+
