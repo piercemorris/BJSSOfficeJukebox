@@ -36,16 +36,8 @@ class LoginForm extends Form {
       <div className="form">
         {this.renderTitle("Log in", "Log in to your Jukebox account")}
         <form onSubmit={this.handleSubmit}>
-          <div className="form-row">
-            <div className="col-md-8">
-              {this.renderInput("username", "Username", "Username")}
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="col-md-8">
-              {this.renderInput("password", "Password", "Password", "password")}
-            </div>
-          </div>
+          {this.renderInput("username", "Username", "Username")}
+          {this.renderInput("password", "Password", "Password", "password")}
           {this.renderButton()}
         </form>
       </div>
