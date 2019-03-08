@@ -17,13 +17,14 @@ class LoginForm extends Form {
   doSubmit = async () => {
     try {
       const { data } = this.state;
-      await user.login(data);
+      const response = await user.login(data);
       window.location = '/';
     }
     catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
-        errors.username - ex.response.data;
+        errors.username = ex.response.data;
+        errors.password = ex.response.data;
         this.setState({ errors });
       }
     }
@@ -35,16 +36,8 @@ class LoginForm extends Form {
       <div className="form">
         {this.renderTitle("Log in", "Log in to your Jukebox account")}
         <form onSubmit={this.handleSubmit}>
-          <div className="form-row">
-            <div className="col-md-8">
-              {this.renderInput("username", "Username", "Username")}
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="col-md-8">
-              {this.renderInput("password", "Password", "Password", "password")}
-            </div>
-          </div>
+          {this.renderInput("username", "Username", "Username")}
+          {this.renderInput("password", "Password", "Password", "password")}
           {this.renderButton()}
         </form>
       </div>
