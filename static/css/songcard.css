@@ -9,10 +9,9 @@
 }
 
 .song-card {
-  margin: 1em;
+  margin: 1em 0em;
   position: relative;
   display: -ms-flexbox;
-  display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
   min-width: 0;
@@ -29,7 +28,6 @@
 .song-card-play {
   position: relative;
   display: -ms-flexbox;
-  display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
   min-width: 0;

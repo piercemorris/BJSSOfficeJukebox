@@ -21,12 +21,12 @@ class PlayerWrapper extends Component {
         <div className="current-play">
           {this.props.children}
         </div>
-        <div className="player-container">
-          <div className="player-bottom-left"> <VolumeSlider/></div>
+        <div className="player-container player-container-bottom">
+          <div className="player-bottom-left"> <VolumeSlider /></div>
           <div className="player-bottom-right">Song duration</div>
         </div>
-        
-        
+
+
       </React.Fragment>
     );
   }
