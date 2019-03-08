@@ -39,6 +39,7 @@ html * {
 }
 
 .card {
+  border: 1px solid black;
   text-align: center;
   color: black;
 }
@@ -56,6 +57,10 @@ html * {
   font-weight: 200;
 }
 
+.extra-pad {
+  padding: 1em;
+}
+
 #head {
   color: rgb(255, 255, 255);
   height: 100vh;
@@ -68,6 +73,13 @@ html * {
   height: 100vh;
   width: 100vw;
   background-image: linear-gradient(to bottom, var(--bjssLighterBlue), var(--bjssLightBlue));
+}
+
+#how-to {
+  color: rgb(255, 255, 255);
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(to bottom, var(--bjssLightBlue), var(--bjssDarkBlue));
 }
 
 #header span {

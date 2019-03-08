@@ -15,13 +15,13 @@ class Index extends Component {
             <span className="home-intro">Your office's very own DJ, who's always taking requests!</span>
           </div>
         </div>
-
         <div id="feature" className="home-section">
           <div id="header" className="gutter">
             <b id="home-title">Features</b>
+            <span className="home-intro">A multiuser song playing and queueing system.</span>
           </div>
           <div className="feature-grid">
-            <div className="card">
+            <div>
               <div className="container">
                 <span className="feature-title">
                   Search songs
@@ -33,7 +33,7 @@ class Index extends Component {
                 </ul>
               </div>
             </div>
-            <div className="card">
+            <div>
               <div className="container">
                 <span className="feature-title">
                   Fair Queue
@@ -45,7 +45,7 @@ class Index extends Component {
                 </ul>
               </div>
             </div>
-            <div className="card">
+            <div>
               <div className="container">
                 <span className="feature-title">
                   Listen
@@ -59,8 +59,46 @@ class Index extends Component {
             </div>
           </div>
         </div>
+        <div id="how-to" className="home-section">
+          <div id="header" className="gutter">
+            <b id="home-title">How To Use</b>
+            <span className="home-intro">How to user the system effectively.</span>
+          </div>
+          <p className="gutter extra-pad">
+            This web app will play through your social space speaker system.
 
-
+            To get the most out of the functionality this provides, follow these steps:
+            <ol className="extra-pad">
+              <li>
+                <b>Sign up:</b>
+                <ul>
+                  <p>
+                    Create a new 'user' by clicking 'Sign Up', and filling in the form. Your password will be hashed, only you will know it!
+              </p>
+                </ul>
+              </li>
+              <li>
+                <b>Authorise your Spotify account:</b>
+                <ul>
+                  <p>
+                    If this is your first time using the Jukebox, you will need to connect to your Spotify account. <br />
+                    So, simple click on 'Authorise Spotify', in the upper navigation bar. <br />
+                    This will redirect you to a screen where you can enter your Spotify details (don't worry, they are not stored anywhere on this app).<br />
+                  </p>
+                </ul>
+              </li>
+              <li>
+                <b>Add songs to the queue:</b>
+                <ul>
+                  <p>
+                    Navigate to 'Search'. Use the search bar to find the song you fancy.
+                    From the search results, find your song, and click the '+'. The song is now queued!
+              </p>
+                </ul>
+              </li>
+            </ol>
+          </p>
+        </div>
       </div>
     );
   }
