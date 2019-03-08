@@ -17,13 +17,14 @@ class LoginForm extends Form {
   doSubmit = async () => {
     try {
       const { data } = this.state;
-      await user.login(data);
+      const response = await user.login(data);
       window.location = '/';
     }
     catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
-        errors.username - ex.response.data;
+        errors.username = ex.response.data;
+        errors.password = ex.response.data;
         this.setState({ errors });
       }
     }

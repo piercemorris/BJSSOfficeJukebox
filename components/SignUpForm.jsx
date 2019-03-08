@@ -23,8 +23,17 @@ class SignUpForm extends Form {
     }
     catch (ex) {
       if (ex.response && ex.response.status === 400) {
+        const regex = /\busername|password\b/g;
         const errors = { ...this.state.errors };
-        errors.username - ex.response.data;
+        const error = ex.response.data;
+        const type = error.match(regex);
+
+        if (type[0] === "username") {
+          errors.username = error;
+        }
+        else if (type[0] === "password") {
+          errors.password = error;
+        }
         this.setState({ errors });
       }
     }
