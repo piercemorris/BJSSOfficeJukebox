@@ -54,6 +54,7 @@
     "querystring": "~0.2.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-rangeslider": "^2.2.0",
     "request": "^2.83.0",
     "spotify-web-api-js": "^0.22.1",
     "spotify-web-api-node": "^4.0.0"

@@ -111,3 +111,18 @@ html * {
     width: 100%;
   }
 }
+
+.contentsMenu span{
+  border-style: solid;
+  display:inline-block;
+  padding:5px;
+  border:3px solid;
+}
+
+.contentsMenu a{
+  color: black;
+}
+
+.contentsMenu a:hover{
+  color: grey;
+}
