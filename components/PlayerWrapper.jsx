@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import VolumeSlider from "../components/VolumeSlider";
 
 class PlayerWrapper extends Component {
   state = {}
@@ -18,6 +19,8 @@ class PlayerWrapper extends Component {
         <div className="player-container">
           <button className="player-btn-bottom">Song duration</button>
         </div>
+        <VolumeSlider/>
+        
       </React.Fragment>
     );
   }
