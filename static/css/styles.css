@@ -13,8 +13,11 @@ html * {
   font-family: "Catamaran", sans-serif;
 }
 
-/* home page */
+.hover {
+  cursor: pointer;
+}
 
+/* home page */
 .home-section {
   padding: 2em;
 }
@@ -90,7 +93,6 @@ html * {
   font-size: 86px;
   font-weight: 400;
 }
-
 /* end of home page */
 
 .table {
@@ -98,7 +100,7 @@ html * {
 }
 
 .gutter {
-  margin: 0em 2em;
+  margin: 2em 4em;
 }
 
 

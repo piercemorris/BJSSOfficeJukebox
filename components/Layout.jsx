@@ -37,6 +37,7 @@ class Layout extends Component {
           <link rel="stylesheet" href="/static/css/navbar.css" />
           <link rel="stylesheet" href="/static/css/player.css" />
           <link rel="stylesheet" href="/static/css/styles.css" />
+          <link rel="stylesheet" href="/static/css/modal.css" />
           <link rel="stylesheet" href="/static/css/songcard.css" />
           <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
         </Head>

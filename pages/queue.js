@@ -4,6 +4,8 @@ import Songcards from "../components/Songcards";
 
 export default () => (
   <Layout>
-    <Songcards />
+    <div className="gutter">
+      <Songcards />
+    </div>
   </Layout>
 );

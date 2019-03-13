@@ -2,15 +2,28 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import songs from "../services/songService";
 import user from "../services/userService";
+import Modal from "../components/common/Modal";
 
 class SearchTable extends Component {
   state = {
-    userActive: false
+    userActive: false,
+    show: false,
+    addedSong: ""
+  };
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
   };
 
   async handleAdd(song) {
+    this.setState({ addedSong: song.name });
     const currentUser = await user.getCurrentUser();
-    const response = songs.addSong({ song }, currentUser._id, currentUser.username);
+    const response = await songs.addSong({ song }, currentUser._id, currentUser.username);
+    this.showModal();
   }
 
   async componentWillMount() {
@@ -22,14 +35,25 @@ class SearchTable extends Component {
 
   render() {
     const { result } = this.props;
-    const { userActive } = this.state;
+    const { userActive, show, addedSong } = this.state;
 
     return (
       <React.Fragment>
+        <Modal show={show} handleClose={this.hideModal}>
+          {addedSong ?
+            <div className="display-block">
+              <span className="subtitle">Added</span>
+              <span id="added-song">{addedSong}</span>
+              <span className="subtitle">To the queue</span>
+            </div>
+            :
+            null
+          }
+        </Modal>
         {userActive ?
           ""
           :
-          <div class="alert alert-warning" role="alert">
+          <div className="alert alert-warning" role="alert">
             You have to be logged in to add a song!
           </div>
         }
@@ -46,7 +70,7 @@ class SearchTable extends Component {
           </thead>
           <tbody>
             {result.map(item => (
-              <tr className="search-table-row">
+              <tr key={item.uri} className="search-table-row">
                 <td className="search-responsive">
                   <img src={item.album.images[2].url} />
                 </td>
@@ -55,7 +79,7 @@ class SearchTable extends Component {
                 <td className="search-responsive">{item.artists[0].name}</td>
                 <td>{item.explicit ? <img id="explicit_tag" src="static/img/explicit.png" width="60px" /> : null}</td>
                 <td>
-                  <FontAwesomeIcon onClick={() => this.handleAdd(item)} icon="plus" />
+                  <FontAwesomeIcon className="hover" onClick={() => this.handleAdd(item)} icon="plus" />
                 </td>
               </tr>
             ))}
