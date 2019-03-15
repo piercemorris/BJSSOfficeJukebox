@@ -85,6 +85,10 @@ html * {
   background-image: linear-gradient(to bottom, var(--bjssLightBlue), var(--bjssDarkBlue));
 }
 
+#header {
+  animation: moveToRight 1s ease-out;
+}
+
 #header span {
   display: block;
 }
@@ -210,4 +214,17 @@ html * {
 
 .contentsMenu a:hover{
   color: grey;
+}
+
+
+@keyframes moveToRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
