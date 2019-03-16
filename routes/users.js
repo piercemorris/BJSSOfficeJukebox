@@ -16,7 +16,6 @@ router.get("/:id", async (req, res) => { //auth for middleware
 
 // HTTP POST request to create a new user account then log them in immediately
 router.post("/", async (req, res) => {
-  console.log(req.body);
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -32,8 +31,7 @@ router.post("/", async (req, res) => {
     priority: 1.0
   });
 
-  // Generate a hash function to encrypt the passwords that are going to be
-  // stored in the database
+  // Generate a hash function to encrypt the passwords that are going to be stored in the database
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();

@@ -1,0 +1,105 @@
+:root {
+  --bjssDarkBlue: #041e43;
+  --bjssLightBlue: #0047bb;
+  --lightest: #697896;
+  --lighter: #506185;
+  --light: #374a73;
+  --dark: #1e3462;
+  --darker: #061e51;
+}
+
+#navbar-top {
+  background-color: var(--bjssLightBlue);
+  color: white;
+  overflow: hidden;
+}
+
+#navbar-top a {
+  display: inline-block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 20px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+#navbar-top .icon {
+  display: none;
+}
+
+img.navbar-image {
+  margin: 10px;
+  width: 80px;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+#navbar-top a,
+#navbar-top a:after,
+#navbar-top a:before {
+  transition: all .5s;
+}
+
+#navbar-top a {
+  position:relative;
+  z-index: 1;
+}
+
+#navbar-top a:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: 1px;
+  content: '.';
+  color: transparent;
+  background: var(--bjssDarkBlue);
+  visibility: none;
+  opacity: 0;
+  z-index: -1;
+}
+#navbar-top a:hover:after {
+  opacity: 1;
+  visibility: visible;
+  height: 100%;
+}
+
+@media (max-width: 767px) {
+  #navbar-top a:not(:first-child) {display: none;}
+  #navbar-top a.icon {
+    float: right;
+    display: block;
+  }
+
+  #navbar-top.responsive {
+    position: relative;
+  }
+
+  #navbar-top.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  #navbar-top.responsive a {
+    float: none;
+    display: block;
+    text-align: center;
+  }
+
+  #navbar-top.responsive img {
+    float: none;
+    display: block;
+    text-align: center;
+  }
+}

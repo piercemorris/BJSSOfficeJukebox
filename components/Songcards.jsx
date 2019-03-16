@@ -18,7 +18,9 @@ class Songcards extends Component {
 
   async componentWillMount() {
     const response = await song.getSongs();
+    console.log("songs: ", response);
     const spotifyData = await Spotify.getMeAndDevices();
+    console.log(spotifyData);
     this.setState({ songs: response.data, spotifyData });
   }
 
@@ -81,7 +83,6 @@ class Songcards extends Component {
         {!song.areSongs(songs)
           ?
           <React.Fragment>
-            <h1>Queue</h1>
             <Placeholder />
           </React.Fragment>
           :
@@ -95,7 +96,6 @@ class Songcards extends Component {
                 priority={songs[0].priority}
               />
             </PlayerWrapper>
-            <h1>Queue</h1>
             {!song.areSongsInQueue(songs)
               ?
               <Placeholder />

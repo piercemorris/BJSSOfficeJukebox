@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import songs from "../services/songService";
 import user from "../services/userService";
 
 class SearchTable extends Component {
   state = {
-    headers: ["#", "Song name", "Album", "Artist", "Explicit", ""],
     userActive: false
   };
 
@@ -22,7 +22,7 @@ class SearchTable extends Component {
 
   render() {
     const { result } = this.props;
-    const { headers, userActive } = this.state;
+    const { userActive } = this.state;
 
     return (
       <React.Fragment>
@@ -33,31 +33,29 @@ class SearchTable extends Component {
             You have to be logged in to add a song!
           </div>
         }
-        <table className="center text-center">
+        <table className="center text-center search-table">
           <thead>
             <tr>
-              {headers.map(header => (
-                <th scope="col">{header}</th>
-              ))}
+              <th className="search-responsive" scope="col">#</th>
+              <th scope="col">Track</th>
+              <th className="search-responsive" scope="col">Album</th>
+              <th className="search-responsive" scope="col">Artist</th>
+              <th scope="col">Explicit</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
             {result.map(item => (
               <tr className="search-table-row">
-                <td>
+                <td className="search-responsive">
                   <img src={item.album.images[2].url} />
                 </td>
                 <td>{item.name}</td>
-                <td>{item.album.name}</td>
-                <td>{item.artists[0].name}</td>
-                <td>{item.explicit ? <img id="explicit_tag" src="static/explicit.png" width="60px" /> : null}</td>
+                <td className="search-responsive">{item.album.name}</td>
+                <td className="search-responsive">{item.artists[0].name}</td>
+                <td>{item.explicit ? <img id="explicit_tag" src="static/img/explicit.png" width="60px" /> : null}</td>
                 <td>
-                  <button
-                    onClick={() => this.handleAdd(item)}
-                    className={userActive ? "btn btn-primary" : "btn btn-primary disabled"}
-                  >
-                    Add
-                </button>
+                  <FontAwesomeIcon onClick={() => this.handleAdd(item)} icon="plus" />
                 </td>
               </tr>
             ))}

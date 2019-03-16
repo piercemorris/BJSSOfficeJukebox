@@ -41,7 +41,7 @@ class SearchBar extends Component {
     this.setState({ errors: errors || {} });
     if (errors) return;
 
-    const { search } = this.state; 
+    const { search } = this.state;
     const data = await Spotify.search(search.query);
     this.setState({ result: data });
   };
@@ -53,39 +53,36 @@ class SearchBar extends Component {
     this.setState({ search });
   };
 
+  renderSearchBar = () => {
+    const { search, errors } = this.state;
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <Input
+          name="query"
+          type="text"
+          value={search.query}
+          placeholder="Search for a Song"
+          error={errors.query}
+          onChange={this.handleChange}
+        />
+        <Submit />
+      </form>
+    );
+  }
+
   render() {
-    const { search, errors, result } = this.state;
+    const { result } = this.state;
 
     if (_.isEmpty(result)) {
       return (
         <div>
-          <form onSubmit={this.handleSubmit}>
-            <Input
-              name="query"
-              type="text"
-              value={search.query}
-              label="Search for a song"
-              error={errors.query}
-              onChange={this.handleChange}
-            />
-            <Submit />
-          </form>
+          {this.renderSearchBar()}
         </div>
       );
     } else {
       return (
         <div>
-          <form onSubmit={this.handleSubmit}>
-            <Input
-              name="query"
-              type="text"
-              value={search.query}
-              label="Search for a song"
-              error={errors.query}
-              onChange={this.handleChange}
-            />
-            <Submit />
-          </form>
+          {this.renderSearchBar()}
           <SearchTable result={this.state.result} />
         </div>
       );

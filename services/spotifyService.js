@@ -18,6 +18,10 @@ export async function playSong(uri) {
   await axios.get(apiEndpoint + "/start/" + uri);
 }
 
+export async function updatePlayVolume(volume) {
+  await axios.get(apiEndpoint + "/Volume/" + volume);
+}
+
 export async function getCurrentlyPlaying() {
   const { data } = await axios.get(apiEndpoint + "/getCurrent");
   const songObject = {
@@ -36,6 +40,7 @@ export async function getMeAndDevices() {
 export default {
   play,
   playSong,
+  updatePlayVolume,
   getCurrentlyPlaying,
   getMeAndDevices,
   search

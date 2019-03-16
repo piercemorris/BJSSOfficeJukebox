@@ -1,6 +1,7 @@
 const express = require("express");
 const config = require("config");
 const SpotifyWebApi = require('spotify-web-api-node');
+const { Song, validate } = require("../models/song");
 const router = express.Router();
 
 const scopes = [
@@ -31,9 +32,16 @@ router.get("/callback", async (req, res) => {
   const code = req.query.code || null;
   const response = await spotifyApi.authorizationCodeGrant(code);
 
+  console.log("token set at time ", new Date());
   spotifyApi.setAccessToken(response.body.access_token);
   spotifyApi.setRefreshToken(response.body.refresh_token);
   res.redirect(url);
+
+  setInterval(async () => {
+    console.log("token refreshed at time ", new Date());
+    const response = await spotifyApi.refreshAccessToken();
+    spotifyApi.setAccessToken(response.body.access_token);
+  }, 1740000);
 });
 
 router.get("/refresh", async (req, res) => {
@@ -59,6 +67,14 @@ router.get("/play/:playing", async (req, res) => {
   res.status(200).send(response);
 });
 
+router.get("/volume/:newVolume", async (req, res) => {
+  const volume = req.params.newVolume;
+  console.log(volume);
+  const response = await spotifyApi.setVolume(volume,{});
+
+  res.status(200).send(response);
+})
+
 router.get("/start/:uri", async (req, res) => {
   const response = await spotifyApi.play({ uris: [req.params.uri] });
 
@@ -80,6 +96,28 @@ router.get("/getMe", async (req, res) => {
   };
 
   res.status(200).send(payload);
+});
+
+router.post("/alexa", async (req, res) => {
+  const query = req.body.query;
+  const response = await spotifyApi.searchTracks(query); // check if response is null?
+  const track = response.body.tracks.items[0];
+  const songObj = {
+    song: track
+  }
+
+  // add to the queue with priority 1.0 under name Alexa
+  let song = new Song({
+    song: songObj,
+    username: "Alexa",
+    requestedBy: null,
+    dateAdded: Date.now(),
+    priority: 1.0,
+  });
+
+  // save the song
+  song = await song.save();
+  res.send(song).status(200);
 });
 
 module.exports = router;
