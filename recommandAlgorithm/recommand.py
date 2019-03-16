@@ -35,11 +35,28 @@ def recommandSong(list, listArray, mydict):
         distanceList[distanceList.index(min(distanceList))] = max(distanceList)
     return songList
 
+
+def recommandSongRandom():
+    list = []
+    songList = []
+    while b_length <= 10:
+        random_number = random.randint(0, 99)
+        if random_number not in b_list:
+            list.append(random_number)
+            b_length += 1
+            songList.append(mydict[random_number])
+    return songList
+
 def updateDB():
     # update the recommand song to the DB
 
 
 mydict = readDict("dict.csv")
 newUserSongList = songList2vec()
-existedUserSongList = songList2vec()
-recommandSong(newUserSongList, existedUserSongList, mydict)
+# if the song list is empty we can recommond the song randomly
+if isEmpty(newUserSongList):
+    song = recommadSongRandom()
+else:
+    existedUserSongList = songList2vec()
+    recommandSong(newUserSongList, existedUserSongList, mydict)
+updateDB()
