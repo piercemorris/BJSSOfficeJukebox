@@ -1,0 +1,14 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: "Catamaran", sans-serif;
+}
+
+html {
+  font-size: 62.5%; 
+}
+
+body {
+  box-sizing: border-box;
+}

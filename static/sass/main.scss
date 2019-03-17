@@ -1,0 +1,17 @@
+
+// ABSTRACTS
+@import "abstracts/variables";
+
+// BASE
+@import "base/base";
+@import "base/animation";
+@import "base/utilities";
+
+//COMPONENTS
+@import "components/modal";
+@import "components/navbar";
+@import "components/songcard";
+@import "components/player";
+
+//PAGES
+@import "pages/home";
