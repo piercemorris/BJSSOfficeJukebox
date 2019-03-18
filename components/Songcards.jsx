@@ -4,6 +4,7 @@ import Devices from "../components/Devices";
 import PlayerWrapper from "../components/PlayerWrapper";
 import Placeholder from "../components/Placeholder";
 import Songcard from "./Songcard";
+import Button from "./common/Button";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
 import Submit from "../components/common/emailButton";
@@ -122,6 +123,29 @@ class Songcards extends Component {
         <h1>{this.state.songs[0].song.song.name}</h1>
   */
 
+ renderSong = (song) => {
+  return (
+    <>
+      <tr className="queue__table__content">
+        <td className="queue__table-image">
+          <img
+            className="queue__table-image-img"
+            src={song.song.song.album.images[1].url}
+            alt="song in queue"
+          />
+        </td>
+        <td>{song.song.song.name}</td>
+        <td>{song.song.song.artists[0].name}</td>
+        <td>{song.song.song.album.name}</td>
+        <td>{song.username}</td>
+        <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
+        <td>
+          <Button text="Remove" className="bottom"/>
+        </td>
+      </tr>
+    </>
+  );
+}
 
   render() {
     const { songs, spotifyData } = this.state;
@@ -150,6 +174,7 @@ class Songcards extends Component {
                       <span className="text-box__song-artist">{songs[0].song.song.artists[0].name}</span>
                       <span className="text-box__song-album">{songs[0].song.song.album.name}</span>
                     </h2>
+                    <Button text="Remove"/>
                   </div>
                 </div>
               </div>
@@ -172,21 +197,15 @@ class Songcards extends Component {
                   <th className="queue__table-header-priority">Priority</th>
                   <th className="queue__table-header-button"></th>
                 </tr>
-                <tr className="queue__table__content">
-                  <td className="queue__table-image">
-                    <img
-                      className="queue__table-image-img"
-                      src={songs[0].song.song.album.images[1].url}
-                      alt="song in queue"
-                    />
-                  </td>
-                  <td>{songs[0].song.song.name}</td>
-                  <td>{songs[0].song.song.artists[0].name}</td>
-                  <td>{songs[0].song.song.album.name}</td>
-                  <td>{songs[0].username}</td>
-                  <td>{songs[0].priority}</td>
-                  <td></td>
-                </tr>
+                {!song.areSongsInQueue(songs) ?
+                  <Placeholder />
+                  :
+                  songs
+                    .filter(song => songs.indexOf(song) != 0)
+                    .map(song => (
+                      this.renderSong(song)
+                    ))
+                }
               </table>
             </section>
           </>

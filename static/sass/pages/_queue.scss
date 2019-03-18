@@ -1,5 +1,6 @@
 .queue-page {
-
+  background-color: $color-gray-light;
+  height: 100vh;
 
   .currently-playing {
     background-image: linear-gradient(to bottom, $color-gray, lighten($color-black, 15%));
@@ -21,10 +22,12 @@
 }
 
 .queue {
-
   padding: 3rem 10rem;
+  background-color: $color-gray-light;
+  margin: auto;
   
   &-title {
+    margin-left: calc(10% + 7rem);
     font-size: 2.8rem;
     color: $primary-text-color;
     letter-spacing: 1px;
@@ -32,11 +35,14 @@
   }
 
   &__table {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
     border-spacing: 0rem 1rem;
 
     &-header {
       &-img {
-        width: 7.5%;
+        width: 7rem;
       }
       &-title {
         width: 25%;
@@ -51,10 +57,10 @@
         width: 15%;
       }
       &-priority {
-        width: 15%;
+        width: 5%;
       }
       &-button {
-        width: 5%;
+        width: 15%;
       }
     }
 
@@ -86,8 +92,10 @@
     }
 
     &-image {
-      height: 60px;
-      width: 60px;
+      &-img {
+        height: 60px;
+        width: 60px;
+      }
     }
   }
 }
