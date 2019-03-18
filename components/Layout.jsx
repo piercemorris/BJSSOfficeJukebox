@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Head from "next/head";
 import Navbar from "./Navbar";
+import "../static/sass/main.scss";
 import user from "../services/userService";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCoffee, faBars, faPlus, faPlay, faPause, faForward } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +27,15 @@ class Layout extends Component {
   }
 
   render() {
-    //
+
+    /*
+          <link rel="stylesheet" href="/static/css/navbar.css" />
+          <link rel="stylesheet" href="/static/css/player.css" />
+          <link rel="stylesheet" href="/static/css/styles.css" />
+          <link rel="stylesheet" href="/static/css/modal.css" />
+          <link rel="stylesheet" href="/static/css/songcard.css" />
+          <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+    */
     return (
       <div>
         <Head>
@@ -34,11 +43,6 @@ class Layout extends Component {
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width,initial-scale=1.0" />
           <link rel="icon" href="static/img/jukebox-icon.ico" />
-          <link rel="stylesheet" href="/static/css/navbar.css" />
-          <link rel="stylesheet" href="/static/css/player.css" />
-          <link rel="stylesheet" href="/static/css/styles.css" />
-          <link rel="stylesheet" href="/static/css/songcard.css" />
-          <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
         </Head>
         <Navbar user={this.state.user} navs={this.state.links} />
         <div className="">{this.props.children}</div>

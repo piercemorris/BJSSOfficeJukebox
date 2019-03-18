@@ -2,29 +2,39 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import songs from "../services/songService";
 import user from "../services/userService";
+import Modal from "../components/common/Modal";
 import renderPlaceholder from "./Placeholder";
 
 class SearchTable extends Component {
-  constructor(props) {
-    super(props) 
-  this.state = {
+  state = {
     itemsToShow: 3,
+    userActive: false,
     expanded: false,
-    userActive: false
+    show: false,
+    addedSong: ""
   };
-  this.showMore = this.showMore.bind(this);
-}
-showMore() {
-  this.state.itemsToShow === 3 ? (
-    this.setState({ itemsToShow: 7, expanded: true })
-    ) : (
-      this.setState({ itemsToShow: 3, expanded: false })
-    )
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
   }
+  
+  showMore = () => {
+    this.state.itemsToShow === 3 ? (
+      this.setState({ itemsToShow: 7, expanded: true })
+      ) : (
+        this.setState({ itemsToShow: 3, expanded: false })
+      )
+    }
 
   async handleAdd(song) {
+    this.setState({ addedSong: song.name });
     const currentUser = await user.getCurrentUser();
-    const response = songs.addSong({ song }, currentUser._id, currentUser.username);
+    const response = await songs.addSong({ song }, currentUser._id, currentUser.username);
+    this.showModal();
     location.reload();
   }
 
@@ -36,13 +46,25 @@ showMore() {
   }
 
   render() {
-    const { userActive } = this.state;
+    const { result } = this.props;
+    const { userActive, show, addedSong } = this.state;
     return (
       <React.Fragment>
+        <Modal show={show} handleClose={this.hideModal}>
+          {addedSong ?
+            <div className="display-block">
+              <span className="subtitle">Added</span>
+              <span id="added-song">{addedSong}</span>
+              <span className="subtitle">To the queue</span>
+            </div>
+            :
+            null
+          }
+        </Modal>
         {userActive ?
           ""
           :
-          <div class="alert alert-warning" role="alert">
+          <div className="alert alert-warning" role="alert">
             You have to be logged in to add a song!
           </div>
         }

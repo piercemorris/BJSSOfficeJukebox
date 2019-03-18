@@ -4,20 +4,20 @@ import { baseUrlLive, baseUrl } from "../config/default.json";
 
 class Index extends Component {
   render() {
-    var url = (process.env.NODE_ENV === "production" ? baseUrlLive : baseUrl);
-    var text = "localhost:3000/#features";
     return (
-      <div id="home">
-        <div id="head" className="home-section">
-          <div id="header" className="gutter">
+      <div className="home-page">
+
+        <section className="home-section">
+          <div className="gutter header">
             <span className="home-intro">Welcome to the</span>
-            <b id="home-title">Office Jukebox</b>
+            <b className="home-title">Office Jukebox</b>
             <span className="home-intro">Your office's very own DJ, who's always taking requests!</span>
           </div>
-        </div>
-        <div id="feature" className="home-section">
-          <div id="header" className="gutter">
-            <b id="home-title">Features</b>
+        </section>
+
+        <section id="feature" className="home-section">
+          <div className="gutter header">
+            <b className="home-title">Features</b>
             <span className="home-intro">A multiuser song playing and queueing system.</span>
           </div>
           <div className="feature-grid">
@@ -25,7 +25,7 @@ class Index extends Component {
               <div className="container">
                 <span className="feature-title">
                   Search songs
-                </span>
+                  </span>
                 <ul>
                   <li>Search for the song you want to play</li>
                   <li>Simply add the songs by clicking the <FontAwesomeIcon icon="plus" /> icon</li>
@@ -58,47 +58,44 @@ class Index extends Component {
               </div>
             </div>
           </div>
-        </div>
-        <div id="how-to" className="home-section">
-          <div id="header" className="gutter">
-            <b id="home-title">How To Use</b>
+        </section>
+
+        <section id="how-to" className="home-section">
+          <div className="gutter header">
+            <b className="home-title">How To Use</b>
             <span className="home-intro">How to user the system effectively.</span>
           </div>
-          <p className="gutter extra-pad">
-            This web app will play through your social space speaker system.
 
-            To get the most out of the functionality this provides, follow these steps:
+          <div className="home-section--desc">
+            <p className="gutter extra-pad">
+              This web app will play through your social space speaker system.
+              To get the most out of the functionality this provides, follow these steps:
+            </p>
             <ol className="extra-pad">
               <li>
                 <b>Sign up:</b>
-                <ul>
-                  <p>
-                    Create a new 'user' by clicking 'Sign Up', and filling in the form. Your password will be hashed, only you will know it!
+                <p>
+                  Create a new 'user' by clicking 'Sign Up', and filling in the form. Your password will be hashed, only you will know it!
               </p>
-                </ul>
               </li>
               <li>
                 <b>Authorise your Spotify account:</b>
-                <ul>
-                  <p>
-                    If this is your first time using the Jukebox, you will need to connect to your Spotify account. <br />
-                    So, simple click on 'Authorise Spotify', in the upper navigation bar. <br />
-                    This will redirect you to a screen where you can enter your Spotify details (don't worry, they are not stored anywhere on this app).<br />
-                  </p>
-                </ul>
+                <p>
+                  If this is your first time using the Jukebox, you will need to connect to your Spotify account. <br />
+                  So, simple click on 'Authorise Spotify', in the upper navigation bar. <br />
+                  This will redirect you to a screen where you can enter your Spotify details (don't worry, they are not stored anywhere on this app).<br />
+                </p>
               </li>
               <li>
                 <b>Add songs to the queue:</b>
-                <ul>
-                  <p>
-                    Navigate to 'Search'. Use the search bar to find the song you fancy.
-                    From the search results, find your song, and click the '+'. The song is now queued!
+                <p>
+                  Navigate to 'Search'. Use the search bar to find the song you fancy.
+                  From the search results, find your song, and click the '+'. The song is now queued!
               </p>
-                </ul>
               </li>
             </ol>
-          </p>
-        </div>
+          </div>
+        </section>
       </div>
     );
   }

@@ -1,0 +1,25 @@
+.custom-search {
+  text-decoration: none;
+  font-size: 5rem;
+  font-weight: 600;
+  color: $color-white;
+  background-color: rgba($bjss-light-blue, 1);
+  margin: 3rem 0rem;
+  caret-color: $color-white;
+  border: none;
+  //border: .25rem solid rgba($bjss-light-blue, 0.8);
+  //border-radius: 3px;
+  padding: 1rem;
+  box-shadow: 0rem .5rem 1rem rgba($color-black, 0.6);
+  transition: all .2s;
+
+  &:focus {
+    transform: scale(1.05);
+    box-shadow: 0rem 1rem 2rem rgba($color-black, 0.2);
+  }
+
+  &-form {
+    display: block;
+    text-align: center;
+  }
+}

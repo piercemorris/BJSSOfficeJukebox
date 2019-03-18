@@ -1,0 +1,83 @@
+:root {
+  --bjssDarkBlue: #041e43;
+  --bjssLightBlue: #0047bb;
+  --lightest: #697896;
+  --lighter: #506185;
+  --light: #374a73;
+  --dark: #1e3462;
+  --darker: #061e51;
+}
+
+.song-card {
+  margin: 1rem 0rem;
+  position: relative;
+  display: -ms-flexbox;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0px -2px 20px -4px rgba($color-black, 0.6);
+  -moz-box-shadow: 0px -2px 20px -4px rgba($color-black, 0.6);
+  box-shadow: 0px -2px 20px -4px rgba($color-black, 0.6);
+}
+
+.song-card-play {
+  position: relative;
+  display: -ms-flexbox;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: $color-white;
+  background-clip: border-box;
+  box-shadow: none;
+}
+
+.delete-song {
+  width: 13rem;
+  text-align: center;
+}
+
+.card-link {
+  color: black;
+  text-decoration: underline;
+}
+
+.placeholder {
+  margin-left: 2.5rem;
+}
+
+.card-image {
+  padding: 0;
+}
+
+.card-header-body {
+  padding: 0 1rem;
+}
+
+
+#explicit_tag {
+  margin-right: 1rem;
+}
+
+@media (max-width: $max-mobile-width) {
+  .card-link, .delete-song, 
+  .requested-by, .priority-no
+   {display: none;}
+
+  .search-responsive 
+    {display: none;}
+
+  .search-table {
+    border-collapse: separate;
+    border-spacing: 1rem; 
+  }
+  
+  .search-table-row {
+    height: 1rem;
+  }
+}
+
