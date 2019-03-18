@@ -1,0 +1,139 @@
+.queue-page {
+
+
+  .currently-playing {
+    background-image: linear-gradient(to bottom, $color-gray, lighten($color-black, 15%));
+    height: 50vh;
+
+    &__song-info {
+      padding: 4rem 5rem;
+    }
+
+    &__image {
+
+      &-img {
+        float: right;
+        height: 30vh;
+        box-shadow: 0rem 1rem 2rem rgba($color-black, 0.8);
+      }
+    }
+  }
+}
+
+.queue {
+
+  padding: 3rem 10rem;
+  
+  &-title {
+    font-size: 2.8rem;
+    color: $primary-text-color;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__table {
+    border-spacing: 0rem 1rem;
+
+    &-header {
+      &-img {
+        width: 7.5%;
+      }
+      &-title {
+        width: 25%;
+      }
+      &-artist {
+        width: 15%;
+      }
+      &-album {
+        width: 20%;
+      }
+      &-username {
+        width: 15%;
+      }
+      &-priority {
+        width: 15%;
+      }
+      &-button {
+        width: 5%;
+      }
+    }
+
+    th {
+      height: 3rem;
+      padding: .4rem;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      color: #A2A2A2;
+      letter-spacing: 0.44px;
+      border-left: 1px dashed #ADACAC;
+      vertical-align: top;
+      text-align: left;
+
+      &:first-child, &:last-child {
+        border: none;
+      }
+    }
+
+    &__content {
+      padding: .5rem;
+      border-radius: 3px;
+      box-shadow: 0rem .5rem 2rem rgba($color-black, 0.15);
+    
+      td {
+        padding: .5rem;
+        height: 5.5rem;
+      }
+    }
+
+    &-image {
+      height: 60px;
+      width: 60px;
+    }
+  }
+}
+
+.text-box {
+  color: $color-white;
+  
+  .now-playing {
+    color: $primary-text-color-dark; 
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__song-name {
+    font-size: 4rem;
+    letter-spacing: 0;
+    display: block;
+  }
+
+  &__explicit {
+    position: relative;
+    display: block;
+    margin-bottom: 3rem;
+
+    &-text {
+      position: absolute;
+      border: 1px solid $color-white;
+      text-transform: uppercase;
+      padding: 1px 1rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.86px;
+      text-align: center;
+    }
+  }
+
+  &__song-artist {
+    display: block;
+    font-size: 2.2rem;
+    letter-spacing: 0;
+  }
+
+  &__song-album {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+}

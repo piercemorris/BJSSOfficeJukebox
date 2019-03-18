@@ -1,6 +1,7 @@
 
 // ABSTRACTS
 @import "abstracts/variables";
+@import "abstracts/mixins";
 
 // BASE
 @import "base/base";
@@ -15,5 +16,9 @@
 @import "components/songcard";
 @import "components/player";
 
+//LAYOUT
+@import "layout/grid";
+
 //PAGES
 @import "pages/home";
+@import "pages/queue";
