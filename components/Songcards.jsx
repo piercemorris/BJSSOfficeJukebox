@@ -6,6 +6,8 @@ import Placeholder from "../components/Placeholder";
 import Songcard from "./Songcard";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
+import Submit from "../components/common/emailButton";
+
 
 class Songcards extends Component {
   state = {
@@ -70,10 +72,17 @@ class Songcards extends Component {
       : null;
   }
 
+  handleSubmit = async e => {
+    e.preventDefault();
+  };
+
+  
+
   render() {
     const { songs, spotifyData } = this.state;
     return (
       <div>
+
         {spotifyData
           ?
           <Devices handleUpdate={this.handleDeviceUpdate} user={spotifyData.body} devices={spotifyData.devices} />
@@ -109,9 +118,14 @@ class Songcards extends Component {
                     priority={song.priority}
                     key={song._id}
                   />
-                ))}
+                  
+                ))
+                }
+                
           </React.Fragment>
         }
+        
+
       </div>
     );
   }

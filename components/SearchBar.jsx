@@ -16,7 +16,7 @@ class SearchBar extends Component {
   };
 
   schema = {
-    query: Joi.string()
+    query: Joi.string().allow('')
       .required()
       .label("Query")
   };
@@ -36,27 +36,36 @@ class SearchBar extends Component {
   };
 
   handleSubmit = async e => {
-    e.preventDefault();
+    
     const errors = this.validate();
-    this.setState({ errors: errors || {} });
-    if (errors) return;
+    this.setState({ 
+      errors: errors || {} });
+    if (errors) {this.state.result=null
+      return;
+    }
 
     const { search } = this.state;
-    const data = await Spotify.search(search.query);
-    this.setState({ result: data });
+    if((search.query.length)>3){  
+      const data = await Spotify.search(search.query);
+      this.setState({ result: data });
+    }else{
+      this.setState({result:null});
+    }
   };
 
   handleChange = e => {
+    e.preventDefault();
     const search = { ...this.state.search };
     const component = e.currentTarget.name;
     search[component] = e.currentTarget.value;
     this.setState({ search });
+
   };
 
   renderSearchBar = () => {
     const { search, errors } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form form autoComplete="off" onKeyUp={this.handleSubmit}>
         <Input
           name="query"
           type="text"
@@ -65,7 +74,6 @@ class SearchBar extends Component {
           error={errors.query}
           onChange={this.handleChange}
         />
-        <Submit />
       </form>
     );
   }

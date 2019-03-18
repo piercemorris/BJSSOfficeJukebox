@@ -2,15 +2,30 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import songs from "../services/songService";
 import user from "../services/userService";
+import renderPlaceholder from "./Placeholder";
 
 class SearchTable extends Component {
-  state = {
+  constructor(props) {
+    super(props) 
+  this.state = {
+    itemsToShow: 3,
+    expanded: false,
     userActive: false
   };
+  this.showMore = this.showMore.bind(this);
+}
+showMore() {
+  this.state.itemsToShow === 3 ? (
+    this.setState({ itemsToShow: 7, expanded: true })
+    ) : (
+      this.setState({ itemsToShow: 3, expanded: false })
+    )
+  }
 
   async handleAdd(song) {
     const currentUser = await user.getCurrentUser();
     const response = songs.addSong({ song }, currentUser._id, currentUser.username);
+    location.reload();
   }
 
   async componentWillMount() {
@@ -21,9 +36,7 @@ class SearchTable extends Component {
   }
 
   render() {
-    const { result } = this.props;
     const { userActive } = this.state;
-
     return (
       <React.Fragment>
         {userActive ?
@@ -33,34 +46,37 @@ class SearchTable extends Component {
             You have to be logged in to add a song!
           </div>
         }
-        <table className="center text-center search-table">
-          <thead>
-            <tr>
-              <th className="search-responsive" scope="col">#</th>
-              <th scope="col">Track</th>
-              <th className="search-responsive" scope="col">Album</th>
-              <th className="search-responsive" scope="col">Artist</th>
-              <th scope="col">Explicit</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {result.map(item => (
-              <tr className="search-table-row">
-                <td className="search-responsive">
-                  <img src={item.album.images[2].url} />
-                </td>
-                <td>{item.name}</td>
-                <td className="search-responsive">{item.album.name}</td>
-                <td className="search-responsive">{item.artists[0].name}</td>
-                <td>{item.explicit ? <img id="explicit_tag" src="static/img/explicit.png" width="60px" /> : null}</td>
-                <td>
-                  <FontAwesomeIcon onClick={() => this.handleAdd(item)} icon="plus" />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {this.props.result!=0 ? (
+                  <div>
+                  <table className="SearchTable center center-text search-table">
+                    <tbody>
+                  {this.props.result.slice(0, this.state.itemsToShow).map((song, i) =>
+                    <tr onClick={() => this.handleAdd(song) }>
+                    <td key={i}><img src={song.album.images[2].url} /></td>
+                    <td >{song.name}</td>
+                    <td >{song.artists[0].name}</td>
+                    </tr>
+                  )}
+                  <tr onClick={this.showMore}>
+                  <td className="showButton" colSpan='3'>
+                    <a onClick={this.showMore}>  
+                      {this.state.expanded ? (
+                        <span>Show less</span>
+                        ) : (
+                        <span>Show more</span>
+                        )
+                      }
+                      </a>
+                    </td>
+                  </tr>
+                    </tbody>
+                  </table>
+                </div>
+        
+        ):(
+          <div></div>
+        )
+        }
       </React.Fragment>
     );
   }

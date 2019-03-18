@@ -44,6 +44,23 @@ html * {
   color: black;
 }
 
+.SearchTable{ 
+  width:100%;
+  position: absolute;
+  background:#374a73;
+  z-index: 1;
+  color:#e6e8ed
+}
+.SearchTable tr:hover{
+  background: #e6e8ed;
+  cursor: pointer;
+  color:#374a73;
+}
+.showButton{
+  font-size: 20px;
+  text-align: center;
+}
+
 .card ul {
   text-align: left;
 }
