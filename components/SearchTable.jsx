@@ -60,7 +60,7 @@ class SearchTable extends Component {
         <table className="center text-center search-table">
           <thead>
             <tr>
-              <th className="search-responsive" scope="col">#</th>
+              <th className="search-responsive" scope="col"></th>
               <th scope="col">Track</th>
               <th className="search-responsive" scope="col">Album</th>
               <th className="search-responsive" scope="col">Artist</th>

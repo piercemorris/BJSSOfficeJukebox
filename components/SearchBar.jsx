@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Joi from "joi";
 import _ from "lodash";
 import Spotify from "../services/spotifyService";
-import Input from "./common/Input";
+import InputCustom from "./common/InputCustom";
 import Submit from "./common/Submit";
 import SearchTable from "./SearchTable";
 
@@ -56,37 +56,30 @@ class SearchBar extends Component {
   renderSearchBar = () => {
     const { search, errors } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <Input
+      <form onSubmit={this.handleSubmit} className="custom-search-form">
+        <InputCustom
           name="query"
           type="text"
+          classProp="custom-search"
           value={search.query}
-          placeholder="Search for a Song"
+          placeholder="Search"
           error={errors.query}
           onChange={this.handleChange}
         />
-        <Submit />
       </form>
     );
   }
 
+
   render() {
     const { result } = this.state;
 
-    if (_.isEmpty(result)) {
-      return (
-        <div>
-          {this.renderSearchBar()}
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          {this.renderSearchBar()}
-          <SearchTable result={this.state.result} />
-        </div>
-      );
-    }
+    return (
+      <div>
+        {this.renderSearchBar()}
+        {_.isEmpty(result) ? null : <SearchTable result={this.state.result} />}
+      </div>
+    );
   }
 }
 
