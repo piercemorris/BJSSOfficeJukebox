@@ -151,22 +151,22 @@ class Songcards extends Component {
                       <span className="text-box__song-artist">{songs[0].song.song.artists[0].name}</span>
                       <span className="text-box__song-album">{songs[0].song.song.album.name}</span>
                     </h2>
-                    <Button onDelete={this.handleDelete} song={songs[0]} text="Remove"/>
+                    <Button onDelete={this.handleDelete} song={songs[0]} text="Remove" />
                   </div>
                 </div>
               </div>
 
               <div className="playback-controls">
                 <div className="row">
-                  {!this.state.playing ? 
+                  {!this.state.playing ?
                     <div>
-                    <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse="true"/>
-                    </div> 
+                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse="true" />
+                    </div>
                     :
                     <div>
-                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse="true"/>
+                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse="true" />
                     </div>
-                  }         
+                  }
                 </div>
               </div>
             </section>
@@ -211,7 +211,7 @@ class Songcards extends Component {
                         <td>{song.username}</td>
                         <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
                         <td>
-                          <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom"/>
+                          <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
                         </td>
                       </tr>
                     ))
