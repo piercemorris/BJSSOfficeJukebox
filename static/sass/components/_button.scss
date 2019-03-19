@@ -11,6 +11,9 @@
 
 
   &-remove {
-
+   
+    &:hover {
+      background-color: darken($color-red, 15%);
+    }
   }
 }

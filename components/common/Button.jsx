@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Button = ({text}) => {
+const Button = ({text, onDelete, song}) => {
   return ( 
-    <button className="btn btn-remove">
+    <button onClick={() => onDelete(song._id)} className="btn btn-remove">
       {text}
     </button>
    );

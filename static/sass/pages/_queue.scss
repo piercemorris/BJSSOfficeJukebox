@@ -130,6 +130,17 @@
       letter-spacing: 0.86px;
       text-align: center;
     }
+
+    &--short {
+      border: 1px solid darken($color-gray, 20%);
+      color: darken($color-gray, 20%);
+      text-transform: uppercase;
+      margin: 1px 5px;
+      padding: 1px 3px;
+      font-size: 1.2rem;
+      letter-spacing: 0.86px;
+      text-align: center;
+    }
   }
 
   &__song-artist {
@@ -143,5 +154,16 @@
     font-size: 2.2rem;
     font-weight: 400;
     letter-spacing: 0;
+  }
+}
+
+.playback-controls {
+
+  &__button {
+    transition: all .2s;
+    opacity: 0.8;
+    &:hover {
+      animation: shake .4s ease;
+    }
   }
 }
