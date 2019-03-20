@@ -56,13 +56,18 @@ class SignUpForm extends Form {
   render() {
     return (
       <div className="form">
-        {this.renderTitle("Sign up", "Sign up for a new Jukebox account")}
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("username", "Username", "Username")}
-          {this.renderInput("password", "Password", "Password", "password")}
-          {this.renderInput("confirmpassword", "Confirm Password", "Password", "password")}
-          {this.renderButton()}
-        </form>
+        <div className="form-box">
+          <div className="row">
+            <img className="form-logo" src="../static/img/jukebox-logo-white.png" alt="" />
+            {this.renderTitle("Sign up", "Sign up for a new Jukebox account")}
+            <form onSubmit={this.handleSubmit}>
+              {this.renderInput("username", "Username", "Username")}
+              {this.renderInput("password", "Password", "Password", "password")}
+              {this.renderInput("confirmpassword", "Confirm Password", "Password", "password")}
+              {this.renderButton("Sign up for office jukebox")}
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

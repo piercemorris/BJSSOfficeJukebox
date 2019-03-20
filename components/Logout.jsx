@@ -16,10 +16,7 @@ class Logout extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Logout</h1>
-        <p>YOU HAVE SUCCESFULLY LOGGED OUT</p>
-      </div>
+      null
     );
   }
 }

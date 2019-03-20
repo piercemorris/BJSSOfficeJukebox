@@ -1,0 +1,74 @@
+.form {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/static/img/dj-background.jpg');
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  transition: all .2s;
+  color: $color-white;
+  text-align: center;
+
+  .input__error {
+
+    &-input {
+      border: 3px solid $color-red;
+      background-color: lighten($color-red, 25%);
+    }
+
+    &-message {
+      color: $color-red;
+    }
+  }
+
+  .form-logo {
+    width: 60%;
+  }
+
+  .form-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  &__input {
+    margin: 2rem;
+
+    &-label {
+      display: block;
+      font-size: 2.4rem;
+      padding-left: 10%;
+      text-align: left;
+    }
+
+    &-input {
+      display: block;
+      margin: .5rem auto;
+      text-decoration: none;
+      outline: none;
+      border: none;
+      font-size: 1.6rem;
+      border-radius: 5px;
+      padding-left: 1rem;
+      height: 4rem;
+      width: 80%;
+    }
+
+    &-button {
+      margin: .5rem auto;
+      border-radius: 10rem;
+      text-transform: uppercase;
+      background-color: $primary-text-color-dark;
+      color: white;
+      font-size: 1.6rem;
+      height: 4rem;
+      width: 75%;
+
+      &:hover {
+        background-color: darken($primary-text-color-dark, 25%);
+      }
+    }
+  }
+}
