@@ -169,7 +169,7 @@ class Songcards extends Component {
                           <td>{song.username}</td>
                           <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
                           <td>
-                            <Button onDelete={this.handleNext} song={song} text="Remove" className="bottom" />
+                            <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
                           </td>
                         </tr>
                       ))
