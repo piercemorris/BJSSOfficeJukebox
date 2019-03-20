@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Placeholder from "../components/Placeholder";
 import Button from "./common/Button";
 import Spotify from "../services/spotifyService";
 import VolumeSlider from "../components/VolumeSlider";
@@ -144,7 +143,7 @@ class Songcards extends Component {
                     <th className="queue__table-header-button"></th>
                   </tr>
                   {!song.areSongsInQueue(songs) ?
-                    <Placeholder />
+                    null
                     :
                     songs
                       .filter(song => songs.indexOf(song) != 0)
