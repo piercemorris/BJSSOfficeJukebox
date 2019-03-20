@@ -72,53 +72,6 @@ class Songcards extends Component {
     e.preventDefault();
   };
 
-  /*
-    for devices
-
-    {spotifyData
-          ?
-          <Devices handleUpdate={this.handleDeviceUpdate} user={spotifyData.body} devices={spotifyData.devices} />
-          :
-          <p>Authorise Spotify!</p>
-        }
-
-    {!song.areSongs(songs)
-          ?
-          <React.Fragment>
-            <Placeholder />
-          </React.Fragment>
-          :
-
-    <PlayerWrapper playing={this.state.playing} start={this.handlePlay}
-          skip={this.handleNext} uri={songs[0].song.song.uri}>
-          <Songcard
-            currentSong="true"
-            songObj={songs[0]}
-            onDelete={this.handleNext}
-            priority={songs[0].priority}
-          />
-        </PlayerWrapper>
-
-      {!song.areSongsInQueue(songs)
-          ?
-          <Placeholder />
-          :
-          songs
-            .filter(song => songs.indexOf(song) != 0)
-            .map(song => (
-              <Songcard
-                songObj={song}
-                onDelete={this.handleDelete}
-                priority={song.priority}
-                key={song._id}
-              />
-
-            ))
-        }
-
-        <h1>{this.state.songs[0].song.song.name}</h1>
-  */
-
   render() {
     const { songs, spotifyData } = this.state;
     return (

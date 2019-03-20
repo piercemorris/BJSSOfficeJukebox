@@ -11,15 +11,6 @@ library.add(faCoffee, faBars, faPlus, faPause, faForward, faPauseCircle, faPlayC
 class Layout extends Component {
   state = {
     user: {},
-    links: [
-      { title: "Home", url: "/", float: "left" },
-      { title: "About", url: "/about", float: "left" },
-      { title: "Queue", url: "/queue", float: "left" },
-      { title: "Search", url: "/search", float: "left" },
-      { title: "Authorise Spotify", url: "/api/spotify/login", float: "left" },
-      { title: "Log in", url: "/login", float: "right" },
-      { title: "Sign up", url: "/signup", float: "right" },
-    ]
   };
 
   componentDidMount() {
@@ -29,14 +20,6 @@ class Layout extends Component {
 
   render() {
 
-    /*
-          <link rel="stylesheet" href="/static/css/navbar.css" />
-          <link rel="stylesheet" href="/static/css/player.css" />
-          <link rel="stylesheet" href="/static/css/styles.css" />
-          <link rel="stylesheet" href="/static/css/modal.css" />
-          <link rel="stylesheet" href="/static/css/songcard.css" />
-          <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
-    */
     return (
       <div>
         <Head>
@@ -45,7 +28,7 @@ class Layout extends Component {
           <meta name="viewport" content="width=device-width,initial-scale=1.0" />
           <link rel="icon" href="static/img/jukebox-icon.ico" />
         </Head>
-        <Navbar user={this.state.user} navs={this.state.links} />
+        <Navbar user={this.state.user} />
         <div className="">{this.props.children}</div>
       </div>
     );

@@ -1,7 +1,11 @@
 #navbar-top {
-  background-color: $bjss-light-blue;
+  background-color: rgba($color-black, 0.8);
   color: $color-white;
   overflow: hidden;
+
+  a, a:after, a:before {
+    transition: all .5s;
+  }
 
   a {
     display: inline-block;
@@ -27,7 +31,7 @@
       height: 1px;
       content: '';
       color: transparent;
-      background: $bjss-dark-blue;
+      background: $primary-text-color-dark;
       visibility: none;
       opacity: 0;
       z-index: -1;
@@ -40,18 +44,55 @@
     }
   }
 
-  a, a:after, a:before {
-    transition: all .5s;
-  }
-
   .icon {
     display: none;
+  }
+
+  .navbar-search {
+
+    &__input {
+      padding-left: 1rem;
+      font-size: 1.4rem;
+      text-decoration: none;
+      outline: none;
+      border: none;
+      border-radius: 10rem;
+      margin: 2rem 1rem;
+      width: 25rem;
+      height: 2.5rem;
+    }
+
+    &__button {
+      font-size: 1.4rem;
+      color: $color-white;
+      background-color: $primary-text-color-dark;
+      text-decoration: none;
+      text-transform: uppercase;
+      text-align: center;
+      outline: none;
+      border: none;
+      border-radius: 10rem;
+      margin: 2rem 1rem 1.8rem 1rem;
+      width: 9rem;
+      height: 2.5rem;
+
+      &:hover {
+        background-color: darken($primary-text-color, 20%);
+      }
+    }
   }
 }
 
 img.navbar-image {
-  margin: 1rem;
-  width: 8rem;
+  margin: 2rem 1rem;
+  height: 2.5rem;
+  width: 9rem;
+}
+
+img#bjss-logo {
+  margin: 1.75rem 1.5rem;
+  width: 6rem;
+  height: 3rem;
 }
 
 @media (max-width: $max-mobile-width) {
