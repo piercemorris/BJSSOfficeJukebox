@@ -17,6 +17,7 @@ def songList2vec( songList ):
         vector[(mydict[i])] = 1
     return  vector
 
+
 def readDict(fileName):
     with open(fileName, 'rb') as csv_file:
         reader = csv.reader(csv_file)
@@ -36,19 +37,21 @@ def recommandSong(list, listArray, mydict):
     return songList
 
 
-def recommandSongRandom():
+def recommandSongRandom( songNum ):
     list = []
     songList = []
-    while b_length <= 10:
-        random_number = random.randint(0, 99)
-        if random_number not in b_list:
-            list.append(random_number)
-            b_length += 1
-            songList.append(mydict[random_number])
+   randomList = random.sample(range(1, 10), songNum)
+    while length <= 10
+        songList.append(mydict[randomList[length]])
     return songList
 
+
+# update the recommand song to the DB
 def updateDB():
-    # update the recommand song to the DB
+    myclient = pymongo.MongoClient('mongodb://public:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox')
+    mydb = myclient.jukebox
+    mycol = mydb['recommandSongList']   # to add the songs to the song list
+    x = mycol.insert_one(mydict)
 
 
 mydict = readDict("dict.csv")
