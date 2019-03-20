@@ -225,7 +225,14 @@ class Songcards extends Component {
           </>
           :
           <section className="authorise-page">
+            <div className="authorise-page__text-box">
+              <h1 className="authorise-page__heading">
+                <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
+                <span className="authorise-page__heading--sub">Authorise Spotify, add songs and they'll appear in the queue</span>
+              </h1>
 
+              <button className="authorise-page__button">Authorise Spotify</button>
+            </div>
           </section>
         }
       </div>
