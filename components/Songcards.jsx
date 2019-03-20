@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Devices from "../components/Devices";
-import PlayerWrapper from "../components/PlayerWrapper";
 import Placeholder from "../components/Placeholder";
-import Songcard from "./Songcard";
 import Button from "./common/Button";
 import Spotify from "../services/spotifyService";
+import VolumeSlider from "../components/VolumeSlider";
 import song from "../services/songService";
-import Submit from "../components/common/emailButton";
 
 
 class Songcards extends Component {
@@ -151,22 +148,27 @@ class Songcards extends Component {
                       <span className="text-box__song-artist">{songs[0].song.song.artists[0].name}</span>
                       <span className="text-box__song-album">{songs[0].song.song.album.name}</span>
                     </h2>
-                    <Button onDelete={this.handleDelete} song={songs[0]} text="Remove" />
+                    <Button onDelete={this.handleNext} song={songs[0]} text="Remove" />
                   </div>
                 </div>
               </div>
 
               <div className="playback-controls">
                 <div className="row">
-                  {!this.state.playing ?
-                    <div>
-                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse="true" />
+                  <div>
+                    {!this.state.playing ?
+                      <div className="playback-controls__play">
+                        <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                      </div>
+                      :
+                      <div className="playback-controls__play">
+                        <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
+                      </div>
+                    }
+                    <div className="playback-controls__volume">
+                      <VolumeSlider />
                     </div>
-                    :
-                    <div>
-                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse="true" />
-                    </div>
-                  }
+                  </div>
                 </div>
               </div>
             </section>
@@ -176,52 +178,54 @@ class Songcards extends Component {
                 Up Next
               </h1>
               <table className="queue__table">
-                <tr className="queue__table-header">
-                  <th className="queue__table-header-img"></th>
-                  <th className="queue__table-header-title">Title</th>
-                  <th className="queue__table-header-artist">Artist</th>
-                  <th className="queue__table-header-album">Album</th>
-                  <th className="queue__table-header-username">Requested By</th>
-                  <th className="queue__table-header-priority">Priority</th>
-                  <th className="queue__table-header-button"></th>
-                </tr>
-                {!song.areSongsInQueue(songs) ?
-                  <Placeholder />
-                  :
-                  songs
-                    .filter(song => songs.indexOf(song) != 0)
-                    .map(song => (
-                      <tr className="queue__table__content">
-                        <td className="queue__table-image">
-                          <img
-                            className="queue__table-image-img"
-                            src={song.song.song.album.images[1].url}
-                            alt="song in queue"
-                          />
-                        </td>
-                        <td>
-                          {song.song.song.name}
-                          {song.song.song.explicit ?
-                            <span className="text-box__explicit--short">E</span>
-                            : null
-                          }
-                        </td>
-                        <td>{song.song.song.artists[0].name}</td>
-                        <td>{song.song.song.album.name}</td>
-                        <td>{song.username}</td>
-                        <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
-                        <td>
-                          <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
-                        </td>
-                      </tr>
-                    ))
-                }
+                <tbody>
+                  <tr className="queue__table-header">
+                    <th className="queue__table-header-img"></th>
+                    <th className="queue__table-header-title">Title</th>
+                    <th className="queue__table-header-artist">Artist</th>
+                    <th className="queue__table-header-album">Album</th>
+                    <th className="queue__table-header-username">Requested By</th>
+                    <th className="queue__table-header-priority">Priority</th>
+                    <th className="queue__table-header-button"></th>
+                  </tr>
+                  {!song.areSongsInQueue(songs) ?
+                    <Placeholder />
+                    :
+                    songs
+                      .filter(song => songs.indexOf(song) != 0)
+                      .map(song => (
+                        <tr key={song._id} className="queue__table__content">
+                          <td className="queue__table-image">
+                            <img
+                              className="queue__table-image-img"
+                              src={song.song.song.album.images[1].url}
+                              alt="song in queue"
+                            />
+                          </td>
+                          <td>
+                            {song.song.song.name}
+                            {song.song.song.explicit ?
+                              <span className="text-box__explicit--short">E</span>
+                              : null
+                            }
+                          </td>
+                          <td>{song.song.song.artists[0].name}</td>
+                          <td>{song.song.song.album.name}</td>
+                          <td>{song.username}</td>
+                          <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
+                          <td>
+                            <Button onDelete={this.handleNext} song={song} text="Remove" className="bottom" />
+                          </td>
+                        </tr>
+                      ))
+                  }
+                </tbody>
               </table>
             </section>
           </>
           :
-          <section>
-            No songs
+          <section className="authorise-page">
+
           </section>
         }
       </div>

@@ -3,7 +3,7 @@
   height: 100vh;
 
   .currently-playing {
-    background-image: linear-gradient(to bottom, $color-gray, lighten($color-black, 15%));
+    background-image: linear-gradient(-180deg, $color-grad-light 0%, $color-grad-dark 100%);
     height: 50vh;
 
     &__song-info {
@@ -158,10 +158,25 @@
 }
 
 .playback-controls {
+  margin: auto;
+  position: relative;
+
+  &__play {
+    display: inline-block;
+    margin-left: 7.5%;
+  }
+
+  &__volume {
+    position: absolute;
+    top: 50%;
+    right: 30%;
+    transform: translateY(-50%);
+  }
 
   &__button {
     transition: all .2s;
     opacity: 0.8;
+
     &:hover {
       animation: shake .4s ease;
     }
