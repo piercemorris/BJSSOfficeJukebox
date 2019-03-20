@@ -4,8 +4,9 @@ import Navbar from "./Navbar";
 import "../static/sass/main.scss";
 import user from "../services/userService";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCoffee, faBars, faPlus, faPlay, faPause, faForward } from '@fortawesome/free-solid-svg-icons';
-library.add(faCoffee, faBars, faPlus, faPlay, faPause, faForward);
+import { faPlayCircle as faPlayCircleRegular, faPauseCircle as faPauseCircleRegular } from '@fortawesome/free-regular-svg-icons';
+import { faCoffee, faBars, faPlus, faPause, faForward, faPauseCircle, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+library.add(faCoffee, faBars, faPlus, faPause, faForward, faPauseCircle, faPlayCircle, faPauseCircleRegular, faPlayCircleRegular);
 
 class Layout extends Component {
   state = {

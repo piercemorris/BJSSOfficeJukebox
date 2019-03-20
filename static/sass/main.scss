@@ -1,6 +1,7 @@
 
 // ABSTRACTS
 @import "abstracts/variables";
+@import "abstracts/mixins";
 
 // BASE
 @import "base/base";
@@ -9,11 +10,17 @@
 
 //COMPONENTS
 @import "components/searchbar";
+@import "components/button";
 @import "components/device";
 @import "components/modal";
 @import "components/navbar";
 @import "components/songcard";
 @import "components/player";
 
+//LAYOUT
+@import "layout/grid";
+
 //PAGES
 @import "pages/home";
+@import "pages/queue";
+@import "pages/authorise";

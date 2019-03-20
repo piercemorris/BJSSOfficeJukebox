@@ -5,9 +5,6 @@ import SearchBar from "../components/SearchBar";
 
 export default () => (
   <Layout>
-    <div className="gutter">
-      <SearchBar />
-      <Songcards />
-    </div>
+    <Songcards />
   </Layout>
 );

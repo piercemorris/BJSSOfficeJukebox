@@ -2,6 +2,8 @@
 
 .left { float: left; }
 
+.bottom { bottom: 0; }
+
 .hover { cursor: pointer; }
 
 .extra-pad { padding: 1rem; }
@@ -11,3 +13,7 @@
 .display-block { display: block; }
 
 .display-none { display: none; }
+
+.margin-top-sm {
+  margin-top: 5rem;
+}
