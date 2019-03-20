@@ -148,7 +148,9 @@ class Songcards extends Component {
                       <span className="text-box__song-artist">{songs[0].song.song.artists[0].name}</span>
                       <span className="text-box__song-album">{songs[0].song.song.album.name}</span>
                     </h2>
-                    <Button onDelete={this.handleNext} song={songs[0]} text="Remove" />
+                    <div className="margin-top-sm">
+                      <Button onDelete={this.handleNext} song={songs[0]} text="Remove" />
+                    </div>
                   </div>
                 </div>
               </div>

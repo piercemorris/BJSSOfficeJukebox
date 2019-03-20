@@ -158,18 +158,19 @@
 }
 
 .playback-controls {
-  margin: auto;
+  margin: 2rem auto;
   position: relative;
 
   &__play {
-    display: inline-block;
-    margin-left: 7.5%;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translateY(-50%);
   }
 
   &__volume {
     position: absolute;
-    top: 50%;
-    right: 30%;
+    right: 20%;
     transform: translateY(-50%);
   }
 
