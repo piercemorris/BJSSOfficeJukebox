@@ -8,7 +8,7 @@ class PlayerWrapper extends Component {
 
   render() {
 
-    const { playing, start, skip, uri, currentSongDuration, currentSongPosition } = this.props;
+    const { playing, start, skip, uri, currentSongDuration, currentSongPosition} = this.props;
 
     return (
       <React.Fragment>
@@ -25,10 +25,8 @@ class PlayerWrapper extends Component {
         </div>
         <div className="player-container">
         <div className="player-bottom-left"> <VolumeSlider/></div>
-          <div className="player-bottom-right"> <SongTimer songDuration={currentSongDuration} songPosition={currentSongPosition}/></div>
+          <div className="player-bottom-right"> <SongTimer songDuration={currentSongDuration} songPosition={currentSongPosition} isPlaying={playing}/></div>
         </div>
-        
-        
       </React.Fragment>
     );
   }

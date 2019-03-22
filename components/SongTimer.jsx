@@ -10,44 +10,56 @@ class SongTimer extends Component {
         songSecond: 0,
         currentTime : 0,
         currentSongDuration: 0,
-        percentageThroughSong : 0
+        percentageThroughSong : 0,
       }
 
     async componentDidMount() {
       this.updateTicker();
     }
     
+    //Converts the current time to the correct format
     convertMsToTime() {
       const minutes = Math.floor((this.state.currentTime / 1000) / 60);
-      const seconds = Math.floor((this.state.currentTime / 1000) % 60);
+      const seconds = Math.round((this.state.currentTime / 1000) % 60);
       this.setState({currentMinute:minutes, currentSecond:seconds});
     }
-    
+
+    //Converts the song duration into the correct format
     convertSongMsToTime() {
       const minutes = Math.floor((this.state.currentSongDuration / 1000) / 60);
-      const seconds = Math.floor((this.state.currentSongDuration / 1000) % 60);
+      const seconds = Math.round((this.state.currentSongDuration / 1000) % 60);
       this.setState({songMinute:minutes, songSecond:seconds});
     }
 
+    //Updates the current time every second, and updates the slider
     async updateTicker()  {
       setTimeout(() => { this.updateTicker() }, 1000);
-      var newPercent = Math.floor((this.state.currentTime / this.state.currentSongDuration) * 100 );
+      var newPercent = Math.round((this.state.currentTime / this.state.currentSongDuration) * 100 );
+      console.log(this.state.currentSecond);
+
+      // if (this.state.isPlaying != false) {
+      //   var newTime = this.state.currentTime + 1000;
+      //   this.setState({currentTime: newTime});
+      // }
+      
       this.setState({percentageThroughSong : newPercent});
       this.convertMsToTime();
       this.convertSongMsToTime()
       }
 
-  updateSongTime = () => {
-    var slider = document.getElementById("timeSlider");
-    var newValue = slider.value;
-    var newTime = Math.floor(this.state.currentSongDuration * (newValue / 100));
-    Spotify.updatePlaybackPoistion(newTime);
-  }
+    //Called when there has been a change to the slider
+    updateSongTime = () => {
+      var slider = document.getElementById("timeSlider");
+      var newValue = slider.value;
+      var newTime = Math.floor(this.state.currentSongDuration * (newValue / 100));
+      Spotify.updatePlaybackPoistion(newTime);
+    }
 
   render() {
 
-    const {songDuration, songPosition } = this.props;
+    const {songDuration, songPosition, isPlaying } = this.props;
     this.state.currentSongDuration = songDuration;
+    this.state.isPlaying = isPlaying;
     this.state.currentTime = songPosition;
     
     return (
