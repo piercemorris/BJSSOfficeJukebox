@@ -9,7 +9,7 @@
 }
 
 #navbar-top {
-  background-color: var(--bjssDarkBlue);
+  background-color: var(--bjssLightBlue);
   color: white;
   overflow: hidden;
 }
@@ -64,7 +64,7 @@ img.navbar-image {
   height: 1px;
   content: '.';
   color: transparent;
-  background: var(--bjssLightBlue);
+  background: var(--bjssDarkBlue);
   visibility: none;
   opacity: 0;
   z-index: -1;

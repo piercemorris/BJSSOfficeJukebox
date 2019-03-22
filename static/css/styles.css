@@ -1,23 +1,7 @@
-:root {
-  --bjssDarkBlue: #041e43;
-  --bjssLightBlue: #0047bb;
-  --lightest: #697896;
-  --lighter: #506185;
-  --light: #374a73;
-  --dark: #1e3462;
-  --darker: #061e51;
-}
-html * {
-  font-family: "Catamaran", sans-serif;
-}
-
-.table {
-  margin-top: 1em;
-}
-
 .gutter {
-  margin: 2em;
+  margin: 2em 4em;
 }
+
 
 .center {
   margin: auto;
@@ -36,10 +20,6 @@ html * {
   border: none;
 }
 
-#text {
-  text-shadow: 0px 0px 2px #697896;
-}
-
 /* forms */
 .form {
   padding: 1em;
@@ -54,62 +34,6 @@ html * {
 
 .offset-title {
   margin: 2em 0 2em 15em;
-}
-
-/* Device select */
-#device-select {
-  padding: 1em;
-  margin-bottom: 1em;
-  width: 100%;
-  height: 70px;
-  background-color: var(--bjssLightBlue);
-  color: white;
-  border: 1px solid #EFEFEF;
-  border-radius: 10px;
-  text-align: center;
-  overflow: hidden;
-}
-
-.select-style {
-  min-width: 200px;
-  float: right;
-  width: 60%;
-  background-color: var(--lightest);
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.select-style select {
-  padding: 5px 8px;
-  width: 100%;
-  border: none;
-  color: white;
-  box-shadow: none;
-  background: transparent;
-  background-image: none;
-  -webkit-appearance: none;
-}
-
-.select-style select:focus {
-  outline: none;
-}
-
-.user {
-  width: 40%;
-  height: 50px;
-  overflow: hidden;
-  line-height: 40px;
-  float: left;
-}
-
-@media (max-width: 767px) {
-  .user 
-   {display: none;}
-  
-  .select-style {
-    width: 100%;
-  }
 }
 
 .contentsMenu span{

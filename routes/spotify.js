@@ -69,14 +69,15 @@ router.get("/play/:playing", async (req, res) => {
 
 router.get("/volume/:newVolume", async (req, res) => {
   const volume = req.params.newVolume;
-  const response = await spotifyApi.setVolume(volume,{});
+
+  const response = await spotifyApi.setVolume(volume, {});
 
   res.status(200).send(response);
 })
 
 router.get("/time/:newTime", async (req, res) => {
   const newTime = req.params.newTime;
-  const response = await spotifyApi.seek(newTime,{});
+  const response = await spotifyApi.seek(newTime, {});
 
   res.status(200).send(response);
 })
@@ -106,7 +107,12 @@ router.get("/getMe", async (req, res) => {
 
 router.post("/alexa", async (req, res) => {
   const query = req.body.query;
-  const response = await spotifyApi.searchTracks(query); // check if response is null?
+  const response = await spotifyApi.searchTracks(query);
+
+  // if no search results
+  if (response.body.tracks.total === 0)
+    return res.status(404).send("No songs found");
+
   const track = response.body.tracks.items[0];
   const songObj = {
     song: track

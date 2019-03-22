@@ -28,18 +28,22 @@ class LoginForm extends Form {
         this.setState({ errors });
       }
     }
-
   };
 
   render() {
     return (
       <div className="form">
-        {this.renderTitle("Log in", "Log in to your Jukebox account")}
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("username", "Username", "Username")}
-          {this.renderInput("password", "Password", "Password", "password")}
-          {this.renderButton()}
-        </form>
+        <div className="form-box">
+          <div className="row">
+            <img className="form-logo" src="../static/img/jukebox-logo-white.png" alt="" />
+            {this.renderTitle("Log in to your office jukebox account")}
+            <form className="form__login" onSubmit={this.handleSubmit}>
+              {this.renderInput("username", "Username", "Username")}
+              {this.renderInput("password", "Password", "Password", "password")}
+              {this.renderButton("Log in to your jukebox account")}
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

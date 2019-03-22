@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import Joi from "joi";
 import _ from "lodash";
 import Spotify from "../services/spotifyService";
-import Input from "./common/Input";
-import Submit from "./common/Submit";
 import SearchTable from "./SearchTable";
 
 class SearchBar extends Component {
@@ -11,39 +8,20 @@ class SearchBar extends Component {
     search: {
       query: ""
     },
-    errors: {},
     result: {}
   };
 
-  schema = {
-    query: Joi.string()
-      .required()
-      .label("Query")
-  };
-
-  validate = () => {
-    const options = {
-      abortEarly: false
-    };
-    const { error } = Joi.validate(this.state.search, this.schema, options);
-
-    if (!error) return null;
-
-    const errors = {};
-
-    for (let item of error.details) errors[item.path[0]] = item.message;
-    return errors;
-  };
 
   handleSubmit = async e => {
     e.preventDefault();
-    const errors = this.validate();
-    this.setState({ errors: errors || {} });
-    if (errors) return;
 
     const { search } = this.state;
-    const data = await Spotify.search(search.query);
-    this.setState({ result: data });
+    if ((search.query.length) > 3) {
+      const data = await Spotify.search(search.query);
+      this.setState({ result: data });
+    } else {
+      this.setState({ result: null });
+    }
   };
 
   handleChange = e => {
@@ -54,39 +32,32 @@ class SearchBar extends Component {
   };
 
   renderSearchBar = () => {
-    const { search, errors } = this.state;
+    const { search } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <Input
+      <>
+        <input
+          className={this.props.classProp}
+          value={search.query}
           name="query"
           type="text"
-          value={search.query}
-          placeholder="Search for a Song"
-          error={errors.query}
+          placeholder="Search"
           onChange={this.handleChange}
         />
-        <Submit />
-      </form>
+        <button onClick={this.handleSubmit} className="navbar-search__button">Search</button>
+      </>
     );
   }
+
 
   render() {
     const { result } = this.state;
 
-    if (_.isEmpty(result)) {
-      return (
-        <div>
-          {this.renderSearchBar()}
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          {this.renderSearchBar()}
-          <SearchTable result={this.state.result} />
-        </div>
-      );
-    }
+    return (
+      <>
+        {this.renderSearchBar()}
+        {_.isEmpty(result) ? null : <SearchTable result={this.state.result} />}
+      </>
+    );
   }
 }
 

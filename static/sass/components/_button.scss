@@ -1,0 +1,28 @@
+
+.btn {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  padding: .5rem 2rem;
+  outline: none;
+
+  &-remove {
+    background-color: $color-red;
+    color: $color-white;
+    
+    &:hover {
+      background-color: darken($color-red, 15%);
+    }
+  }
+
+  &-add {
+    background-color: $color-green;
+    color: $color-white;
+    
+    &:hover {
+      background-color: darken($color-green, 15%);
+    }
+  }
+}

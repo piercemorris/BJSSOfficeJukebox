@@ -1,0 +1,201 @@
+.queue-page {
+  background-color: $color-gray-light;
+  height: 100vh;
+
+  .no-device {
+    text-align: center;
+    font-weight: 600;
+    color: $color-white;
+  }
+
+  .currently-playing {
+    background-image: linear-gradient(-180deg, $color-grad-light 0%, $color-grad-dark 100%);
+    height: 50vh;
+
+    &__song-info {
+      padding: 4rem 5rem;
+    }
+
+    &__image {
+
+      &-img {
+        float: right;
+        height: 30vh;
+        box-shadow: 0rem 1rem 2rem rgba($color-black, 0.8);
+      }
+    }
+  }
+}
+
+.queue {
+  padding: 3rem 10rem;
+  background-color: $color-gray-light;
+  margin: auto;
+  
+  &-title {
+    margin-left: calc(10% + 7rem);
+    font-size: 2.8rem;
+    color: $primary-text-color;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__table {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-spacing: 0rem 1rem;
+
+    &-header {
+      &-img {
+        width: 7rem;
+      }
+      &-title {
+        width: 25%;
+      }
+      &-artist {
+        width: 15%;
+      }
+      &-album {
+        width: 20%;
+      }
+      &-username {
+        width: 15%;
+      }
+      &-priority {
+        width: 5%;
+      }
+      &-button {
+        width: 15%;
+      }
+    }
+
+    th {
+      height: 3rem;
+      padding: .4rem;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      color: #A2A2A2;
+      letter-spacing: 0.44px;
+      border-left: 1px dashed #ADACAC;
+      vertical-align: top;
+      text-align: left;
+
+      &:first-child, &:last-child {
+        border: none;
+      }
+    }
+
+    &__content {
+      padding: .5rem;
+      border-radius: 3px;
+      box-shadow: 0rem .5rem 2rem rgba($color-black, 0.15);
+    
+      td {
+        padding: .5rem;
+        height: 5.5rem;
+      }
+    }
+
+    &-image {
+      &-img {
+        height: 60px;
+        width: 60px;
+      }
+    }
+  }
+}
+
+.text-box {
+  color: $color-white;
+  
+  .now-playing {
+    color: $primary-text-color-dark; 
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__song-name {
+    font-size: 4rem;
+    letter-spacing: 0;
+    display: block;
+  }
+
+  &__explicit {
+    position: relative;
+    display: block;
+    margin-bottom: 3rem;
+
+    &-text {
+      position: absolute;
+      border: 1px solid $color-white;
+      text-transform: uppercase;
+      padding: 1px 1rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.86px;
+      text-align: center;
+    }
+
+    &--short {
+      border: 1px solid darken($color-gray, 20%);
+      color: darken($color-gray, 20%);
+      text-transform: uppercase;
+      margin: 1px 5px;
+      padding: 1px 3px;
+      font-size: 1.2rem;
+      letter-spacing: 0.86px;
+      text-align: center;
+    }
+  }
+
+  &__song-artist {
+    display: block;
+    font-size: 2.2rem;
+    letter-spacing: 0;
+  }
+
+  &__song-album {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+}
+
+.playback-controls {
+  margin: 2rem auto;
+  position: relative;
+
+
+
+  &__play {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translateY(-50%);
+  }
+
+  &__duration {
+    position: absolute;
+    width: 50%;
+    left: 20%;
+    transform: translateY(-50%);
+    color: white;
+  }
+
+  &__volume {
+    position: absolute;
+    right: 20%;
+    transform: translateY(-50%);
+  }
+
+  &__button {
+    transition: all .2s;
+    opacity: 0.8;
+
+    &:hover {
+      animation: shake .4s ease;
+    }
+  }
+}

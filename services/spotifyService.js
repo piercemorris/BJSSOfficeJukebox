@@ -26,6 +26,11 @@ export async function updatePlaybackPoistion(newTime) {
   await axios.get(apiEndpoint + "/time/" + newTime);
 }
 
+export async function getCurrentlyPlayingVerbose() {
+  const { data } = await axios.get(apiEndpoint + "/getCurrent");
+  return data;
+}
+
 export async function getCurrentlyPlaying() {
   const { data } = await axios.get(apiEndpoint + "/getCurrent");
   const songObject = {
@@ -47,6 +52,7 @@ export default {
   updatePlayVolume,
   updatePlaybackPoistion,
   getCurrentlyPlaying,
+  getCurrentlyPlayingVerbose,
   getMeAndDevices,
   search
 }
