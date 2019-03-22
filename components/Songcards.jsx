@@ -4,11 +4,13 @@ import _ from "lodash";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from "./common/Button";
 import VolumeSlider from "../components/VolumeSlider";
+import SongTimer from "../components/SongTimer";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
 import user from "../services/userService";
 
 class Songcards extends Component {
+
   state = {
     user: null,
     isDevice: false,
@@ -16,7 +18,8 @@ class Songcards extends Component {
     spotifyData: null,
     start: false,
     playing: false,
-    device: null
+    currentSongDuration: 0,
+    currentSongPosition: 0
   };
 
   async componentWillMount() {
@@ -31,6 +34,20 @@ class Songcards extends Component {
     const response = await song.getSongs();
     const spotifyData = await Spotify.getMeAndDevices();
     this.setState({ songs: response.data, spotifyData });
+    this.updateCurrentSongDuration();
+  }
+
+  updateCurrentSongDuration = () => {
+    this.setState({
+      currentSongDuration: this.state.songs[0].song.song.duration_ms,
+    });
+  }
+
+  tickSongTimer = async () => {
+    setTimeout(() => { this.tickSongTimer() }, 1000);
+    this.setState({
+      currentSongPosition: currentSongPosition + 1000
+    })
   }
 
   handleDeviceUpdate = () => {
@@ -40,11 +57,11 @@ class Songcards extends Component {
   }
 
   handleFinish = async () => {
-    const timeCheck = 5000;
+    const timeCheck = 1000;
     setTimeout(() => { this.handleFinish() }, timeCheck);
     let data = await Spotify.getCurrentlyPlaying();
+    this.setState({ currentSongPosition: data.progress });
     let timeRemain = data.duration - data.progress;
-    console.log(timeRemain);
     if (timeRemain < timeCheck) {
       setTimeout(() => {
         this.handleNext();
@@ -73,9 +90,9 @@ class Songcards extends Component {
 
   handleNext = () => {
     this.handleDelete(this.state.songs[0]._id);
-    this.state.songs[0].song.song.uri
-      ? Spotify.playSong(this.state.songs[0].song.song.uri)
-      : null;
+    const firstInQueueURI = this.state.songs[0].song.song.uri;
+    Spotify.playSong(firstInQueueURI);
+    this.updateCurrentSongDuration();
   }
 
   handleSubmit = async e => {
@@ -83,7 +100,7 @@ class Songcards extends Component {
   };
 
   render() {
-    const { songs, user, isDevice } = this.state;
+    const { songs, user, isDevice, currentSongDuration, currentSongPosition, playing } = this.state;
     return (
       <div className="queue-page">
         {song.areSongs(songs) ?
@@ -131,6 +148,9 @@ class Songcards extends Component {
                           <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
                         </div>
                       }
+                      <div className="playback-controls__duration">
+                        <SongTimer songDuration={currentSongDuration} songPosition={currentSongPosition} isPlaying={playing} />
+                      </div>
                       <div className="playback-controls__volume">
                         <VolumeSlider />
                       </div>

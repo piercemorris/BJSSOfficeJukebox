@@ -167,11 +167,21 @@
   margin: 2rem auto;
   position: relative;
 
+
+
   &__play {
     position: absolute;
     top: 50%;
     left: 20%;
     transform: translateY(-50%);
+  }
+
+  &__duration {
+    position: absolute;
+    width: 50%;
+    left: 20%;
+    transform: translateY(-50%);
+    color: white;
   }
 
   &__volume {
