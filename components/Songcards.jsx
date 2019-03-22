@@ -27,8 +27,14 @@ class Songcards extends Component {
   updateCurrentSongDuration = () => {
     this.setState({
       currentSongDuration: this.state.songs[0].song.song.duration_ms,
-      currentSongPosition: 0
     });
+  }
+
+  tickSongTimer = async () => {
+    setTimeout(() => { this.tickSongTimer() }, 1000);
+    this.setState({
+      currentSongPosition: currentSongPosition + 1000
+    })
   }
 
   handleFinish = async () => {
@@ -37,7 +43,6 @@ class Songcards extends Component {
     let data = await Spotify.getCurrentlyPlaying();
     this.setState({currentSongPosition:data.progress});
     let timeRemain = data.duration - data.progress;
-    console.log(timeRemain);
     if (timeRemain < timeCheck) {
       setTimeout(() => {
         this.handleNext();

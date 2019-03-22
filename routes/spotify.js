@@ -74,6 +74,13 @@ router.get("/volume/:newVolume", async (req, res) => {
   res.status(200).send(response);
 })
 
+router.get("/time/:newTime", async (req, res) => {
+  const newTime = req.params.newTime;
+  const response = await spotifyApi.seek(newTime,{});
+
+  res.status(200).send(response);
+})
+
 router.get("/start/:uri", async (req, res) => {
   const response = await spotifyApi.play({ uris: [req.params.uri] });
 

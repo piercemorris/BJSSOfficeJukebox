@@ -8,8 +8,6 @@ class VolumeSlider extends Component {
     Spotify.updatePlayVolume(slider.value);
 
   }
-
-
   render() {
     
     return (
