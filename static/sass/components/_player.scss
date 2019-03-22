@@ -61,12 +61,26 @@
 
 .slider {
 
+  &::-moz-range-thumb {
+    height: 1.5rem;
+    width: 1.5rem;
+    outline: none;
+    border: none;
+    border-radius: 1rem;
+  }
+
   &::-moz-range-progress {
-    background-color: #43e5f7;
+    border-radius: 1rem;
+    background-color: $primary-text-color-dark;
+    height: .5rem;
   }
   
   &::-moz-range-track {
-    background-color: #9a905d;
+    height: .5rem;
+    outline: none;
+    border: none;
+    border-radius: 1rem;
+    background-color: $color-gray;
   }
 }
 

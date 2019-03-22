@@ -19,11 +19,12 @@ class SignUpForm extends Form {
 
   doSubmit = async () => {
     try {
+      const isDevice = document.getElementById("device").checked;
       const { data } = this.state;
       if (data.password != data.confirmpassword)
         throw new Error("\"password\" inputs do not match");
 
-      const response = await user.register({ username: data.username, password: data.password });
+      const response = await user.register({ username: data.username, password: data.password, isDevice });
       user.loginWithJwt(response.headers["x-auth-token"]);
       window.location = '/';
     }
@@ -64,6 +65,10 @@ class SignUpForm extends Form {
               {this.renderInput("username", "Username", "Username")}
               {this.renderInput("password", "Password", "Password", "password")}
               {this.renderInput("confirmpassword", "Confirm Password", "Password", "password")}
+              <div className="form__input">
+                <label className="form__input-label" htmlFor="device">Is this a device account?</label>
+                <input className="form__input-input" type="checkbox" id="device" name="device" />
+              </div>
               {this.renderButton("Sign up for office jukebox")}
             </form>
           </div>

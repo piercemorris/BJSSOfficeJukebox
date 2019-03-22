@@ -2,6 +2,12 @@
   background-color: $color-gray-light;
   height: 100vh;
 
+  .no-device {
+    text-align: center;
+    font-weight: 600;
+    color: $color-white;
+  }
+
   .currently-playing {
     background-image: linear-gradient(-180deg, $color-grad-light 0%, $color-grad-dark 100%);
     height: 50vh;

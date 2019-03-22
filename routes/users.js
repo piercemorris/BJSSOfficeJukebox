@@ -8,7 +8,7 @@ const { User, validate } = require("../models/user");
 // HTTP GET request to retrieve information about the currently logged in user
 router.get("/:id", async (req, res) => { //auth for middleware
   const user = await User.findById(req.params.id).select(
-    "-password -isAdmin"
+    "-password"
   );
   if (!user) return res.send("No user found").status(404);
   res.send(user);
@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
   user = new User({
     username: req.body.username,
     password: req.body.password,
-    isAdmin: false,
+    isDevice: req.body.isDevice,
     songsAdded: 0,
     lastAdd: 0,
     priority: 1.0

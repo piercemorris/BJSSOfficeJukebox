@@ -4,25 +4,24 @@ import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { changeNavbarState } from "../services/stylingScript";
 import SearchBar from "./SearchBar";
-import SearchTable from "./SearchTable";
 
 class Navbar extends Component {
 
   state = {
+    user: null,
     results: null
   }
 
   render() {
-
-    const links = [
+    const { user } = this.props;
+    let links = [
       { title: "Log in", url: "/login", float: "right", user: false },
       { title: "Sign up", url: "/signup", float: "right", user: false },
-      { title: "About", url: "/about", float: "right", user: true },
-      { title: "Authorise Spotify", url: "/api/spotify/login", float: "right", user: true },
       { title: "Queue", url: "/queue", float: "right", user: true },
     ];
+    if (user)
+      user.isDevice ? links.push({ title: "Authorise Spotify", url: "/api/spotify/login", float: "right", user: true }) : null;
 
-    const { user } = this.props;
     return (
       <div>
         <nav className="navbar-main" id="navbar-top">
