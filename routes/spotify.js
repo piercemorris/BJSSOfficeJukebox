@@ -98,9 +98,13 @@ router.get("/getMe", async (req, res) => {
 });
 
 router.post("/alexa", async (req, res) => {
-  // { query: "thriller" }
   const query = req.body.query;
-  const response = await spotifyApi.searchTracks(query); // check if response is null?
+  const response = await spotifyApi.searchTracks(query);
+
+  // if no search results
+  if (response.body.tracks.total === 0)
+    return res.status(404).send("No songs found");
+
   const track = response.body.tracks.items[0];
   const songObj = {
     song: track

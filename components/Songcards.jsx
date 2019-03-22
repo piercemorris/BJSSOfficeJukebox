@@ -21,7 +21,7 @@ class Songcards extends Component {
 
   async componentWillMount() {
     const userInfo = user.getCurrentUser();
-    const isDevice = userInfo.isDevice;
+    const isDevice = userInfo.isDevice ? true : false;
     this.setState({ user: userInfo, isDevice });
     const response = await song.getSongs();
     const spotifyData = await Spotify.getMeAndDevices();
