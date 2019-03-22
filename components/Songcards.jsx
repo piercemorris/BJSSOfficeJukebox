@@ -1,14 +1,17 @@
 import React, { Component } from "react";
+import Link from "next/link";
 import _ from "lodash";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from "./common/Button";
-import Spotify from "../services/spotifyService";
 import VolumeSlider from "../components/VolumeSlider";
+import Spotify from "../services/spotifyService";
 import song from "../services/songService";
-
+import user from "../services/userService";
 
 class Songcards extends Component {
   state = {
+    user: null,
+    isDevice: false,
     songs: null,
     spotifyData: null,
     start: false,
@@ -17,6 +20,9 @@ class Songcards extends Component {
   };
 
   async componentWillMount() {
+    const userInfo = user.getCurrentUser();
+    const isDevice = userInfo.isDevice ? true : false;
+    this.setState({ user: userInfo, isDevice });
     const response = await song.getSongs();
     const spotifyData = await Spotify.getMeAndDevices();
     this.setState({ songs: response.data, spotifyData });
@@ -72,7 +78,7 @@ class Songcards extends Component {
   };
 
   render() {
-    const { songs, spotifyData } = this.state;
+    const { songs, user, isDevice } = this.state;
     return (
       <div className="queue-page">
         {song.areSongs(songs) ?
@@ -107,24 +113,30 @@ class Songcards extends Component {
                 </div>
               </div>
 
-              <div className="playback-controls">
-                <div className="row">
-                  <div>
-                    {!this.state.playing ?
-                      <div className="playback-controls__play">
-                        <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+              {user.isDevice ?
+                <div className="playback-controls">
+                  <div className="row">
+                    <div>
+                      {!this.state.playing ?
+                        <div className="playback-controls__play">
+                          <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                        </div>
+                        :
+                        <div className="playback-controls__play">
+                          <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
+                        </div>
+                      }
+                      <div className="playback-controls__volume">
+                        <VolumeSlider />
                       </div>
-                      :
-                      <div className="playback-controls__play">
-                        <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
-                      </div>
-                    }
-                    <div className="playback-controls__volume">
-                      <VolumeSlider />
                     </div>
                   </div>
                 </div>
-              </div>
+                :
+                <div className="no-device">
+                  Playback features can changed on the device playing the music
+                </div>
+              }
             </section>
 
             <section className="queue">
@@ -179,14 +191,31 @@ class Songcards extends Component {
           </>
           :
           <section className="authorise-page">
-            <div className="authorise-page__text-box">
-              <h1 className="authorise-page__heading">
-                <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
-                <span className="authorise-page__heading--sub">Authorise Spotify, add songs and they'll appear in the queue</span>
-              </h1>
-
-              <button className="authorise-page__button">Authorise Spotify</button>
-            </div>
+            {
+              isDevice ?
+                <div className="authorise-page__text-box">
+                  <h1 className="authorise-page__heading">
+                    <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
+                    <span className="authorise-page__heading--sub">
+                      Authorise Spotify, add songs and they'll appear in the queue
+                        </span>
+                  </h1>
+                  <Link href="/api/spotify/login">
+                    <button className="authorise-page__button">
+                      Authorise Spotify
+                      </button>
+                  </Link>
+                </div>
+                :
+                <div className="authorise-page__text-box">
+                  <h1 className="authorise-page__heading">
+                    <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
+                    <span className="authorise-page__heading--sub">
+                      Log into an account device, then log in to Spotify
+                    </span>
+                  </h1>
+                </div>
+            }
           </section>
         }
       </div>

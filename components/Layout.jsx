@@ -29,7 +29,9 @@ class Layout extends Component {
           <link rel="icon" href="static/img/jukebox-icon.ico" />
         </Head>
         <Navbar user={this.state.user} />
-        <div className="">{this.props.children}</div>
+        <div>
+          {this.props.children}
+        </div>
       </div>
     );
   }
