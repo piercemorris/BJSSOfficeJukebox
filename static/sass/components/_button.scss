@@ -25,4 +25,13 @@
       background-color: darken($color-green, 15%);
     }
   }
+
+  &-standard {
+    background-color: $primary-text-color-dark;
+    color: $color-white;
+    
+    &:hover {
+      background-color: darken($primary-text-color-dark, 15%);
+    }
+  }
 }

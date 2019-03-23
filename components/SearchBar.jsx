@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import _ from "lodash";
 import Spotify from "../services/spotifyService";
 import SearchTable from "./SearchTable";
 
@@ -8,6 +7,8 @@ class SearchBar extends Component {
     search: {
       query: ""
     },
+    authorised: true,
+    clicked: false,
     result: {}
   };
 
@@ -16,11 +17,17 @@ class SearchBar extends Component {
     e.preventDefault();
 
     const { search } = this.state;
-    if ((search.query.length) > 3) {
-      const data = await Spotify.search(search.query);
-      this.setState({ result: data });
+
+    if (search.query.length > 3) {
+      try {
+        const data = await Spotify.search(search.query);
+        this.setState({ result: data, authorised: true, clicked: true });
+      } catch (ex) {
+        if (ex.response.status === 401)
+          this.setState({ authorised: false, clicked: true });
+      }
     } else {
-      this.setState({ result: null });
+      this.setState({ result: null, authorised: true, clicked: true });
     }
   };
 
@@ -50,12 +57,12 @@ class SearchBar extends Component {
 
 
   render() {
-    const { result } = this.state;
+    const { result, clicked } = this.state;
 
     return (
       <>
         {this.renderSearchBar()}
-        {_.isEmpty(result) ? null : <SearchTable result={this.state.result} />}
+        {!clicked ? null : <SearchTable result={this.state.result} authorised={this.state.authorised} />}
       </>
     );
   }
