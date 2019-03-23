@@ -27,6 +27,11 @@
   }
 }
 
+a{
+  text-decoration: none;
+  color:$primary-text-color-dark;
+}
+
 .queue {
   padding: 3rem 10rem;
   background-color: $color-gray-light;

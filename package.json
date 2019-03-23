@@ -57,6 +57,9 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-rangeslider": "^2.2.0",
+    "react-show-more": "^2.0.0",
+    "react-show-more-text": "^1.0.4",
+    "react-simple-show-more": "^1.0.2",
     "request": "^2.83.0",
     "spotify-web-api-js": "^0.22.1",
     "spotify-web-api-node": "^4.0.0"

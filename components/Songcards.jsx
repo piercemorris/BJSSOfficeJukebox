@@ -8,6 +8,8 @@ import SongTimer from "../components/SongTimer";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
 import user from "../services/userService";
+import ShowMore from "../services/utilityService";
+
 
 class Songcards extends Component {
 
@@ -119,7 +121,11 @@ class Songcards extends Component {
                   <div className="col-2-of-3">
                     <h2 className="text-box">
                       <span className="now-playing">Now Playing</span>
-                      <span className="text-box__song-name">{songs[0].song.song.name}</span>
+                      <span className="text-box__song-name">
+                        <ShowMore>
+                          {songs[0].song.song.name}
+                        </ShowMore>      
+                      </span>                      
                       {songs[0].song.song.explicit ?
                         <div className="text-box__explicit">
                           <span className="text-box__explicit-text">explicit</span>
@@ -194,14 +200,20 @@ class Songcards extends Component {
                             />
                           </td>
                           <td>
+                          <ShowMore>
                             {song.song.song.name}
+                          </ShowMore>                            
                             {song.song.song.explicit ?
                               <span className="text-box__explicit--short">E</span>
                               : null
                             }
                           </td>
                           <td>{song.song.song.artists[0].name}</td>
-                          <td>{song.song.song.album.name}</td>
+                          <td>
+                            <ShowMore>
+                              {song.song.song.album.name}
+                            </ShowMore>
+                          </td>                         
                           <td>{song.username}</td>
                           <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
                           <td>
