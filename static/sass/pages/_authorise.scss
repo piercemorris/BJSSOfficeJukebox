@@ -59,7 +59,7 @@
       animation-name: rotateAndPulse; 
       animation-duration: 2s; 
       animation-iteration-count: infinite;
-      animation-timing-function: linear;
+      animation-timing-function: ease-in;
       height: 6rem;    
     }
   }

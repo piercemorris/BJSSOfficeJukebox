@@ -37,13 +37,13 @@ class Songcards extends Component {
       const response = await song.getSongs();
       console.log(response.data);
       const spotifyData = await Spotify.getMeAndDevices();
-      this.setState({ songs: response.data, spotifyData, loading: false, unauthorised: false });
+      this.setState({ songs: response.data, spotifyData, loading: true, unauthorised: false });
       if (!response.data === []) {
         this.updateCurrentSongDuration();
       }
     } catch (ex) {
       console.log(ex);
-      this.setState({ loading: false, unauthorised: true });
+      this.setState({ loading: true, unauthorised: true });
     }
   }
 
@@ -100,9 +100,11 @@ class Songcards extends Component {
 
   handleNext = () => {
     this.handleDelete(this.state.songs[0]._id);
-    const firstInQueueURI = this.state.songs[0].song.song.uri;
-    Spotify.playSong(firstInQueueURI);
-    this.updateCurrentSongDuration();
+    if (this.state.songs[0]) {
+      const firstInQueueURI = this.state.songs[0].song.song.uri;
+      Spotify.playSong(firstInQueueURI);
+      this.updateCurrentSongDuration();
+    }
   }
 
   handleSubmit = async e => {
