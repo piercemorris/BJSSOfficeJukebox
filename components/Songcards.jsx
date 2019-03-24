@@ -18,6 +18,7 @@ class Songcards extends Component {
     loading: true,
     playing: false,
     isDevice: false,
+    unauthorised: false,
     spotifyData: null,
     currentSongDuration: 0,
     currentSongPosition: 0
@@ -32,10 +33,18 @@ class Songcards extends Component {
     }
 
     this.setState({ user: userInfo, isDevice });
-    const response = await song.getSongs();
-    const spotifyData = await Spotify.getMeAndDevices();
-    this.setState({ songs: response.data, spotifyData, loading: false });
-    this.updateCurrentSongDuration();
+    try {
+      const response = await song.getSongs();
+      console.log(response.data);
+      const spotifyData = await Spotify.getMeAndDevices();
+      this.setState({ songs: response.data, spotifyData, loading: false, unauthorised: false });
+      if (!response.data === []) {
+        this.updateCurrentSongDuration();
+      }
+    } catch (ex) {
+      console.log(ex);
+      this.setState({ loading: false, unauthorised: true });
+    }
   }
 
   updateCurrentSongDuration = () => {
@@ -101,7 +110,7 @@ class Songcards extends Component {
   };
 
   render() {
-    const { songs, loading, user, isDevice, currentSongDuration, currentSongPosition, playing } = this.state;
+    const { songs, loading, user, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
     return (
       <div className="queue-page">
         {loading ?
@@ -179,9 +188,7 @@ class Songcards extends Component {
                 </section>
 
                 <section className="queue">
-                  <h1 className="queue-title">
-                    Up Next
-              </h1>
+                  <h1 className="queue-title">Up Next</h1>
                   <table className="queue__table">
                     <tbody>
                       <tr className="queue__table-header">
@@ -231,7 +238,7 @@ class Songcards extends Component {
               :
               <section className="authorise-page">
                 {
-                  isDevice ?
+                  unauthorised ?
                     <div className="authorise-page__text-box">
                       <h1 className="authorise-page__heading">
                         <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
@@ -250,8 +257,8 @@ class Songcards extends Component {
                       <h1 className="authorise-page__heading">
                         <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
                         <span className="authorise-page__heading--sub">
-                          Log into an account device, then log in to Spotify
-                    </span>
+                          Add songs to the Queue with the search bar!
+                        </span>
                       </h1>
                     </div>
                 }
