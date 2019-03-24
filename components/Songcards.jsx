@@ -105,7 +105,16 @@ class Songcards extends Component {
     return (
       <div className="queue-page">
         {loading ?
-          <p>loading</p>
+          <section className="authorise-page">
+            <div className="authorise-page__text-box">
+              <h1 className="authorise-page__heading">
+                <span className="authorise-page__heading--main">Loading the queue, hang on!</span>
+                <span className="authorise-page__heading--sub">
+                  <img className="authorise-page__heading--logo" src="static/img/jukebox-logo-icon-white.png" alt="" />
+                </span>
+              </h1>
+            </div>
+          </section>
           :
           <>
             {song.areSongs(songs) ?

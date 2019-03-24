@@ -54,5 +54,13 @@
       letter-spacing: 0;
       margin-bottom: 7.5%;
     }
+      
+    img {
+      animation-name: rotate; 
+      animation-duration: 2s; 
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      height: 6rem;    
+    }
   }
 }
