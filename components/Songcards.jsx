@@ -112,7 +112,7 @@ class Songcards extends Component {
   };
 
   render() {
-    const { songs, loading, user, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
+    const { songs, loading, isDevice, user, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
     return (
       <div className="queue-page">
         {loading ?
@@ -160,7 +160,7 @@ class Songcards extends Component {
                     </div>
                   </div>
 
-                  {user.isDevice ?
+                  {isDevice ?
                     <div className="playback-controls">
                       <div className="row">
                         <div>
