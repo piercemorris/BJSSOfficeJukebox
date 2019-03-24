@@ -37,13 +37,13 @@ class Songcards extends Component {
       const response = await song.getSongs();
       console.log(response.data);
       const spotifyData = await Spotify.getMeAndDevices();
-      this.setState({ songs: response.data, spotifyData, loading: true, unauthorised: false });
+      this.setState({ songs: response.data, spotifyData, loading: false, unauthorised: false });
       if (!response.data === []) {
         this.updateCurrentSongDuration();
       }
     } catch (ex) {
       console.log(ex);
-      this.setState({ loading: true, unauthorised: true });
+      this.setState({ loading: false, unauthorised: true });
     }
   }
 
