@@ -11,10 +11,9 @@
 .modal-main-custom {
   position: fixed;
   padding: 1em;
-  background: $bjss-light-blue;
-  border: 1px solid rgba($color-white, 0);
+  background: $color-grad-light;
+  border: none;
   border-radius: 10px;
-  box-shadow: 5px 10px 18px #888888;
   color: $color-white;
   width: 50vw;
   height: 30vh;
