@@ -18,6 +18,7 @@ class Songcards extends Component {
     loading: true,
     playing: false,
     isDevice: false,
+    isDeviceActive: false,
     unauthorised: false,
     spotifyData: null,
     currentSongDuration: 0,
@@ -27,24 +28,28 @@ class Songcards extends Component {
   async componentWillMount() {
     const userInfo = user.getCurrentUser();
     let isDevice = false;
-
     if (userInfo) {
       isDevice = userInfo.isDevice ? true : false;
     }
-
     this.setState({ user: userInfo, isDevice });
+
     try {
       const response = await song.getSongs();
-      console.log(response.data);
       const spotifyData = await Spotify.getMeAndDevices();
+      this.handleDeviceActive(spotifyData.devices);
       this.setState({ songs: response.data, spotifyData, loading: false, unauthorised: false });
-      if (!response.data === []) {
-        this.updateCurrentSongDuration();
-      }
     } catch (ex) {
-      console.log(ex);
       this.setState({ loading: false, unauthorised: true });
     }
+  }
+
+  handleDeviceActive = (devices) => {
+    let deviceActive = false;
+    _.map(devices, device => {
+      if (device.is_active)
+        deviceActive = true;
+    });
+    this.setState({ isDeviceActive: deviceActive });
   }
 
   updateCurrentSongDuration = () => {
@@ -84,6 +89,7 @@ class Songcards extends Component {
       this.setState({ start: true, playing: true });
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       Spotify.playSong(firstInQueueURI);
+      this.updateCurrentSongDuration();
       this.handleFinish();
     } else {
       Spotify.play(this.state.playing);
@@ -112,7 +118,7 @@ class Songcards extends Component {
   };
 
   render() {
-    const { songs, loading, isDevice, user, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
+    const { songs, loading, isDevice, isDeviceActive, user, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
     return (
       <div className="queue-page">
         {loading ?
@@ -161,31 +167,40 @@ class Songcards extends Component {
                   </div>
 
                   {isDevice ?
-                    <div className="playback-controls">
-                      <div className="row">
-                        <div>
-                          {!this.state.playing ?
-                            <div className="playback-controls__play">
-                              <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                    <>
+                      {isDeviceActive ?
+                        <div className="playback-controls">
+                          <div className="row">
+                            <div>
+                              {!this.state.playing ?
+                                <div className="playback-controls__play">
+                                  <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                                </div>
+                                :
+                                <div className="playback-controls__play">
+                                  <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
+                                </div>
+                              }
+                              <div className="playback-controls__duration">
+                                <SongTimer songDuration={currentSongDuration} songPosition={currentSongPosition} isPlaying={playing} />
+                              </div>
+                              <div className="playback-controls__volume">
+                                <VolumeSlider />
+                              </div>
                             </div>
-                            :
-                            <div className="playback-controls__play">
-                              <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
-                            </div>
-                          }
-                          <div className="playback-controls__duration">
-                            <SongTimer songDuration={currentSongDuration} songPosition={currentSongPosition} isPlaying={playing} />
-                          </div>
-                          <div className="playback-controls__volume">
-                            <VolumeSlider />
                           </div>
                         </div>
-                      </div>
-                    </div>
+                        :
+                        <div className="no-device">
+                          No active Spotify is open on the device account!
+                          <a href="https://open.spotify.com/browse/featured" target="_blank" className="btn btn-standard margin-text-sm">Open Spotify</a>
+                        </div>
+                      }
+                    </>
                     :
                     <div className="no-device">
                       Playback features can changed on the device playing the music
-                </div>
+                    </div>
                   }
                 </section>
 
