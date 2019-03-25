@@ -134,7 +134,7 @@ router.post("/alexa", async (req, res) => {
       username: "Alexa",
       requestedBy: null,
       dateAdded: Date.now(),
-      priority: 1.0,
+      priority: 0.5,
     });
 
     // save the song
