@@ -69,11 +69,13 @@ class Songcards extends Component {
   }
 
   handleFinish = async () => {
-    const timeCheck = 1000;
+    const timeCheck = 5000;
+
     setTimeout(() => { this.handleFinish() }, timeCheck);
     let data = await Spotify.getCurrentlyPlaying();
     this.setState({ currentSongPosition: data.progress });
     let timeRemain = data.duration - data.progress;
+    console.log(timeRemain);
     if (timeRemain < timeCheck) {
       setTimeout(() => {
         this.handleNext();

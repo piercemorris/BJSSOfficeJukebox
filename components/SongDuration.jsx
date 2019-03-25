@@ -22,17 +22,23 @@ class SongDuration extends Component {
 
   componentDidUpdate() {
     const { running } = this.state;
-    const { isPlaying } = this.props;
+    const { isPlaying, currentSongDuration } = this.props;
 
     if (running != isPlaying) {
       !running ? this.handleTimerStart() : clearInterval(this.timer);
       this.setState({ running: isPlaying });
     }
+    if (currentSongDuration != this.state.currentSongDuration) {
+      clearInterval(this.timer);
+      this.setState({ currentSongDuration, lapse: 0, running: false });
+    }
   }
 
   handleTimerStart = () => {
     this.setState(state => {
-      if (!state.running) {
+      if (state.running) {
+        clearInterval(this.timer);
+      } else {
         const startTime = Date.now() - this.state.lapse;
         this.timer = setInterval(() => {
           this.setState({
