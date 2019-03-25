@@ -47,6 +47,11 @@ class Songcards extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.finishTimer);
+    clearTimeout(this.nextSong);
+  }
+
   handleDeviceActive = (devices) => {
     let deviceActive = false;
     _.map(devices, device => {
@@ -71,13 +76,13 @@ class Songcards extends Component {
   handleFinish = async () => {
     const timeCheck = 5000;
 
-    setTimeout(() => { this.handleFinish() }, timeCheck);
+    this.finishTimer = setTimeout(() => { this.handleFinish() }, timeCheck);
     let data = await Spotify.getCurrentlyPlaying();
     this.setState({ currentSongPosition: data.progress });
     let timeRemain = data.duration - data.progress;
     console.log(timeRemain);
     if (timeRemain < timeCheck) {
-      setTimeout(() => {
+      this.nextSong = setTimeout(() => {
         this.handleNext();
       }, timeRemain);
     }
