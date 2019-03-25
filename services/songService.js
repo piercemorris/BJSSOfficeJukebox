@@ -33,10 +33,22 @@ export async function deleteSong(id) {
   return await axios.delete(apiEndpoint + id);
 }
 
+export function msToTime(ms) {
+  const minutes = Math.floor((ms / 1000) / 60);
+  const seconds = Math.round((ms / 1000) % 60);
+  if (seconds < 10) {
+    return "" + minutes + ":0" + seconds;
+  }
+  else {
+    return "" + minutes + ":" + seconds;
+  }  
+}
+
 export default {
   areSongs,
   areSongsInQueue,
   getSongs,
   addSong,
-  deleteSong
+  deleteSong,
+  msToTime
 }
