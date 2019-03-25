@@ -4,6 +4,7 @@ import _ from "lodash";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from "./common/Button";
 import VolumeSlider from "../components/VolumeSlider";
+import SongDuration from "../components/SongDuration";
 import SongTimer from "../components/SongTimer";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
@@ -11,53 +12,59 @@ import user from "../services/userService";
 
 class Songcards extends Component {
 
-  state = {
-    user: null,
-    songs: null,
-    start: false,
-    loading: true,
-    playing: false,
-    isDevice: false,
-    unauthorised: false,
-    spotifyData: null,
-    currentSongDuration: 0,
-    currentSongPosition: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+      songs: null,
+      start: false,
+      loading: true,
+      playing: false,
+      isDevice: false,
+      isDeviceActive: false,
+      unauthorised: false,
+      spotifyData: null,
+      currentSongDuration: 0
+    };
+  }
 
   async componentWillMount() {
     const userInfo = user.getCurrentUser();
     let isDevice = false;
-
     if (userInfo) {
       isDevice = userInfo.isDevice ? true : false;
     }
-
     this.setState({ user: userInfo, isDevice });
+
     try {
       const response = await song.getSongs();
-      console.log(response.data);
       const spotifyData = await Spotify.getMeAndDevices();
+      this.handleDeviceActive(spotifyData.devices);
       this.setState({ songs: response.data, spotifyData, loading: false, unauthorised: false });
-      if (!response.data === []) {
-        this.updateCurrentSongDuration();
-      }
+      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms});
     } catch (ex) {
-      console.log(ex);
       this.setState({ loading: false, unauthorised: true });
     }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.finishTimer);
+    clearTimeout(this.nextSong);
+  }
+
+  handleDeviceActive = (devices) => {
+    let deviceActive = false;
+    _.map(devices, device => {
+      if (device.is_active)
+        deviceActive = true;
+    });
+    this.setState({ isDeviceActive: deviceActive });
   }
 
   updateCurrentSongDuration = () => {
     this.setState({
       currentSongDuration: this.state.songs[0].song.song.duration_ms,
     });
-  }
-
-  tickSongTimer = async () => {
-    setTimeout(() => { this.tickSongTimer() }, 1000);
-    this.setState({
-      currentSongPosition: currentSongPosition + 1000
-    })
   }
 
   handleDeviceUpdate = () => {
@@ -67,13 +74,15 @@ class Songcards extends Component {
   }
 
   handleFinish = async () => {
-    const timeCheck = 1000;
-    setTimeout(() => { this.handleFinish() }, timeCheck);
+    const timeCheck = 5000;
+
+    this.finishTimer = setTimeout(() => { this.handleFinish() }, timeCheck);
     let data = await Spotify.getCurrentlyPlaying();
     this.setState({ currentSongPosition: data.progress });
     let timeRemain = data.duration - data.progress;
+    console.log(timeRemain);
     if (timeRemain < timeCheck) {
-      setTimeout(() => {
+      this.nextSong = setTimeout(() => {
         this.handleNext();
       }, timeRemain);
     }
@@ -81,15 +90,28 @@ class Songcards extends Component {
 
   handlePlay = () => {
     if (!this.state.start) {
-      this.setState({ start: true, playing: true });
       const firstInQueueURI = this.state.songs[0].song.song.uri;
+      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
       Spotify.playSong(firstInQueueURI);
+      console.log(this.state.songs[0].song.song);
+
+      this.setState({ 
+        start: true, 
+        playing: true
+      });
+
       this.handleFinish();
     } else {
-      Spotify.play(this.state.playing);
+
+      if (this.state.playing) {
+        Spotify.pause();
+      } else {
+        const firstInQueueID = this.state.songs[0].song.song.id;
+        Spotify.resume(firstInQueueID);
+      }
       this.setState({ playing: !this.state.playing });
     }
-  };
+  }
 
   handleDelete = (id) => {
     const songs = _.filter(this.state.songs, song => { return song._id !== id });
@@ -112,7 +134,7 @@ class Songcards extends Component {
   };
 
   render() {
-    const { songs, loading, isDevice, user, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
+    const { songs, loading, isDevice, isDeviceActive, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
     return (
       <div className="queue-page">
         {loading ?
@@ -161,31 +183,46 @@ class Songcards extends Component {
                   </div>
 
                   {isDevice ?
-                    <div className="playback-controls">
-                      <div className="row">
-                        <div>
-                          {!this.state.playing ?
-                            <div className="playback-controls__play">
-                              <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                    <>
+                      {isDeviceActive ?
+                        <div className="playback-controls">
+                          <div className="row">
+                            <div>
+                            { currentSongDuration ?
+                              <>
+                              {!this.state.playing ?
+                                  <div className="playback-controls__play">
+                                    <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                                  </div>
+                                  :
+                                  <div className="playback-controls__play">
+                                    <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
+                                  </div>
+                                }
+                                <div className="playback-controls__duration">
+                                  <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing}/>
+                                </div>
+                                <div className="playback-controls__volume">
+                                  <VolumeSlider />
+                                </div>
+                              </>
+                              :
+                                null
+                              }
                             </div>
-                            :
-                            <div className="playback-controls__play">
-                              <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
-                            </div>
-                          }
-                          <div className="playback-controls__duration">
-                            <SongTimer songDuration={currentSongDuration} songPosition={currentSongPosition} isPlaying={playing} />
-                          </div>
-                          <div className="playback-controls__volume">
-                            <VolumeSlider />
                           </div>
                         </div>
-                      </div>
-                    </div>
+                        :
+                        <div className="no-device">
+                          No active Spotify is open on the device account!
+                          <a href="https://open.spotify.com/browse/featured" target="_blank" className="btn btn-standard margin-text-sm">Open Spotify</a>
+                        </div>
+                      }
+                    </>
                     :
                     <div className="no-device">
                       Playback features can changed on the device playing the music
-                </div>
+                    </div>
                   }
                 </section>
 
