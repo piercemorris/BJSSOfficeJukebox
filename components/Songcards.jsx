@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from "./common/Button";
 import VolumeSlider from "../components/VolumeSlider";
 import SongTimer from "../components/SongTimer";
+import SettingsTab from "../components/SettingsTab";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
 import user from "../services/userService";
@@ -21,7 +22,9 @@ class Songcards extends Component {
     unauthorised: false,
     spotifyData: null,
     currentSongDuration: 0,
-    currentSongPosition: 0
+    currentSongPosition: 0,
+    settingsClicked : false,
+    hideExplicit : false
   };
 
   async componentWillMount() {
@@ -111,6 +114,19 @@ class Songcards extends Component {
     e.preventDefault();
   };
 
+  showSettings = () => {
+    if (this.state.settingsClicked == false) {
+      this.setState({settingsClicked: true});
+    }
+    else {
+      this.setState({settingsClicked: false});
+    }
+  }
+
+  updateExplicit = () => {
+    this.setState({hideExplicit : true})
+  }
+
   render() {
     const { songs, loading, isDevice, user, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
     return (
@@ -130,6 +146,13 @@ class Songcards extends Component {
           <>
             {song.areSongs(songs) ?
               <>
+                <div className="settings-divider">
+                  {!this.state.settingsClicked ? <FontAwesomeIcon onClick={this.showSettings} icon={['fas', 'cog']} size="1x" inverse={true} /> : null}    
+                  {!this.state.settingsClicked ? null : <SettingsTab/>}
+                  <div id="settingsPanel">
+                    <SettingsTab/>
+                  </div>
+                </div>
                 <section className="currently-playing">
                   <div className="currently-playing__song-info">
                     <div className="row">
@@ -144,6 +167,7 @@ class Songcards extends Component {
                       <div className="col-2-of-3">
                         <h2 className="text-box">
                           <span className="now-playing">Now Playing</span>
+                          
                           <span className="text-box__song-name">{songs[0].song.song.name}</span>
                           {songs[0].song.song.explicit ?
                             <div className="text-box__explicit">
@@ -179,6 +203,9 @@ class Songcards extends Component {
                           <div className="playback-controls__volume">
                             <VolumeSlider />
                           </div>
+                          <div>
+                            <button onClick={this.updateExplicit}>Explcit </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -205,8 +232,12 @@ class Songcards extends Component {
                       {!song.areSongsInQueue(songs) ?
                         null
                         :
+                        
                         songs
                           .filter(song => songs.indexOf(song) != 0)
+                          
+                          .filter(song => (this.state.hideExplicit != true || song.song.song.explicit != true))
+                    
                           .map(song => (
                             <tr key={song._id} className="queue__table__content">
                               <td className="queue__table-image">

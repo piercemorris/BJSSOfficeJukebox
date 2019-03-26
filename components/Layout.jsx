@@ -5,8 +5,8 @@ import "../static/sass/main.scss";
 import user from "../services/userService";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlayCircle as faPlayCircleRegular, faPauseCircle as faPauseCircleRegular } from '@fortawesome/free-regular-svg-icons';
-import { faCoffee, faBars, faPlus, faPause, faForward, faPauseCircle, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
-library.add(faCoffee, faBars, faPlus, faPause, faForward, faPauseCircle, faPlayCircle, faPauseCircleRegular, faPlayCircleRegular);
+import { faCoffee, faBars, faPlus, faPause, faForward, faPauseCircle, faPlayCircle, faCog } from '@fortawesome/free-solid-svg-icons';
+library.add(faCoffee, faBars, faPlus, faPause, faForward, faPauseCircle, faPlayCircle, faPauseCircleRegular, faPlayCircleRegular, faCog);
 
 class Layout extends Component {
   state = {
