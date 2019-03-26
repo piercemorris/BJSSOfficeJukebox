@@ -8,6 +8,8 @@ import SongDuration from "../components/SongDuration";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
 import user from "../services/userService";
+import ShowMore from "../services/utilityService";
+
 
 class Songcards extends Component {
 
@@ -174,7 +176,10 @@ class Songcards extends Component {
                       <div className="col-2-of-3">
                         <h2 className="text-box">
                           <span className="now-playing">Now Playing</span>
-                          <span className="text-box__song-name">{songs[0].song.song.name}</span>
+                          <span className="text-box__song-name">
+                            <ShowMore>
+                              {songs[0].song.song.name}</span>
+                            </ShowMore>
                           {songs[0].song.song.explicit ?
                             <div className="text-box__explicit">
                               <span className="text-box__explicit-text">explicit</span>
@@ -189,7 +194,6 @@ class Songcards extends Component {
                       </div>
                     </div>
                   </div>
-
                   {isDevice ?
                     <>
                       {isDeviceActive ?
@@ -228,6 +232,40 @@ class Songcards extends Component {
                       }
                     </>
                     :
+                    <> 
+                     {songs
+                      .filter(song => songs.indexOf(song) != 0)
+                      .map(song => (
+                        <tr key={song._id} className="queue__table__content">
+                          <td className="queue__table-image">
+                            <img
+                              className="queue__table-image-img"
+                              src={song.song.song.album.images[1].url}
+                              alt="song in queue"
+                            />
+                          </td>
+                          <td>
+                          <ShowMore>
+                            {song.song.song.name}
+                          </ShowMore>                            
+                            {song.song.song.explicit ?
+                              <span className="text-box__explicit--short">E</span>
+                              : null
+                            }
+                          </td>
+                          <td>{song.song.song.artists[0].name}</td>
+                          <td>
+                            <ShowMore>
+                              {song.song.song.album.name}
+                            </ShowMore>
+                          </td>                         
+                          <td>{song.username}</td>
+                          <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
+                          <td>
+                            <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
+                          </td>
+                        </tr>
+                      }
                     <div className="no-device">
                       Playback features can changed on the device playing the music
                     </div>
