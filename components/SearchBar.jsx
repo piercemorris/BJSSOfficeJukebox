@@ -61,7 +61,9 @@ class SearchBar extends Component {
 
     return (
       <>
-        {this.renderSearchBar()}
+        <form>
+          {this.renderSearchBar()}
+        </form>
         {!clicked ? null : <SearchTable result={this.state.result} authorised={this.state.authorised} />}
       </>
     );

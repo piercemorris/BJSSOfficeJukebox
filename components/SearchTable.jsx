@@ -20,7 +20,6 @@ class SearchTable extends Component {
 
   hideModal = () => {
     this.setState({ show: false });
-    location.reload();
   }
 
   showMore = () => {
@@ -47,7 +46,6 @@ class SearchTable extends Component {
 
   render() {
     const { result, authorised } = this.props;
-    console.log(this.props.result);
     const { userActive, show, addedSong } = this.state;
     return (
       <React.Fragment>
