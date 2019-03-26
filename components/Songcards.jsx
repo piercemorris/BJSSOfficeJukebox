@@ -178,8 +178,9 @@ class Songcards extends Component {
                           <span className="now-playing">Now Playing</span>
                           <span className="text-box__song-name">
                             <ShowMore>
-                              {songs[0].song.song.name}</span>
+                              {songs[0].song.song.name}
                             </ShowMore>
+                          </span>
                           {songs[0].song.song.explicit ?
                             <div className="text-box__explicit">
                               <span className="text-box__explicit-text">explicit</span>
@@ -232,128 +233,128 @@ class Songcards extends Component {
                       }
                     </>
                     :
-                    <> 
-                     {songs
-                      .filter(song => songs.indexOf(song) != 0)
-                      .map(song => (
-                        <tr key={song._id} className="queue__table__content">
-                          <td className="queue__table-image">
-                            <img
-                              className="queue__table-image-img"
-                              src={song.song.song.album.images[1].url}
-                              alt="song in queue"
-                            />
-                          </td>
-                          <td>
-                          <ShowMore>
-                            {song.song.song.name}
-                          </ShowMore>                            
-                            {song.song.song.explicit ?
-                              <span className="text-box__explicit--short">E</span>
-                              : null
-                            }
-                          </td>
-                          <td>{song.song.song.artists[0].name}</td>
-                          <td>
-                            <ShowMore>
-                              {song.song.song.album.name}
-                            </ShowMore>
-                          </td>                         
-                          <td>{song.username}</td>
-                          <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
-                          <td>
-                            <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
-                          </td>
-                        </tr>
+                    <>
+                      {songs
+                        .filter(song => songs.indexOf(song) != 0)
+                        .map(song => (
+                          <tr key={song._id} className="queue__table__content">
+                            <td className="queue__table-image">
+                              <img
+                                className="queue__table-image-img"
+                                src={song.song.song.album.images[1].url}
+                                alt="song in queue"
+                              />
+                            </td>
+                            <td>
+                              <ShowMore>
+                                {song.song.song.name}
+                              </ShowMore>
+                              {song.song.song.explicit ?
+                                <span className="text-box__explicit--short">E</span>
+                                : null
+                              }
+                            </td>
+                            <td>{song.song.song.artists[0].name}</td>
+                            <td>
+                              <ShowMore>
+                                {song.song.song.album.name}
+                              </ShowMore>
+                            </td>
+                            <td>{song.username}</td>
+                            <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
+                            <td>
+                              <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
+                            </td>
+                          </tr>
                       }
-                    <div className="no-device">
-                      Playback features can changed on the device playing the music
+                      <div className="no-device">
+                        Playback features can changed on the device playing the music
                     </div>
-                  }
+                      }
                 </section>
 
-                <section className="queue">
-                  <h1 className="queue-title">Up Next</h1>
-                  <table className="queue__table">
-                    <tbody>
-                      <tr className="queue__table-header">
-                        <th className="queue__table-header-img"></th>
-                        <th className="queue__table-header-title">Title</th>
-                        <th className="queue__table-header-artist">Artist</th>
-                        <th className="queue__table-header-album">Album</th>
-                        <th className="queue__table-header-username">Requested By</th>
-                        <th className="queue__table-header-priority">Priority</th>
-                        <th className="queue__table-header-button"></th>
-                      </tr>
-                      {!song.areSongsInQueue(songs) ?
-                        null
-                        :
-                        songs
-                          .filter(song => songs.indexOf(song) != 0)
-                          .map(song => (
-                            <tr key={song._id} className="queue__table__content">
-                              <td className="queue__table-image">
-                                <img
-                                  className="queue__table-image-img"
-                                  src={song.song.song.album.images[1].url}
-                                  alt="song in queue"
-                                />
-                              </td>
-                              <td>
-                                {song.song.song.name}
-                                {song.song.song.explicit ?
-                                  <span className="text-box__explicit--short">E</span>
-                                  : null
-                                }
-                              </td>
-                              <td>{song.song.song.artists[0].name}</td>
-                              <td>{song.song.song.album.name}</td>
-                              <td>{song.username}</td>
-                              <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
-                              <td>
-                                <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
-                              </td>
-                            </tr>
-                          ))
-                      }
-                    </tbody>
-                  </table>
-                </section>
+                    <section className="queue">
+                      <h1 className="queue-title">Up Next</h1>
+                      <table className="queue__table">
+                        <tbody>
+                          <tr className="queue__table-header">
+                            <th className="queue__table-header-img"></th>
+                            <th className="queue__table-header-title">Title</th>
+                            <th className="queue__table-header-artist">Artist</th>
+                            <th className="queue__table-header-album">Album</th>
+                            <th className="queue__table-header-username">Requested By</th>
+                            <th className="queue__table-header-priority">Priority</th>
+                            <th className="queue__table-header-button"></th>
+                          </tr>
+                          {!song.areSongsInQueue(songs) ?
+                            null
+                            :
+                            songs
+                              .filter(song => songs.indexOf(song) != 0)
+                              .map(song => (
+                                <tr key={song._id} className="queue__table__content">
+                                  <td className="queue__table-image">
+                                    <img
+                                      className="queue__table-image-img"
+                                      src={song.song.song.album.images[1].url}
+                                      alt="song in queue"
+                                    />
+                                  </td>
+                                  <td>
+                                    {song.song.song.name}
+                                    {song.song.song.explicit ?
+                                      <span className="text-box__explicit--short">E</span>
+                                      : null
+                                    }
+                                  </td>
+                                  <td>{song.song.song.artists[0].name}</td>
+                                  <td>{song.song.song.album.name}</td>
+                                  <td>{song.username}</td>
+                                  <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
+                                  <td>
+                                    <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
+                                  </td>
+                                </tr>
+                              ))
+                          }
+                        </tbody>
+                      </table>
+                    </section>
               </>
-              :
+                  :
               <section className="authorise-page">
-                {
-                  unauthorised ?
-                    <div className="authorise-page__text-box">
-                      <h1 className="authorise-page__heading">
-                        <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
-                        <span className="authorise-page__heading--sub">
-                          Authorise Spotify, add songs and they'll appear in the queue
+                    {
+                      unauthorised ?
+                        <div className="authorise-page__text-box">
+                          <h1 className="authorise-page__heading">
+                            <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
+                            <span className="authorise-page__heading--sub">
+                              Authorise Spotify, add songs and they'll appear in the queue
                         </span>
-                      </h1>
-                      <Link href="/api/spotify/login">
-                        <button className="authorise-page__button">
-                          Authorise Spotify
+                          </h1>
+                          <Link href="/api/spotify/login">
+                            <button className="authorise-page__button">
+                              Authorise Spotify
                       </button>
-                      </Link>
-                    </div>
-                    :
-                    <div className="authorise-page__text-box">
-                      <h1 className="authorise-page__heading">
-                        <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
-                        <span className="authorise-page__heading--sub">
-                          Add songs to the Queue with the search bar!
+                          </Link>
+                        </div>
+                        :
+                        <div className="authorise-page__text-box">
+                          <h1 className="authorise-page__heading">
+                            <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
+                            <span className="authorise-page__heading--sub">
+                              Add songs to the Queue with the search bar!
                         </span>
-                      </h1>
-                    </div>
-                }
-              </section>
-            }
+                          </h1>
+                        </div>
+                    }
+                  </section>
+                  }
           </>
-        }
+                }
       </div>
     );
-  }
-}
-
+          }
+        }
+        
 export default Songcards;
