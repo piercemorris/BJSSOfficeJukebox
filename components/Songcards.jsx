@@ -40,7 +40,7 @@ class Songcards extends Component {
       const spotifyData = await Spotify.getMeAndDevices();
       this.handleDeviceActive(spotifyData.devices);
       this.setState({ songs: response.data, spotifyData, loading: false, unauthorised: false });
-      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms});
+      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
     } catch (ex) {
       this.setState({ loading: false, unauthorised: true });
     }
@@ -61,8 +61,11 @@ class Songcards extends Component {
   }
 
   updateSongQueue = async () => {
+    const firstSong = this.state.songs[0];
     const response = await song.getSongs();
-    this.setState({ songs: response.data });
+    let newSongs = response.data;
+    newSongs.unshift(firstSong);
+    this.setState({ songs: newSongs });
   }
 
   updateCurrentSongDuration = () => {
@@ -99,8 +102,8 @@ class Songcards extends Component {
       Spotify.playSong(firstInQueueURI);
       console.log(this.state.songs[0].song.song);
 
-      this.setState({ 
-        start: true, 
+      this.setState({
+        start: true,
         playing: true
       });
 
@@ -181,7 +184,7 @@ class Songcards extends Component {
                           <span className="text-box__song-album">{songs[0].song.song.album.name}</span>
                         </h2>
                         <div className="margin-top-sm">
-                          <Button onDelete={this.handleNext} song={songs[0]} text="Remove" />
+                          <Button onDelete={playing ? this.handleNext : this.handleDelete} song={songs[0]} text="Remove" />
                         </div>
                       </div>
                     </div>
@@ -193,25 +196,25 @@ class Songcards extends Component {
                         <div className="playback-controls">
                           <div className="row">
                             <div>
-                            { currentSongDuration ?
-                              <>
-                              {!this.state.playing ?
-                                  <div className="playback-controls__play">
-                                    <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                              {currentSongDuration ?
+                                <>
+                                  {!this.state.playing ?
+                                    <div className="playback-controls__play">
+                                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                                    </div>
+                                    :
+                                    <div className="playback-controls__play">
+                                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
+                                    </div>
+                                  }
+                                  <div className="playback-controls__duration">
+                                    <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing} />
                                   </div>
-                                  :
-                                  <div className="playback-controls__play">
-                                    <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
+                                  <div className="playback-controls__volume">
+                                    <VolumeSlider />
                                   </div>
-                                }
-                                <div className="playback-controls__duration">
-                                  <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing}/>
-                                </div>
-                                <div className="playback-controls__volume">
-                                  <VolumeSlider />
-                                </div>
-                              </>
-                              :
+                                </>
+                                :
                                 null
                               }
                             </div>

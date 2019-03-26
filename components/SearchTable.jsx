@@ -11,6 +11,7 @@ class SearchTable extends Component {
     userActive: false,
     expanded: false,
     show: false,
+    showSearch: false,
     addedSong: ""
   };
 
