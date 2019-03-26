@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from "./common/Button";
 import VolumeSlider from "../components/VolumeSlider";
 import SongDuration from "../components/SongDuration";
-import SongTimer from "../components/SongTimer";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
 import user from "../services/userService";
@@ -59,6 +58,11 @@ class Songcards extends Component {
         deviceActive = true;
     });
     this.setState({ isDeviceActive: deviceActive });
+  }
+
+  updateSongQueue = async () => {
+    const response = await song.getSongs();
+    this.setState({ songs: response.data });
   }
 
   updateCurrentSongDuration = () => {
@@ -122,6 +126,7 @@ class Songcards extends Component {
 
   handleNext = () => {
     this.handleDelete(this.state.songs[0]._id);
+    this.updateSongQueue();
     if (this.state.songs[0]) {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       Spotify.playSong(firstInQueueURI);
