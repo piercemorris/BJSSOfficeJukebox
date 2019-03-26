@@ -9,9 +9,12 @@ export async function search(query) {
   return data;
 }
 
-export async function play(playing) {
-  const action = playing ? 1 : 0;
-  await axios.get(apiEndpoint + "/play/" + action);
+export async function resume(uri) {
+  return await axios.get(apiEndpoint + "/resume/" + uri);
+}
+
+export async function pause() {
+  return await axios.get(apiEndpoint + "/pause/");
 }
 
 export async function playSong(uri) {
@@ -47,7 +50,8 @@ export async function getMeAndDevices() {
 }
 
 export default {
-  play,
+  resume,
+  pause,
   playSong,
   updatePlayVolume,
   updatePlaybackPoistion,

@@ -51,85 +51,107 @@ router.get("/refresh", async (req, res) => {
 });
 
 router.get("/search/:query", async (req, res) => {
-  const query = req.params.query;
-  const response = await spotifyApi.searchTracks(query);
-  res.status(200).send(response.body.tracks.items);
+  try {
+    const query = req.params.query;
+    const response = await spotifyApi.searchTracks(query);
+    res.status(200).send(response.body.tracks.items);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
-router.get("/play/:playing", async (req, res) => {
-  let response;
-  if (req.params.playing === "1") {
-    response = spotifyApi.pause({});
-  } else {
-    response = spotifyApi.play({});
-  }
+router.get("/resume/:uri", async (req, res) => {
+  try {
+    await spotifyApi.play({})
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err => {
+        res.send(400).send(err);
+      });
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
+});
 
-  res.status(200).send(response);
+router.get("/pause", async (req, res) => {
+  try {
+    const response = spotifyApi.pause({});
+    res.status(200).send(response);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
 router.get("/volume/:newVolume", async (req, res) => {
-  const volume = req.params.newVolume;
+  try {
+    const volume = req.params.newVolume;
+    const response = await spotifyApi.setVolume(volume, {});
 
-  const response = await spotifyApi.setVolume(volume, {});
-
-  res.status(200).send(response);
-})
+    res.status(200).send(response);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
+});
 
 router.get("/time/:newTime", async (req, res) => {
-  const newTime = req.params.newTime;
-  const response = await spotifyApi.seek(newTime, {});
 
-  res.status(200).send(response);
-})
+  try {
+    const newTime = req.params.newTime;
+    const response = await spotifyApi.seek(newTime, {});
+
+    res.status(200).send(response);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
+});
 
 router.get("/start/:uri", async (req, res) => {
-  const response = await spotifyApi.play({ uris: [req.params.uri] });
+  try {
+    const response = await spotifyApi.play({ uris: [req.params.uri] });
 
-  res.status(200).send(response);
+    res.status(200).send(response);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
 router.get("/getCurrent", async (req, res) => {
-  const response = await spotifyApi.getMyCurrentPlayingTrack({});
-  res.status(200).send(response);
+  try {
+    const response = await spotifyApi.getMyCurrentPlayingTrack({});
+    res.status(200).send(response);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
 router.get("/getMe", async (req, res) => {
-  const { body } = await spotifyApi.getMe();
-  const { body: data } = await spotifyApi.getMyDevices();
+  try {
+    const { body } = await spotifyApi.getMe();
+    const { body: data } = await spotifyApi.getMyDevices();
 
-  const payload = {
-    body,
-    devices: data.devices
-  };
+    const payload = {
+      body,
+      devices: data.devices
+    };
 
-  res.status(200).send(payload);
+    res.status(200).send(payload);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
 router.post("/alexa", async (req, res) => {
-  const query = req.body.query;
-  const response = await spotifyApi.searchTracks(query);
+  try {
+    const query = req.body.query;
+    const response = await spotifyApi.searchTracks(query);
 
-  // if no search results
-  if (response.body.tracks.total === 0)
-    return res.status(404).send("No songs found");
+    // if no search results
+    if (response.body.tracks.total === 0)
+      return res.status(404).send("No songs found");
 
-  const track = response.body.tracks.items[0];
-  const songObj = {
-    song: track
-  }
+    const track = response.body.tracks.items[0];
+    const songObj = {
+      song: track
+    }
 
-  // add to the queue with priority 1.0 under name Alexa
-  let song = new Song({
-    song: songObj,
-    username: "Alexa",
-    requestedBy: null,
-    dateAdded: Date.now(),
-    priority: 1.0,
-  });
+    // add to the queue with priority 1.0 under name Alexa
+    let song = new Song({
+      song: songObj,
+      username: "Alexa",
+      requestedBy: null,
+      dateAdded: Date.now(),
+      priority: 0.5,
+    });
 
-  // save the song
-  song = await song.save();
-  res.send(song).status(200);
+    // save the song
+    song = await song.save();
+    res.send(song).status(200);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
 module.exports = router;

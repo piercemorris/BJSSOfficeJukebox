@@ -10,6 +10,8 @@
 
   .currently-playing {
     background-image: linear-gradient(-180deg, $color-grad-light 0%, $color-grad-dark 100%);
+    min-width: 70rem;
+    min-height: 35rem;
     height: 50vh;
 
     &__song-info {
@@ -170,11 +172,11 @@ a{
 
 .playback-controls {
   margin: 2rem auto;
+  max-width: 150rem;
   position: relative;
 
-
-
   &__play {
+    z-index: 2;
     position: absolute;
     top: 50%;
     left: 20%;
@@ -202,5 +204,74 @@ a{
     &:hover {
       animation: shake .4s ease;
     }
+  }
+}
+
+.duration {
+  transform: .2s;
+
+  .slider {
+    &::-moz-range-thumb {
+      height: 1.5rem;
+      width: 1.5rem;
+      outline: none;
+      border: none;
+      border-radius: 1rem;
+    }
+  
+    &::-moz-range-progress {
+      border-radius: 1rem;
+      background-color: $primary-text-color-dark;
+      height: .5rem;
+    }
+    
+    &::-moz-range-track {
+      height: .5rem;
+      outline: none;
+      border: none;
+      border-radius: 1rem;
+      background-color: $color-gray;
+    }
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .slider {
+    width: 100%;
+    height: .5rem;
+    border-radius: 1rem;
+    background-color: rgba($color-white, 0.4);
+    -webkit-appearance: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    
+    &::-webkit-slider-runnable-track {
+      height: 2rem;
+      -webkit-appearance: none;
+      color: #C7C7C7;
+    }
+    
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 100%;
+      background-color: #C7C7C7;
+      cursor: pointer;
+    }
+  }
+}
+
+.msg {
+
+
+  &--error {
+    border-radius: 5px;
+    margin: 1rem;
+    padding: 1rem 3rem;
+    border: 1px solid $color-red;
+    background-color: lighten($color-red, 30%);
+    color: $color-red;
   }
 }

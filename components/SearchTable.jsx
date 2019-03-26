@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import songs from "../services/songService";
 import user from "../services/userService";
 import Modal from "../components/common/Modal";
-import Button from "./common/Button";
+import Link from "next/link";
 
 class SearchTable extends Component {
   state = {
@@ -10,6 +11,7 @@ class SearchTable extends Component {
     userActive: false,
     expanded: false,
     show: false,
+    showSearch: false,
     addedSong: ""
   };
 
@@ -19,7 +21,6 @@ class SearchTable extends Component {
 
   hideModal = () => {
     this.setState({ show: false });
-    location.reload();
   }
 
   showMore = () => {
@@ -45,7 +46,7 @@ class SearchTable extends Component {
   }
 
   render() {
-    const { result } = this.props;
+    const { result, authorised } = this.props;
     const { userActive, show, addedSong } = this.state;
     return (
       <React.Fragment>
@@ -60,48 +61,62 @@ class SearchTable extends Component {
             null
           }
         </Modal>
-        {userActive ?
-          null
-          :
-          <div className="">
-            You have to be logged in to add a song!
-          </div>
-        }
-        {result != 0 ? (
-          <div className="search-results">
-            <table className="search-results__table">
-              <tbody>
-                <tr className="search-results__table-header">
-                  <th className="search-results__table-header-img"></th>
-                  <th className="search-results__table-header-title">Title</th>
-                  <th className="search-results__table-header-artist">Artist</th>
-                  <th className="search-results__table-header-button"></th>
-                </tr>
-                {result.slice(0, this.state.itemsToShow).map((song, i) =>
-                  <tr className="search-results__table__content">
-                    <td key={i}><img src={song.album.images[2].url} /></td>
-                    <td>{song.name}</td>
-                    <td>{song.artists[0].name}</td>
-                    <td><button className="btn btn-add" onClick={() => this.handleAdd(song)}>Add song</button></td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-            <div className="search-results__show">
-              <button onClick={this.showMore} className="btn btn-add">
-                {this.state.expanded ?
-                  <span>Show less</span>
-                  :
-                  <span>Show more</span>
-                }
-              </button>
+        <div className="search-results">
+          {!userActive ?
+            <div className="msg--error">
+              You have to be logged into a Jukebox account to add a song!
+              <Link href="/login">
+                <button className="btn btn-standard margin-text-sm">Log in</button>
+              </Link>
             </div>
-          </div>
-
-        ) : (
-            <div></div>
-          )
-        }
+            :
+            <>
+              {!authorised ?
+                <div className="msg--error">
+                  You need to have Spotify added to your device account!
+                </div>
+                :
+                <>
+                  {_.isEmpty(result) ?
+                    <div className="msg--error">
+                      No search results! Try searching for another song...
+                  </div>
+                    :
+                    <>
+                      <table className="search-results__table">
+                        <tbody>
+                          <tr className="search-results__table-header">
+                            <th className="search-results__table-header-img"></th>
+                            <th className="search-results__table-header-title">Title</th>
+                            <th className="search-results__table-header-artist">Artist</th>
+                            <th className="search-results__table-header-button"></th>
+                          </tr>
+                          {result.slice(0, this.state.itemsToShow).map((song, i) =>
+                            <tr className="search-results__table__content">
+                              <td key={i}><img src={song.album.images[2].url} /></td>
+                              <td>{song.name}</td>
+                              <td>{song.artists[0].name}</td>
+                              <td><button className="btn btn-add" onClick={() => this.handleAdd(song)}>Add song</button></td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                      <div className="search-results__show">
+                        <button onClick={this.showMore} className="btn btn-add">
+                          {this.state.expanded ?
+                            <span>Show less</span>
+                            :
+                            <span>Show more</span>
+                          }
+                        </button>
+                      </div>
+                    </>
+                  }
+                </>
+              }
+            </>
+          }
+        </div>
       </React.Fragment>
     );
   }

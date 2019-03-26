@@ -4,7 +4,7 @@ import _ from "lodash";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from "./common/Button";
 import VolumeSlider from "../components/VolumeSlider";
-import SongTimer from "../components/SongTimer";
+import SongDuration from "../components/SongDuration";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
 import user from "../services/userService";
@@ -13,43 +13,67 @@ import ShowMore from "../services/utilityService";
 
 class Songcards extends Component {
 
-  state = {
-    user: null,
-    isDevice: false,
-    songs: null,
-    spotifyData: null,
-    start: false,
-    playing: false,
-    currentSongDuration: 0,
-    currentSongPosition: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+      songs: null,
+      start: false,
+      loading: true,
+      playing: false,
+      isDevice: false,
+      isDeviceActive: false,
+      unauthorised: false,
+      spotifyData: null,
+      currentSongDuration: 0
+    };
+  }
 
   async componentWillMount() {
     const userInfo = user.getCurrentUser();
     let isDevice = false;
-
     if (userInfo) {
       isDevice = userInfo.isDevice ? true : false;
     }
-
     this.setState({ user: userInfo, isDevice });
+
+    try {
+      const response = await song.getSongs();
+      const spotifyData = await Spotify.getMeAndDevices();
+      this.handleDeviceActive(spotifyData.devices);
+      this.setState({ songs: response.data, spotifyData, loading: false, unauthorised: false });
+      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
+    } catch (ex) {
+      this.setState({ loading: false, unauthorised: true });
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.finishTimer);
+    clearTimeout(this.nextSong);
+  }
+
+  handleDeviceActive = (devices) => {
+    let deviceActive = false;
+    _.map(devices, device => {
+      if (device.is_active)
+        deviceActive = true;
+    });
+    this.setState({ isDeviceActive: deviceActive });
+  }
+
+  updateSongQueue = async () => {
+    const firstSong = this.state.songs[0];
     const response = await song.getSongs();
-    const spotifyData = await Spotify.getMeAndDevices();
-    this.setState({ songs: response.data, spotifyData });
-    this.updateCurrentSongDuration();
+    let newSongs = response.data;
+    newSongs.unshift(firstSong);
+    this.setState({ songs: newSongs });
   }
 
   updateCurrentSongDuration = () => {
     this.setState({
       currentSongDuration: this.state.songs[0].song.song.duration_ms,
     });
-  }
-
-  tickSongTimer = async () => {
-    setTimeout(() => { this.tickSongTimer() }, 1000);
-    this.setState({
-      currentSongPosition: currentSongPosition + 1000
-    })
   }
 
   handleDeviceUpdate = () => {
@@ -59,13 +83,15 @@ class Songcards extends Component {
   }
 
   handleFinish = async () => {
-    const timeCheck = 1000;
-    setTimeout(() => { this.handleFinish() }, timeCheck);
+    const timeCheck = 5000;
+
+    this.finishTimer = setTimeout(() => { this.handleFinish() }, timeCheck);
     let data = await Spotify.getCurrentlyPlaying();
     this.setState({ currentSongPosition: data.progress });
     let timeRemain = data.duration - data.progress;
+    console.log(timeRemain);
     if (timeRemain < timeCheck) {
-      setTimeout(() => {
+      this.nextSong = setTimeout(() => {
         this.handleNext();
       }, timeRemain);
     }
@@ -73,15 +99,28 @@ class Songcards extends Component {
 
   handlePlay = () => {
     if (!this.state.start) {
-      this.setState({ start: true, playing: true });
       const firstInQueueURI = this.state.songs[0].song.song.uri;
+      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
       Spotify.playSong(firstInQueueURI);
+      console.log(this.state.songs[0].song.song);
+
+      this.setState({
+        start: true,
+        playing: true
+      });
+
       this.handleFinish();
     } else {
-      Spotify.play(this.state.playing);
+
+      if (this.state.playing) {
+        Spotify.pause();
+      } else {
+        const firstInQueueID = this.state.songs[0].song.song.id;
+        Spotify.resume(firstInQueueID);
+      }
       this.setState({ playing: !this.state.playing });
     }
-  };
+  }
 
   handleDelete = (id) => {
     const songs = _.filter(this.state.songs, song => { return song._id !== id });
@@ -92,9 +131,12 @@ class Songcards extends Component {
 
   handleNext = () => {
     this.handleDelete(this.state.songs[0]._id);
-    const firstInQueueURI = this.state.songs[0].song.song.uri;
-    Spotify.playSong(firstInQueueURI);
-    this.updateCurrentSongDuration();
+    this.updateSongQueue();
+    if (this.state.songs[0]) {
+      const firstInQueueURI = this.state.songs[0].song.song.uri;
+      Spotify.playSong(firstInQueueURI);
+      this.updateCurrentSongDuration();
+    }
   }
 
   handleSubmit = async e => {
@@ -102,93 +144,96 @@ class Songcards extends Component {
   };
 
   render() {
-    const { songs, user, isDevice, currentSongDuration, currentSongPosition, playing } = this.state;
+    const { songs, loading, isDevice, isDeviceActive, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
     return (
       <div className="queue-page">
-        {song.areSongs(songs) ?
+        {loading ?
+          <section className="authorise-page">
+            <div className="authorise-page__text-box">
+              <h1 className="authorise-page__heading">
+                <span className="authorise-page__heading--main">Loading the queue, hang on!</span>
+                <span className="authorise-page__heading--sub">
+                  <img className="authorise-page__heading--logo" src="static/img/jukebox-logo-icon-white.png" alt="" />
+                </span>
+              </h1>
+            </div>
+          </section>
+          :
           <>
-            <section className="currently-playing">
-              <div className="currently-playing__song-info">
-                <div className="row">
-                  <div className="col-1-of-3">
-                    <div className="currenty-playing__image">
-                      <img
-                        className="currently-playing__image-img"
-                        src={songs[0].song.song.album.images[1].url}
-                      />
+            {song.areSongs(songs) ?
+              <>
+                <section className="currently-playing">
+                  <div className="currently-playing__song-info">
+                    <div className="row">
+                      <div className="col-1-of-3">
+                        <div className="currenty-playing__image">
+                          <img
+                            className="currently-playing__image-img"
+                            src={songs[0].song.song.album.images[1].url}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-2-of-3">
+                        <h2 className="text-box">
+                          <span className="now-playing">Now Playing</span>
+                          <span className="text-box__song-name">
+                            <ShowMore>
+                              {songs[0].song.song.name}</span>
+                            </ShowMore>
+                          {songs[0].song.song.explicit ?
+                            <div className="text-box__explicit">
+                              <span className="text-box__explicit-text">explicit</span>
+                            </div> : null
+                          }
+                          <span className="text-box__song-artist">{songs[0].song.song.artists[0].name}</span>
+                          <span className="text-box__song-album">{songs[0].song.song.album.name}</span>
+                        </h2>
+                        <div className="margin-top-sm">
+                          <Button onDelete={playing ? this.handleNext : this.handleDelete} song={songs[0]} text="Remove" />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="col-2-of-3">
-                    <h2 className="text-box">
-                      <span className="now-playing">Now Playing</span>
-                      <span className="text-box__song-name">
-                        <ShowMore>
-                          {songs[0].song.song.name}
-                        </ShowMore>      
-                      </span>                      
-                      {songs[0].song.song.explicit ?
-                        <div className="text-box__explicit">
-                          <span className="text-box__explicit-text">explicit</span>
-                        </div> : null
-                      }
-                      <span className="text-box__song-artist">{songs[0].song.song.artists[0].name}</span>
-                      <span className="text-box__song-album">{songs[0].song.song.album.name}</span>
-                    </h2>
-                    <div className="margin-top-sm">
-                      <Button onDelete={this.handleNext} song={songs[0]} text="Remove" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {user.isDevice ?
-                <div className="playback-controls">
-                  <div className="row">
-                    <div>
-                      {!this.state.playing ?
-                        <div className="playback-controls__play">
-                          <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                  {isDevice ?
+                    <>
+                      {isDeviceActive ?
+                        <div className="playback-controls">
+                          <div className="row">
+                            <div>
+                              {currentSongDuration ?
+                                <>
+                                  {!this.state.playing ?
+                                    <div className="playback-controls__play">
+                                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
+                                    </div>
+                                    :
+                                    <div className="playback-controls__play">
+                                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
+                                    </div>
+                                  }
+                                  <div className="playback-controls__duration">
+                                    <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing} />
+                                  </div>
+                                  <div className="playback-controls__volume">
+                                    <VolumeSlider />
+                                  </div>
+                                </>
+                                :
+                                null
+                              }
+                            </div>
+                          </div>
                         </div>
                         :
-                        <div className="playback-controls__play">
-                          <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
+                        <div className="no-device">
+                          No active Spotify is open on the device account!
+                          <a href="https://open.spotify.com/browse/featured" target="_blank" className="btn btn-standard margin-text-sm">Open Spotify</a>
                         </div>
                       }
-                      <div className="playback-controls__duration">
-                        <SongTimer songDuration={currentSongDuration} songPosition={currentSongPosition} isPlaying={playing} />
-                      </div>
-                      <div className="playback-controls__volume">
-                        <VolumeSlider />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                :
-                <div className="no-device">
-                  Playback features can changed on the device playing the music
-                </div>
-              }
-            </section>
-
-            <section className="queue">
-              <h1 className="queue-title">
-                Up Next
-              </h1>
-              <table className="queue__table">
-                <tbody>
-                  <tr className="queue__table-header">
-                    <th className="queue__table-header-img"></th>
-                    <th className="queue__table-header-title">Title</th>
-                    <th className="queue__table-header-artist">Artist</th>
-                    <th className="queue__table-header-album">Album</th>
-                    <th className="queue__table-header-username">Requested By</th>
-                    <th className="queue__table-header-priority">Priority</th>
-                    <th className="queue__table-header-button"></th>
-                  </tr>
-                  {!song.areSongsInQueue(songs) ?
-                    null
+                    </>
                     :
-                    songs
+                    <> 
+                     {songs
                       .filter(song => songs.indexOf(song) != 0)
                       .map(song => (
                         <tr key={song._id} className="queue__table__content">
@@ -220,40 +265,91 @@ class Songcards extends Component {
                             <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
                           </td>
                         </tr>
-                      ))
+                      }
+                    <div className="no-device">
+                      Playback features can changed on the device playing the music
+                    </div>
                   }
-                </tbody>
-              </table>
-            </section>
-          </>
-          :
-          <section className="authorise-page">
-            {
-              isDevice ?
-                <div className="authorise-page__text-box">
-                  <h1 className="authorise-page__heading">
-                    <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
-                    <span className="authorise-page__heading--sub">
-                      Authorise Spotify, add songs and they'll appear in the queue
+                </section>
+
+                <section className="queue">
+                  <h1 className="queue-title">Up Next</h1>
+                  <table className="queue__table">
+                    <tbody>
+                      <tr className="queue__table-header">
+                        <th className="queue__table-header-img"></th>
+                        <th className="queue__table-header-title">Title</th>
+                        <th className="queue__table-header-artist">Artist</th>
+                        <th className="queue__table-header-album">Album</th>
+                        <th className="queue__table-header-username">Requested By</th>
+                        <th className="queue__table-header-priority">Priority</th>
+                        <th className="queue__table-header-button"></th>
+                      </tr>
+                      {!song.areSongsInQueue(songs) ?
+                        null
+                        :
+                        songs
+                          .filter(song => songs.indexOf(song) != 0)
+                          .map(song => (
+                            <tr key={song._id} className="queue__table__content">
+                              <td className="queue__table-image">
+                                <img
+                                  className="queue__table-image-img"
+                                  src={song.song.song.album.images[1].url}
+                                  alt="song in queue"
+                                />
+                              </td>
+                              <td>
+                                {song.song.song.name}
+                                {song.song.song.explicit ?
+                                  <span className="text-box__explicit--short">E</span>
+                                  : null
+                                }
+                              </td>
+                              <td>{song.song.song.artists[0].name}</td>
+                              <td>{song.song.song.album.name}</td>
+                              <td>{song.username}</td>
+                              <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
+                              <td>
+                                <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
+                              </td>
+                            </tr>
+                          ))
+                      }
+                    </tbody>
+                  </table>
+                </section>
+              </>
+              :
+              <section className="authorise-page">
+                {
+                  unauthorised ?
+                    <div className="authorise-page__text-box">
+                      <h1 className="authorise-page__heading">
+                        <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
+                        <span className="authorise-page__heading--sub">
+                          Authorise Spotify, add songs and they'll appear in the queue
                         </span>
-                  </h1>
-                  <Link href="/api/spotify/login">
-                    <button className="authorise-page__button">
-                      Authorise Spotify
+                      </h1>
+                      <Link href="/api/spotify/login">
+                        <button className="authorise-page__button">
+                          Authorise Spotify
                       </button>
-                  </Link>
-                </div>
-                :
-                <div className="authorise-page__text-box">
-                  <h1 className="authorise-page__heading">
-                    <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
-                    <span className="authorise-page__heading--sub">
-                      Log into an account device, then log in to Spotify
-                    </span>
-                  </h1>
-                </div>
+                      </Link>
+                    </div>
+                    :
+                    <div className="authorise-page__text-box">
+                      <h1 className="authorise-page__heading">
+                        <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
+                        <span className="authorise-page__heading--sub">
+                          Add songs to the Queue with the search bar!
+                        </span>
+                      </h1>
+                    </div>
+                }
+              </section>
             }
-          </section>
+          </>
         }
       </div>
     );

@@ -13,8 +13,20 @@ class SongTimer extends Component {
     percentageThroughSong: 0,
   }
 
+  async componentWillMount() {
+    const { currentSongDuration, isPlaying } = this.props; 
+    this.setState({
+      currentSongDuration,
+      isPlaying
+    });
+  }
+
   async componentDidMount() {
     this.updateTicker();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.update);
   }
 
   //Converts the current time to the correct format
@@ -33,14 +45,8 @@ class SongTimer extends Component {
 
   //Updates the current time every second, and updates the slider
   async updateTicker() {
-    setTimeout(() => { this.updateTicker() }, 1000);
+    this.update = setTimeout(() => { this.updateTicker() }, 1000);
     var newPercent = Math.round((this.state.currentTime / this.state.currentSongDuration) * 100);
-    console.log(this.state.currentSecond);
-
-    // if (this.state.isPlaying != false) {
-    //   var newTime = this.state.currentTime + 1000;
-    //   this.setState({currentTime: newTime});
-    // }
 
     this.setState({ percentageThroughSong: newPercent });
     this.convertMsToTime();
@@ -57,26 +63,30 @@ class SongTimer extends Component {
 
   render() {
 
-    const { songDuration, songPosition, isPlaying } = this.props;
-    this.state.currentSongDuration = songDuration;
-    this.state.isPlaying = isPlaying;
-    this.state.currentTime = songPosition;
+    const { currentSecond, currentMinute, songMinute, songSecond, percentageThroughSong } = this.state;
 
     return (
       <div className="row">
         <div className="col-1-of-4">
           <span className="right">
-            {this.state.currentMinute}:
-            {(this.state.currentSecond < 10) ? 0 : ''}{this.state.currentSecond}
+            {currentMinute}:
+            {currentSecond < 10 ? 0 : ''}{currentSecond}
           </span>
         </div>
         <div className="col-2-of-4">
-          <input onChange={this.updateSongTime} type="range" min="1" max="100" defaultValue="0" value={this.state.percentageThroughSong} class="slider" id="timeSlider"></input>
+          <input 
+            onChange={this.updateSongTime} 
+            type="range" min="0" max={currentSongDuration} 
+            value={
+              percentageThroughSong ? percentageThroughSong : 0
+            } 
+            className="slider" 
+            id="timeSlider" />
         </div>
         <div className="col-1-of-4">
           <span>
-            {this.state.songMinute}:
-              {(this.state.songSecond < 10) ? 0 : ''}{this.state.songSecond}
+            {songMinute}:
+              {songSecond < 10 ? 0 : ''}{songSecond}
           </span>
         </div>
       </div>
