@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import Link from "next/link";
 import _ from "lodash";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from "./common/Button";
-import VolumeSlider from "../components/VolumeSlider";
-import SongDuration from "../components/SongDuration";
+import Error from "./common/Error";
+import CurrentlyPlaying from "./queue/CurrentlyPlaying";
+import Queue from "./queue/Queue";
 import Spotify from "../services/spotifyService";
 import song from "../services/songService";
 import user from "../services/userService";
-import ShowMore from "../services/utilityService";
 
 
 class Songcards extends Component {
@@ -148,209 +147,45 @@ class Songcards extends Component {
     return (
       <div className="queue-page">
         {loading ?
-          <section className="authorise-page">
-            <div className="authorise-page__text-box">
-              <h1 className="authorise-page__heading">
-                <span className="authorise-page__heading--main">Loading the queue, hang on!</span>
-                <span className="authorise-page__heading--sub">
-                  <img className="authorise-page__heading--logo" src="static/img/jukebox-logo-icon-white.png" alt="" />
-                </span>
-              </h1>
-            </div>
-          </section>
+          <Error 
+            text="Loading the queue, hang on!"
+            subtext={<img className="authorise-page__heading--logo" src="static/img/jukebox-logo-icon-white.png" alt="" />}  
+            />
           :
           <>
             {song.areSongs(songs) ?
-              <>
-                <section className="currently-playing">
-                  <div className="currently-playing__song-info">
-                    <div className="row">
-                      <div className="col-1-of-3">
-                        <div className="currenty-playing__image">
-                          <img
-                            className="currently-playing__image-img"
-                            src={songs[0].song.song.album.images[1].url}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-2-of-3">
-                        <h2 className="text-box">
-                          <span className="now-playing">Now Playing</span>
-                          <span className="text-box__song-name">
-                            <ShowMore>
-                              {songs[0].song.song.name}
-                            </ShowMore>
-                          </span>
-                          {songs[0].song.song.explicit ?
-                            <div className="text-box__explicit">
-                              <span className="text-box__explicit-text">explicit</span>
-                            </div> : null
-                          }
-                          <span className="text-box__song-artist">{songs[0].song.song.artists[0].name}</span>
-                          <span className="text-box__song-album">{songs[0].song.song.album.name}</span>
-                        </h2>
-                        <div className="margin-top-sm">
-                          <Button onDelete={playing ? this.handleNext : this.handleDelete} song={songs[0]} text="Remove" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {isDevice ?
-                    <>
-                      {isDeviceActive ?
-                        <div className="playback-controls">
-                          <div className="row">
-                            <div>
-                              {currentSongDuration ?
-                                <>
-                                  {!this.state.playing ?
-                                    <div className="playback-controls__play">
-                                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'play-circle']} size="3x" inverse={true} />
-                                    </div>
-                                    :
-                                    <div className="playback-controls__play">
-                                      <FontAwesomeIcon onClick={() => this.handlePlay()} className="playback-controls__button" icon={['far', 'pause-circle']} size="3x" inverse={true} />
-                                    </div>
-                                  }
-                                  <div className="playback-controls__duration">
-                                    <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing} />
-                                  </div>
-                                  <div className="playback-controls__volume">
-                                    <VolumeSlider />
-                                  </div>
-                                </>
-                                :
-                                null
-                              }
-                            </div>
-                          </div>
-                        </div>
-                        :
-                        <div className="no-device">
-                          No active Spotify is open on the device account!
-                          <a href="https://open.spotify.com/browse/featured" target="_blank" className="btn btn-standard margin-text-sm">Open Spotify</a>
-                        </div>
-                      }
-                    </>
-                    :
-                    <>
-                      {songs
-                        .filter(song => songs.indexOf(song) != 0)
-                        .map(song => (
-                          <tr key={song._id} className="queue__table__content">
-                            <td className="queue__table-image">
-                              <img
-                                className="queue__table-image-img"
-                                src={song.song.song.album.images[1].url}
-                                alt="song in queue"
-                              />
-                            </td>
-                            <td>
-                              <ShowMore>
-                                {song.song.song.name}
-                              </ShowMore>
-                              {song.song.song.explicit ?
-                                <span className="text-box__explicit--short">E</span>
-                                : null
-                              }
-                            </td>
-                            <td>{song.song.song.artists[0].name}</td>
-                            <td>
-                              <ShowMore>
-                                {song.song.song.album.name}
-                              </ShowMore>
-                            </td>
-                            <td>{song.username}</td>
-                            <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
-                            <td>
-                              <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
-                            </td>
-                          </tr>
-                        ))
-                      }
-                      <div className="no-device">
-                        Playback features can changed on the device playing the music
-                      </div>
-                    </>
-                  }
-                  <section className="queue">
-                    <h1 className="queue-title">Up Next</h1>
-                    <table className="queue__table">
-                      <tbody>
-                        <tr className="queue__table-header">
-                          <th className="queue__table-header-img"></th>
-                          <th className="queue__table-header-title">Title</th>
-                          <th className="queue__table-header-artist">Artist</th>
-                          <th className="queue__table-header-album">Album</th>
-                          <th className="queue__table-header-username">Requested By</th>
-                          <th className="queue__table-header-priority">Priority</th>
-                          <th className="queue__table-header-button"></th>
-                        </tr>
-                        {!song.areSongsInQueue(songs) ?
-                          null
-                          :
-                          songs
-                            .filter(song => songs.indexOf(song) != 0)
-                            .map(song => (
-                              <tr key={song._id} className="queue__table__content">
-                                <td className="queue__table-image">
-                                  <img
-                                    className="queue__table-image-img"
-                                    src={song.song.song.album.images[1].url}
-                                    alt="song in queue"
-                                  />
-                                </td>
-                                <td>
-                                  {song.song.song.name}
-                                  {song.song.song.explicit ?
-                                    <span className="text-box__explicit--short">E</span>
-                                    : null
-                                  }
-                                </td>
-                                <td>{song.song.song.artists[0].name}</td>
-                                <td>{song.song.song.album.name}</td>
-                                <td>{song.username}</td>
-                                <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
-                                <td>
-                                  <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
-                                </td>
-                              </tr>
-                            ))
-                        }
-                      </tbody>
-                    </table>
-                  </section>
-                </section>
+              <>  
+                <CurrentlyPlaying 
+                  track={songs[0]}
+                  playing={playing}
+                  onNext={this.handleNext}
+                  onDelete={this.handleDelete}
+                  onPlay={this.handlePlay}
+                  isDevice={isDevice}
+                  isDeviceActive={isDeviceActive}
+                  currentSongDuration={currentSongDuration}
+
+                />
+                <Queue 
+                  tracks={songs}
+                  onDelete={this.handleDelete}
+                />
               </>
               :
-
-              <section className="authorise-page">
+              <>
                 {
                   unauthorised ?
-                    <div className="authorise-page__text-box">
-                      <h1 className="authorise-page__heading">
-                        <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
-                        <span className="authorise-page__heading--sub">
-                          Authorise Spotify, add songs and they'll appear in the queue
-                        </span>
-                      </h1>
+                    <Error text="Hey, where's the tunes?!" subtext="Authorise Spotify, add songs and they'll appear in the queue">
                       <Link href="/api/spotify/login">
                         <button className="authorise-page__button">
                           Authorise Spotify
-                      </button>
+                        </button>
                       </Link>
-                    </div>
+                    </Error>
                     :
-                    <div className="authorise-page__text-box">
-                      <h1 className="authorise-page__heading">
-                        <span className="authorise-page__heading--main">Hey, where's the tunes?!</span>
-                        <span className="authorise-page__heading--sub">
-                          Add songs to the Queue with the search bar!
-                        </span>
-                      </h1>
-                    </div>
-                }
-              </section>
+                    <Error text="Hey, where's the tunes?!" subtext="Add songs to the Queue with the search bar!" />
+                  }
+                </>
             }
           </>
         }
