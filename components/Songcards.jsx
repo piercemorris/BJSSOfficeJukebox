@@ -23,7 +23,8 @@ class Songcards extends Component {
       isDeviceActive: false,
       unauthorised: false,
       spotifyData: null,
-      currentSongDuration: 0
+      currentSongDuration: 0,
+      frozenLength: 3
     };
   }
 
@@ -62,37 +63,18 @@ class Songcards extends Component {
     this.setState({ isDeviceActive: deviceActive });
   }
 
-  updateSongQueue = async () => {
-    const firstSong = this.state.songs[0];
-    const response = await song.getSongs();
-    let newSongs = response.data;
-    newSongs.unshift(firstSong);
-    this.setState({ songs: newSongs });
-  }
-
   handleQueueUpdate = async () => {
-    this.updateQueue = setInterval( async () => {
-      console.log("set interval started");
-      const frozen = _.take(this.state.songs, 3);
+    this.updateQueue = setInterval(async () => {
+      const frozen = _.take(this.state.songs, this.state.frozenLength);
       const { data: updatedSongList } = await song.getSongs();
-      
-      console.log("frozen", frozen);
-      console.log("new database call", updatedSongList);
-      console.log("current state", this.state.songs);
-      console.log("difference ", _.differenceBy(updatedSongList, frozen, '_id'));
-      if(this.state.songs.length !== updatedSongList.length) {
+
+      if (this.state.songs.length !== updatedSongList.length) {
         let newFreeQueue = _.differenceBy(updatedSongList, frozen, '_id');
-        console.log("should be everything but top 3", newFreeQueue);
         newFreeQueue = _.orderBy(newFreeQueue, ['priority'], ['desc']);
         const newQueue = frozen.concat(newFreeQueue);
         this.setState({ songs: newQueue });
       }
-      console.log("set interval finished");
     }, 10 * 1000);
-  }
-
-  handleCurrentUpdate = async () => {
-
   }
 
   handleDeviceUpdate = () => {
@@ -150,7 +132,6 @@ class Songcards extends Component {
 
   handleNext = () => {
     this.handleDelete(this.state.songs[0]._id);
-    this.updateSongQueue();
     if (this.state.songs[0]) {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       Spotify.playSong(firstInQueueURI);
@@ -167,15 +148,15 @@ class Songcards extends Component {
     return (
       <div className="queue-page">
         {loading ?
-          <Error 
+          <Error
             text="Loading the queue, hang on!"
-            subtext={<img className="authorise-page__heading--logo" src="static/img/jukebox-logo-icon-white.png" alt="" />}  
-            />
+            subtext={<img className="authorise-page__heading--logo" src="static/img/jukebox-logo-icon-white.png" alt="" />}
+          />
           :
           <>
             {song.areSongs(songs) ?
-              <>  
-                <CurrentlyPlaying 
+              <>
+                <CurrentlyPlaying
                   track={songs[0]}
                   playing={playing}
                   onNext={this.handleNext}
@@ -186,7 +167,7 @@ class Songcards extends Component {
                   currentSongDuration={currentSongDuration}
 
                 />
-                <Queue 
+                <Queue
                   tracks={songs}
                   onDelete={this.handleDelete}
                 />
@@ -204,8 +185,8 @@ class Songcards extends Component {
                     </Error>
                     :
                     <Error text="Hey, where's the tunes?!" subtext="Add songs to the Queue with the search bar!" />
-                  }
-                </>
+                }
+              </>
             }
           </>
         }

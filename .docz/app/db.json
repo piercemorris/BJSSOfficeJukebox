@@ -1,0 +1,731 @@
+{
+  "config": {
+    "title": "CSS Sass",
+    "description": "A online jukebox app for BJSS which allows multiple users to queue up songs",
+    "menu": [],
+    "version": "1.0.0",
+    "repository": "https://github.com/perjermer/BJSSOfficeJukebox",
+    "native": false,
+    "codeSandbox": true,
+    "themeConfig": {},
+    "separator": "-",
+    "plugins": [
+      {}
+    ]
+  },
+  "props": [
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/Devices.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Devices",
+          "methods": [],
+          "actualName": "Devices"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/Index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Index",
+          "methods": [],
+          "actualName": "Index"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/Layout.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Layout",
+          "methods": [],
+          "actualName": "Layout"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/LoginForm.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "LoginForm",
+          "methods": [
+            {
+              "name": "doSubmit",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "LoginForm"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/Logout.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Logout",
+          "methods": [],
+          "actualName": "Logout"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/Navbar.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Navbar",
+          "methods": [],
+          "actualName": "Navbar"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/SearchBar.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SearchBar",
+          "methods": [
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "renderSearchBar",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "SearchBar"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/SearchTable.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SearchTable",
+          "methods": [
+            {
+              "name": "showModal",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "hideModal",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "showMore",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleAdd",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "song",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "SearchTable"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/SignUpForm.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SignUpForm",
+          "methods": [
+            {
+              "name": "doSubmit",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "SignUpForm"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/SongDuration.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SongDuration",
+          "methods": [
+            {
+              "name": "handleTimerStart",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "SongDuration"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/SongTimer.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SongTimer",
+          "methods": [
+            {
+              "name": "convertMsToTime",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "convertSongMsToTime",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateTicker",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateSongTime",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "SongTimer"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/Songcards.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Songcards",
+          "methods": [
+            {
+              "name": "handleDeviceActive",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "devices",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "updateSongQueue",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleQueueUpdate",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleCurrentUpdate",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleDeviceUpdate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleFinish",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handlePlay",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleDelete",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "id",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleNext",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "Songcards"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/UserAccount.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "UserAccount",
+          "methods": [],
+          "actualName": "UserAccount"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/VolumeSlider.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "VolumeSlider",
+          "methods": [
+            {
+              "name": "componentWillMount",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateVolume",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "VolumeSlider"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/pages/account.js",
+      "value": [
+        {
+          "description": "",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/pages/index.js",
+      "value": [
+        {
+          "description": "",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/pages/login.js",
+      "value": [
+        {
+          "description": "",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/pages/logout.js",
+      "value": [
+        {
+          "description": "",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/pages/queue.js",
+      "value": [
+        {
+          "description": "",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/pages/search.js",
+      "value": [
+        {
+          "description": "",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/pages/signup.js",
+      "value": [
+        {
+          "description": "",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/services/utilityService.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ShowMore",
+          "methods": [
+            {
+              "name": "handleTruncate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "truncated",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "toggleLines",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ShowMore",
+          "props": {
+            "children": {
+              "type": {
+                "name": "node"
+              },
+              "required": false,
+              "description": ""
+            },
+            "lines": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": "",
+              "defaultValue": {
+                "value": "2",
+                "computed": false
+              }
+            },
+            "more": {
+              "type": {
+                "name": "node"
+              },
+              "required": false,
+              "description": "",
+              "defaultValue": {
+                "value": "'...'",
+                "computed": false
+              }
+            },
+            "less": {
+              "type": {
+                "name": "node"
+              },
+              "required": false,
+              "description": "",
+              "defaultValue": {
+                "value": "'...'",
+                "computed": false
+              }
+            },
+            "anchorClass": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": "",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/common/Button.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Button",
+          "methods": [],
+          "actualName": "Button"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/common/Error.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Error",
+          "methods": [],
+          "actualName": "Error"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/common/Info.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Info",
+          "methods": [],
+          "actualName": "Info"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/common/Input.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Input",
+          "methods": [],
+          "actualName": "Input"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/common/InputCustom.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "InputCustom",
+          "methods": [],
+          "actualName": "InputCustom"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/common/Submit.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Submit",
+          "methods": [],
+          "actualName": "Submit"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/common/Modal.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Modal",
+          "methods": [],
+          "actualName": "Modal"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/queue/CurrentlyPlaying.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CurrentlyPlaying",
+          "methods": [],
+          "actualName": "CurrentlyPlaying"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/queue/PlaybackControls.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PlaybackControls",
+          "methods": [],
+          "actualName": "PlaybackControls"
+        }
+      ]
+    },
+    {
+      "key": "/Users/piercemorris/Documents/bjss/BJSSOfficeJukebox/components/queue/Queue.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Queue",
+          "methods": [],
+          "actualName": "Queue"
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "key": "alexa/README.md",
+      "value": {
+        "id": "3b188d1927f5b3f794611c4db7ef8944",
+        "filepath": "alexa/README.md",
+        "link": "https://github.com/perjermer/BJSSOfficeJukebox/edit/master/alexa/README.md",
+        "slug": "alexa-readme",
+        "route": "/alexa-readme",
+        "name": "Readme",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "alexa",
+            "depth": 1,
+            "value": "Alexa"
+          },
+          {
+            "slug": "alexa-skills",
+            "depth": 2,
+            "value": "Alexa Skills"
+          },
+          {
+            "slug": "the-code",
+            "depth": 2,
+            "value": "The code"
+          }
+        ]
+      }
+    },
+    {
+      "key": "components/doc/Error.mdx",
+      "value": {
+        "name": "Error",
+        "id": "ca091c4fdd61585f3fa5707f75aeae6d",
+        "filepath": "components/doc/Error.mdx",
+        "link": "https://github.com/perjermer/BJSSOfficeJukebox/edit/master/components/doc/Error.mdx",
+        "slug": "components-doc-error",
+        "route": "/components-doc-error",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "error",
+            "depth": 1,
+            "value": "Error"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic usage"
+          }
+        ]
+      }
+    }
+  ]
+}
