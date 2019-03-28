@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Link from "next/link";
 import _ from "lodash";
-import Button from "./common/Button";
 import Error from "./common/Error";
 import CurrentlyPlaying from "./queue/CurrentlyPlaying";
 import Queue from "./queue/Queue";
@@ -42,6 +41,7 @@ class Songcards extends Component {
       this.handleDeviceActive(spotifyData.devices);
       this.setState({ songs: response.data, spotifyData, loading: false, unauthorised: false });
       this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
+      this.handleQueueUpdate();
     } catch (ex) {
       this.setState({ loading: false, unauthorised: true });
     }
@@ -50,6 +50,7 @@ class Songcards extends Component {
   componentWillUnmount() {
     clearTimeout(this.finishTimer);
     clearTimeout(this.nextSong);
+    clearInterval(this.updateQueue);
   }
 
   handleDeviceActive = (devices) => {
@@ -69,10 +70,29 @@ class Songcards extends Component {
     this.setState({ songs: newSongs });
   }
 
-  updateCurrentSongDuration = () => {
-    this.setState({
-      currentSongDuration: this.state.songs[0].song.song.duration_ms,
-    });
+  handleQueueUpdate = async () => {
+    this.updateQueue = setInterval( async () => {
+      console.log("set interval started");
+      const frozen = _.take(this.state.songs, 3);
+      const { data: updatedSongList } = await song.getSongs();
+      
+      console.log("frozen", frozen);
+      console.log("new database call", updatedSongList);
+      console.log("current state", this.state.songs);
+      console.log("difference ", _.differenceBy(updatedSongList, frozen, '_id'));
+      if(this.state.songs.length !== updatedSongList.length) {
+        let newFreeQueue = _.differenceBy(updatedSongList, frozen, '_id');
+        console.log("should be everything but top 3", newFreeQueue);
+        newFreeQueue = _.orderBy(newFreeQueue, ['priority'], ['desc']);
+        const newQueue = frozen.concat(newFreeQueue);
+        this.setState({ songs: newQueue });
+      }
+      console.log("set interval finished");
+    }, 10 * 1000);
+  }
+
+  handleCurrentUpdate = async () => {
+
   }
 
   handleDeviceUpdate = () => {
@@ -134,7 +154,7 @@ class Songcards extends Component {
     if (this.state.songs[0]) {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       Spotify.playSong(firstInQueueURI);
-      this.updateCurrentSongDuration();
+      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
     }
   }
 
@@ -188,7 +208,6 @@ class Songcards extends Component {
                 </>
             }
           </>
-        }
         }
       </div>
     );

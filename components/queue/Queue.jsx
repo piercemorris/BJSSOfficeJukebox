@@ -6,6 +6,7 @@ const Queue = (props) => {
 
   const { tracks, onDelete } = props;
 
+  console.log(tracks);
   return (
     <section className="queue">
     <h1 className="queue-title">Up Next</h1>
