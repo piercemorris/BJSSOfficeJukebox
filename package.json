@@ -13,7 +13,9 @@
     "heroku-postbuild": "next build",
     "watch": "nodemon index.js",
     "test": "jest --detectOpenHandles --verbose",
-    "testing": "jest --watchAll"
+    "testing": "jest --watchAll",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
   "keywords": [
     "Spotify",
@@ -54,8 +56,8 @@
     "npm": "^6.8.0",
     "query-string": "^6.2.0",
     "querystring": "~0.2.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-rangeslider": "^2.2.0",
     "react-show-more": "^2.0.0",
     "react-show-more-text": "^1.0.4",

@@ -11,7 +11,7 @@
   .currently-playing {
     background-image: linear-gradient(-180deg, $color-grad-light 0%, $color-grad-dark 100%);
     min-width: 70rem;
-    min-height: 35rem;
+    min-height: 37.5rem;
     height: 50vh;
 
     &__song-info {
@@ -22,7 +22,8 @@
 
       &-img {
         float: right;
-        height: 30vh;
+        min-height: 32.5vh;
+        height: 32.5vh;
         box-shadow: 0rem 1rem 2rem rgba($color-black, 0.8);
       }
     }
