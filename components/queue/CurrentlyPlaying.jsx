@@ -44,7 +44,7 @@ const CurrentlyPlaying = (props) => {
       {isDevice ? // is the account a device or a user?
         <>
           {isDeviceActive ? // is the device active on Spotify?
-            <PlaybackControls playing={playing} currentSongDuration={currentSongDuration} handlePlay={onPlay} />
+            <PlaybackControls playing={playing} currentSongDuration={currentSongDuration} handlePlay={onPlay} handleNext={onNext} />
             :
             <div className="no-device">
               No active Spotify is open on the device account!

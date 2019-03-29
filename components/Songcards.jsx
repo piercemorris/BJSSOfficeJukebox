@@ -83,6 +83,7 @@ class Songcards extends Component {
     this.setState({ device });
   }
 
+  /*
   handleFinish = async () => {
     const timeCheck = 5000;
 
@@ -97,20 +98,20 @@ class Songcards extends Component {
       }, timeRemain);
     }
   }
+  */
 
   handlePlay = () => {
     if (!this.state.start) {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
       Spotify.playSong(firstInQueueURI);
-      console.log(this.state.songs[0].song.song);
 
       this.setState({
         start: true,
         playing: true
       });
 
-      this.handleFinish();
+      // this.handleFinish();
     } else {
 
       if (this.state.playing) {

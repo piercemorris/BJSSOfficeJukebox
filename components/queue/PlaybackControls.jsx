@@ -6,7 +6,7 @@ import VolumeSlider from "../VolumeSlider";
 class PlaybackControls extends Component {
   render() { 
 
-    const { playing, currentSongDuration, handlePlay} = this.props;
+    const { playing, currentSongDuration, handlePlay, handleNext } = this.props;
 
     return ( 
       <div className="playback-controls">
@@ -24,7 +24,7 @@ class PlaybackControls extends Component {
                   </div>
                 }
                 <div className="playback-controls__duration">
-                  <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing} />
+                  <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing} handleNext={handleNext} />
                 </div>
                 <div className="playback-controls__volume">
                   <VolumeSlider />
