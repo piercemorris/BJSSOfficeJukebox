@@ -163,9 +163,69 @@
   }
 }
 
+#toggles {
+  float: right;
+}
 
-.toggle {
+#settingsText {
+  color: $color-grayish-white;
+  float: left;
+  padding-bottom: 8px;
+}
+
+.switch {
+  //float: right;
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 18px;
   padding: 10px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSlider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 18px;
+}
+
+.toggleSlider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggleSlider {
+  background-color: #2196F3;
+}
+
+input:focus + .toggleSlider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .toggleSlider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
 }
 
 .settings-divider {
@@ -177,28 +237,37 @@
   right: 2%;
   top: 12%;
   border-radius: 5px;
-  -webkit-transition: background 1s,height 1s, width 1s, padding 1s;
-  transition : background 1s,height 1s, width 1s, padding 1s;
-  
+  -webkit-transition: all 1s;//background 1s,height 1s, width 1s, padding 1s;
+  transition : all 1s; //background 1s,height 1s, width 1s, padding 1s;
 }
 
 .settings-divider:hover {
-  padding: 3px;
+  padding: 5px;
   display: block;
-  background: #aeacb7;
-  width: 150px;
-  height: 100px;
+  background: #3a3a3a;
+  width: 200px;
+  height: 150px;
   
 }
 
 .settings-divider:hover #settingsPanel {
-  display: block;
+  //display: block;
+  opacity : 1;
+  
+}
+
+#settingsPanel :not(:hover) {
+  
 }
 
 #settingsPanel {
   padding: 10px;
-  display: none;
+  //display: none;
   right: 5%;
+  opacity : 0;
+  //-webkit-transition: all 1s;
+  transition-delay: 1s;
+  //transition : all 5s;
 }
 
 
