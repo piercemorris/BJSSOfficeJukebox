@@ -4,10 +4,11 @@ import song from "../services/songService";
 class SongDuration extends Component {
 
   state = {
-    currentSongDuration: 0,
+    currentSongDuration: undefined,
     running: false,
+    update: false,
     lapse: 0,
-   }
+  }
 
   componentWillMount() {
     this.setState({
@@ -21,14 +22,22 @@ class SongDuration extends Component {
   }
 
   componentDidUpdate() {
-    const { running } = this.state;
+    const { running, update } = this.state;
     const { isPlaying, currentSongDuration } = this.props;
+
+    if (update) {
+      this.setState({ update: false, lapse: 0 });
+      clearInterval(this.timer);
+      this.props.handleNext();
+      this.handleTimerStart()
+    }
 
     if (running != isPlaying) {
       !running ? this.handleTimerStart() : clearInterval(this.timer);
       this.setState({ running: isPlaying });
     }
-    if (currentSongDuration != this.state.currentSongDuration) {
+
+    if (currentSongDuration != this.state.currentSongDuration) { //error prone if 2 songs of the same duration is added
       clearInterval(this.timer);
       this.setState({ currentSongDuration, lapse: 0, running: false });
     }
@@ -38,16 +47,20 @@ class SongDuration extends Component {
     this.setState(state => {
       if (state.running) {
         clearInterval(this.timer);
-      } else {
+      }
+
+      else { //if running is false
         const startTime = Date.now() - this.state.lapse;
+
         this.timer = setInterval(() => {
-          console.log(Math.round(this.state.lapse/1000));
-          if(Math.round(this.state.lapse/1000) >= Math.round(this.state.currentSongDuration/1000)) {
-            this.setState({ lapse: 0, running: false });
-            console.log("handleNext was called")
-            this.props.handleNext();
-            clearInterval(this.timer);
-          } else {
+          //console.log(Math.round(this.state.lapse / 1000));
+          //const duration = this.state.currentSongDuration;
+
+          if (this.state.lapse >= this.state.currentSongDuration) {
+            this.setState({ update: true });
+          }
+
+          else {
             this.setState({
               lapse: Date.now() - startTime
             });
@@ -57,7 +70,7 @@ class SongDuration extends Component {
     })
   }
 
-  render() { 
+  render() {
 
     const { currentSongDuration, lapse } = this.state;
 
@@ -70,22 +83,22 @@ class SongDuration extends Component {
         </div>
         <div className="col-2-of-4">
           <div className="duration">
-            <input 
-              type="range" min="0" max={this.state.currentSongDuration} 
+            <input
+              type="range" min="0" max={this.state.currentSongDuration}
               value={lapse}
               readOnly
-              className="slider" 
+              className="slider"
               id="timeSlider" />
           </div>
         </div>
         <div className="col-1-of-4">
           <span>
-           {song.msToTime(currentSongDuration)}
+            {song.msToTime(currentSongDuration)}
           </span>
         </div>
       </div>
     );
   }
 }
- 
+
 export default SongDuration;

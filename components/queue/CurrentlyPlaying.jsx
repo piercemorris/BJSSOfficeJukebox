@@ -7,7 +7,7 @@ const CurrentlyPlaying = (props) => {
 
   const { track, onNext, onDelete, onPlay, currentSongDuration, playing, isDevice, isDeviceActive } = props;
 
-  return ( 
+  return (
     <section className="currently-playing">
       <div className="currently-playing__song-info">
         <div className="row">
@@ -60,7 +60,7 @@ const CurrentlyPlaying = (props) => {
         </>
       }
     </section>
-   );
+  );
 }
- 
+
 export default CurrentlyPlaying;

@@ -4,11 +4,11 @@ import SongDuration from "../SongDuration";
 import VolumeSlider from "../VolumeSlider";
 
 class PlaybackControls extends Component {
-  render() { 
+  render() {
 
-    const { playing, currentSongDuration, handlePlay, handleNext } = this.props;
+    const { playing, paused, currentSongDuration, handlePlay, handleNext } = this.props;
 
-    return ( 
+    return (
       <div className="playback-controls">
         <div className="row">
           <div>
@@ -24,7 +24,7 @@ class PlaybackControls extends Component {
                   </div>
                 }
                 <div className="playback-controls__duration">
-                  <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing} handleNext={handleNext} />
+                  <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing} isPaused={paused} handleNext={handleNext} />
                 </div>
                 <div className="playback-controls__volume">
                   <VolumeSlider />
@@ -36,8 +36,8 @@ class PlaybackControls extends Component {
           </div>
         </div>
       </div>
-     );
+    );
   }
 }
- 
+
 export default PlaybackControls;
