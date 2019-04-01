@@ -103,14 +103,13 @@ class Songcards extends Component {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
       Spotify.playSong(firstInQueueURI);
-      console.log(this.state.songs[0].song.song);
 
       this.setState({
         start: true,
         playing: true
       });
 
-      this.handleFinish();
+      // this.handleFinish();
     } else {
 
       if (this.state.playing) {
@@ -130,12 +129,13 @@ class Songcards extends Component {
     song.deleteSong(id);
   }
 
-  handleNext = () => {
+  handleNext = () => { // check
+    this.setState({ playing: false });
     this.handleDelete(this.state.songs[0]._id);
     if (this.state.songs[0]) {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       Spotify.playSong(firstInQueueURI);
-      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
+      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms, playing: true });
     }
   }
 
@@ -165,7 +165,6 @@ class Songcards extends Component {
                   isDevice={isDevice}
                   isDeviceActive={isDeviceActive}
                   currentSongDuration={currentSongDuration}
-
                 />
                 <Queue
                   tracks={songs}
