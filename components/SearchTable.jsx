@@ -11,8 +11,8 @@ class SearchTable extends Component {
     userActive: false,
     expanded: false,
     show: false,
-    showSearch: false,
-    addedSong: ""
+    addedSong: "",
+    hideTable:false
   };
 
   showModal = () => {
@@ -35,6 +35,7 @@ class SearchTable extends Component {
     this.setState({ addedSong: song.name });
     const currentUser = await user.getCurrentUser();
     const response = await songs.addSong({ song }, currentUser._id, currentUser.username);
+    this.setState({ hideTable: true });
     this.showModal();
   }
 
@@ -43,11 +44,30 @@ class SearchTable extends Component {
     if (response) {
       this.setState({ userActive: true });
     }
+    document.addEventListener('mousedown',this.handleClick,false);
   }
 
+  componentWillReceiveProps(nextProps){
+    if(this.props.showTable !==nextProps.showTable){
+      this.setState({hideTable:false});
+    }
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown',this.handleClick,false);
+  }
+
+  handleClick=(e)=>{
+    if(this.node.contains(e.target)){
+      return;
+    }else{
+      this.setState({hideTable:true});
+    }
+  }
+  
   render() {
-    const { result, authorised } = this.props;
-    const { userActive, show, addedSong } = this.state;
+    const { result, authorised,  } = this.props;
+    const { userActive, show, addedSong, hideTable } = this.state;
     return (
       <React.Fragment>
         <Modal show={show} handleClose={this.hideModal}>
@@ -61,7 +81,7 @@ class SearchTable extends Component {
             null
           }
         </Modal>
-        <div className="search-results">
+        <div className="search-results" ref={node => this.node = node}>
           {!userActive ?
             <div className="msg--error">
               You have to be logged into a Jukebox account to add a song!
@@ -80,9 +100,15 @@ class SearchTable extends Component {
                   {_.isEmpty(result) ?
                     <div className="msg--error">
                       No search results! Try searching for another song...
-                  </div>
+                    </div>
                     :
                     <>
+                      {
+                        hideTable?
+                          <div>
+                          </div>
+                      :
+                      <>
                       <table className="search-results__table">
                         <tbody>
                           <tr className="search-results__table-header">
@@ -111,6 +137,8 @@ class SearchTable extends Component {
                         </button>
                       </div>
                     </>
+                      }
+                      </>
                   }
                 </>
               }
