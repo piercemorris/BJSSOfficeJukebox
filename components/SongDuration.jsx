@@ -48,19 +48,12 @@ class SongDuration extends Component {
       if (state.running) {
         clearInterval(this.timer);
       }
-
-      else { //if running is false
+      else {
         const startTime = Date.now() - this.state.lapse;
-
         this.timer = setInterval(() => {
-          //console.log(Math.round(this.state.lapse / 1000));
-          //const duration = this.state.currentSongDuration;
-
           if (this.state.lapse >= this.state.currentSongDuration) {
             this.setState({ update: true });
-          }
-
-          else {
+          } else {
             this.setState({
               lapse: Date.now() - startTime
             });
@@ -71,9 +64,7 @@ class SongDuration extends Component {
   }
 
   render() {
-
     const { currentSongDuration, lapse } = this.state;
-
     return (
       <div className="row">
         <div className="col-1-of-4">
