@@ -12,7 +12,7 @@
     "start": "node index.js -p $PORT",
     "heroku-postbuild": "next build",
     "watch": "nodemon index.js",
-    "test": "jest --detectOpenHandles --verbose",
+    "test": "jest --detectOpenHandles --verbose --coverage",
     "testing": "jest --watchAll",
     "docz:dev": "docz dev",
     "docz:build": "docz build"

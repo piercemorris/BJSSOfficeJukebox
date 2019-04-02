@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Link from "next/link";
 import _ from "lodash";
 import Error from "./common/Error";
+import Timer from "./common/Timer";
 import CurrentlyPlaying from "./queue/CurrentlyPlaying";
 import Queue from "./queue/Queue";
 import Spotify from "../services/spotifyService";
@@ -19,6 +20,7 @@ class Songcards extends Component {
       start: false,
       loading: true,
       playing: false,
+      updateTime: 10 * 1000,
       isDevice: false,
       isDeviceActive: false,
       unauthorised: false,
@@ -42,7 +44,6 @@ class Songcards extends Component {
       this.handleDeviceActive(spotifyData.devices);
       this.setState({ songs: response.data, spotifyData, loading: false, unauthorised: false });
       this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
-      this.handleQueueUpdate();
     } catch (ex) {
       this.setState({ loading: false, unauthorised: true });
     }
@@ -108,8 +109,6 @@ class Songcards extends Component {
         start: true,
         playing: true
       });
-
-      // this.handleFinish();
     } else {
 
       if (this.state.playing) {
@@ -166,6 +165,7 @@ class Songcards extends Component {
                   isDeviceActive={isDeviceActive}
                   currentSongDuration={currentSongDuration}
                 />
+                <Timer time={this.state.updateTime} onUpdate={this.handleQueueUpdate} />
                 <Queue
                   tracks={songs}
                   onDelete={this.handleDelete}
