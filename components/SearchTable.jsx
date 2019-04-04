@@ -50,6 +50,7 @@ class SearchTable extends Component {
   componentWillReceiveProps(nextProps){
     if(this.props.showTable !==nextProps.showTable){
       this.setState({hideTable:false});
+      this.hideModal();
     }
   }
 
@@ -70,12 +71,10 @@ class SearchTable extends Component {
     const { userActive, show, addedSong, hideTable } = this.state;
     return (
       <React.Fragment>
-        <Modal show={show} handleClose={this.hideModal}>
+        <Modal show={show}>
           {addedSong ?
             <div className="display-block">
-              <span className="subtitle">Added</span>
-              <span id="added-song">{addedSong}</span>
-              <span className="subtitle">To the queue</span>
+              <span className="subtitle">Added "{addedSong}"</span>
             </div>
             :
             null
