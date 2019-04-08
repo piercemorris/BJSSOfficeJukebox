@@ -64,18 +64,21 @@ class Songcards extends Component {
     this.setState({ isDeviceActive: deviceActive });
   }
 
-  handleQueueUpdate = async () => {
-    this.updateQueue = setInterval(async () => {
-      const frozen = _.take(this.state.songs, this.state.frozenLength);
-      const { data: updatedSongList } = await song.getSongs();
+  handleQueueUpdateV2 = async () => {
+    const { data: updatedSongList } = await song.getSongs();
+    this.setState({ songs: updatedSongList });
+  }
 
-      if (this.state.songs.length !== updatedSongList.length) {
-        let newFreeQueue = _.differenceBy(updatedSongList, frozen, '_id');
-        newFreeQueue = _.orderBy(newFreeQueue, ['priority'], ['desc']);
-        const newQueue = frozen.concat(newFreeQueue);
-        this.setState({ songs: newQueue });
-      }
-    }, 10 * 1000);
+  handleQueueUpdate = async () => {
+    const frozen = _.take(this.state.songs, this.state.frozenLength);
+    const { data: updatedSongList } = await song.getSongs();
+
+    if (this.state.songs.length !== updatedSongList.length) {
+      let newFreeQueue = _.differenceBy(updatedSongList, frozen, '_id');
+      newFreeQueue = _.orderBy(newFreeQueue, ['priority'], ['desc']);
+      const newQueue = frozen.concat(newFreeQueue);
+      this.setState({ songs: newQueue });
+    }
   }
 
   handleDeviceUpdate = () => {
@@ -165,7 +168,7 @@ class Songcards extends Component {
                   isDeviceActive={isDeviceActive}
                   currentSongDuration={currentSongDuration}
                 />
-                <Timer time={this.state.updateTime} onUpdate={this.handleQueueUpdate} />
+                <Timer time={this.state.updateTime} onUpdate={this.handleQueueUpdateV2} />
                 <Queue
                   tracks={songs}
                   onDelete={this.handleDelete}
