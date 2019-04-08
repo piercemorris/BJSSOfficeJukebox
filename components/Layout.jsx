@@ -6,7 +6,8 @@ import user from "../services/userService";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faPlayCircle as faPlayCircleRegular,
-  faPauseCircle as faPauseCircleRegular
+  faPauseCircle as faPauseCircleRegular,
+  faArrowAltCircleRight as faArrowAltCircleRightRegular
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faCoffee,
@@ -15,7 +16,8 @@ import {
   faPause,
   faForward,
   faPauseCircle,
-  faPlayCircle
+  faPlayCircle,
+  faArrowAltCircleRight
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faCoffee,
@@ -26,7 +28,8 @@ library.add(
   faPauseCircle,
   faPlayCircle,
   faPauseCircleRegular,
-  faPlayCircleRegular
+  faPlayCircleRegular,
+  faArrowAltCircleRightRegular
 );
 
 class Layout extends Component {

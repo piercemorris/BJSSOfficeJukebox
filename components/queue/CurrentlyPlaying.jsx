@@ -35,9 +35,6 @@ const CurrentlyPlaying = (props) => {
               <span className="text-box__song-artist">{track.song.song.artists[0].name}</span>
               <span className="text-box__song-album">{track.song.song.album.name}</span>
             </h2>
-            <div className="margin-top-sm">
-              <Button onDelete={playing ? onNext : onDelete} song={track} text="Remove" />
-            </div>
           </div>
         </div>
       </div>
