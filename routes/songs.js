@@ -7,7 +7,6 @@ const priority = require("../services/priorityService");
 
 //gets all songs in the Song collection
 router.get("/", async (req, res) => {
-  console.log("------------------ / -------------------")
   const songs = await Song.find();
   let frozen, filtered, full;
   songs.forEach(async (song) => {
@@ -17,17 +16,15 @@ router.get("/", async (req, res) => {
       });
   });
   full = _.orderBy(songs, ['dateAdded']);
-  frozen = _.orderBy(songs, ['dateAdded']);
-  filtered = _.orderBy(songs, ['dateAdded']);
 
   if (frozen.length > 3) { // order by priority after frozen songs exceeded
-    frozen = frozen.slice(0, 3); // frozen property
+    frozen = _.orderBy(songs, ['dateAdded']);
+    filtered = _.orderBy(songs, ['dateAdded']);
+    frozen = frozen.slice(0, 3);
     filtered = filtered.slice(3);
     filtered = _.orderBy(filtered, ['priority'], ['desc']);
     full = _.concat(frozen, filtered);
   }
-  console.log(full);
-  console.log("------------------ / END -------------------")
   res.send(full).status(200);
 });
 

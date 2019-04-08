@@ -49,12 +49,13 @@ class Songcards extends Component {
     }
   }
 
+  // clears any timeouts/intervals set just before the component is removed
   componentWillUnmount() {
     clearTimeout(this.finishTimer);
     clearTimeout(this.nextSong);
-    clearInterval(this.updateQueue);
   }
 
+  // checks if a Spotify device is active
   handleDeviceActive = (devices) => {
     let deviceActive = false;
     _.map(devices, device => {
@@ -64,56 +65,28 @@ class Songcards extends Component {
     this.setState({ isDeviceActive: deviceActive });
   }
 
-  handleQueueUpdateV2 = async () => {
+  // updates the queue 
+  handleQueueUpdate = async () => {
     const { data: updatedSongList } = await song.getSongs();
     this.setState({ songs: updatedSongList });
   }
 
-  handleQueueUpdate = async () => {
-    const frozen = _.take(this.state.songs, this.state.frozenLength);
-    const { data: updatedSongList } = await song.getSongs();
-
-    if (this.state.songs.length !== updatedSongList.length) {
-      let newFreeQueue = _.differenceBy(updatedSongList, frozen, '_id');
-      newFreeQueue = _.orderBy(newFreeQueue, ['priority'], ['desc']);
-      const newQueue = frozen.concat(newFreeQueue);
-      this.setState({ songs: newQueue });
-    }
-  }
-
+  // updates the currently selected device
   handleDeviceUpdate = () => {
     const selection = document.getElementById("device-selection");
     const device = selection.options[selection.selectedIndex];
     this.setState({ device });
   }
 
-  handleFinish = async () => {
-    const timeCheck = 5000;
-
-    this.finishTimer = setTimeout(() => { this.handleFinish() }, timeCheck);
-    let data = await Spotify.getCurrentlyPlaying();
-    this.setState({ currentSongPosition: data.progress });
-    let timeRemain = data.duration - data.progress;
-    console.log(timeRemain);
-    if (timeRemain < timeCheck) {
-      this.nextSong = setTimeout(() => {
-        this.handleNext();
-      }, timeRemain);
-    }
-  }
-
+  // plays/pauses the current song
   handlePlay = () => {
     if (!this.state.start) {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms });
       Spotify.playSong(firstInQueueURI);
 
-      this.setState({
-        start: true,
-        playing: true
-      });
+      this.setState({ start: true, playing: true });
     } else {
-
       if (this.state.playing) {
         Spotify.pause();
       } else {
@@ -124,6 +97,7 @@ class Songcards extends Component {
     }
   }
 
+  // deletes a song with the given id
   handleDelete = (id) => {
     const songs = _.filter(this.state.songs, song => { return song._id !== id });
     this.state = { songs };
@@ -131,6 +105,7 @@ class Songcards extends Component {
     song.deleteSong(id);
   }
 
+  // handles the next song to be played in queue
   handleNext = () => { // check
     this.setState({ playing: false });
     this.handleDelete(this.state.songs[0]._id);
@@ -145,6 +120,7 @@ class Songcards extends Component {
     e.preventDefault();
   };
 
+  // renders this component
   render() {
     const { songs, loading, isDevice, isDeviceActive, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
     return (
@@ -168,7 +144,7 @@ class Songcards extends Component {
                   isDeviceActive={isDeviceActive}
                   currentSongDuration={currentSongDuration}
                 />
-                <Timer time={this.state.updateTime} onUpdate={this.handleQueueUpdateV2} />
+                <Timer time={this.state.updateTime} onUpdate={this.handleQueueUpdate} />
                 <Queue
                   tracks={songs}
                   onDelete={this.handleDelete}
