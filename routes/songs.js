@@ -15,10 +15,10 @@ router.get("/", async (req, res) => {
         priority: priority.increaseSongPriority(song.priority, song.dateAdded, Date.now())
       });
   });
+  frozen = _.orderBy(songs, ['dateAdded']);
   full = _.orderBy(songs, ['dateAdded']);
 
   if (frozen.length > 3) { // order by priority after frozen songs exceeded
-    frozen = _.orderBy(songs, ['dateAdded']);
     filtered = _.orderBy(songs, ['dateAdded']);
     frozen = frozen.slice(0, 3);
     filtered = filtered.slice(3);

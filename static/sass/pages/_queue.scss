@@ -184,10 +184,18 @@ a{
     transform: translateY(-50%);
   }
 
+  &__skip {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    right: 34%;
+    transform: translateY(-50%);
+  }
+
   &__duration {
     position: absolute;
     width: 50%;
-    left: 20%;
+    left: 17.5%;
     transform: translateY(-50%);
     color: white;
   }

@@ -107,12 +107,14 @@ class Songcards extends Component {
 
   // handles the next song to be played in queue
   handleNext = () => { // check
-    this.setState({ playing: false });
-    this.handleDelete(this.state.songs[0]._id);
-    if (this.state.songs[0]) {
-      const firstInQueueURI = this.state.songs[0].song.song.uri;
-      Spotify.playSong(firstInQueueURI);
-      this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms, playing: true });
+    if (this.state.songs[1]) {
+      this.setState({ playing: false });
+      this.handleDelete(this.state.songs[0]._id);
+      if (this.state.songs[0]) {
+        const firstInQueueURI = this.state.songs[0].song.song.uri;
+        Spotify.playSong(firstInQueueURI);
+        this.setState({ currentSongDuration: this.state.songs[0].song.song.duration_ms, playing: true });
+      }
     }
   }
 
