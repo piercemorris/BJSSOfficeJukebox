@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import _ from "lodash";
 import songs from "../services/songService";
 import user from "../services/userService";
+import stats from "../services/statsService";
 import Modal from "../components/common/Modal";
+import Spotify from "../services/spotifyService";
 import Link from "next/link";
+
+
+
 
 class SearchTable extends Component {
   state = {
@@ -34,7 +39,11 @@ class SearchTable extends Component {
   async handleAdd(song) {
     this.setState({ addedSong: song.name });
     const currentUser = await user.getCurrentUser();
+    console.log(song);
     const response = await songs.addSong({ song }, currentUser._id, currentUser.username);
+    //const uri=song.artists[0].uri;
+    //const x=await Spotify.genre(uri);
+    const response2 = await stats.addStat(song.id,song.name , song.artists[0].name, "rock",song.album.images[0].url,1);
     this.setState({ hideTable: true });
     this.showModal();
   }
@@ -67,7 +76,7 @@ class SearchTable extends Component {
   }
   
   render() {
-    const { result, authorised,  } = this.props;
+    const { result, authorised  } = this.props;
     const { userActive, show, addedSong, hideTable } = this.state;
     return (
       <React.Fragment>
