@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import _ from "lodash";
 import songs from "../services/songService";
 import user from "../services/userService";
+import stats from "../services/statsService";
 import Modal from "../components/common/Modal";
+import Spotify from "../services/spotifyService";
 import Link from "next/link";
+
+
+
 
 class SearchTable extends Component {
   state = {
@@ -12,7 +17,7 @@ class SearchTable extends Component {
     expanded: false,
     show: false,
     addedSong: "",
-    hideTable: false
+    hideTable:false
   };
 
   showModal = () => {
@@ -34,7 +39,11 @@ class SearchTable extends Component {
   async handleAdd(song) {
     this.setState({ addedSong: song.name });
     const currentUser = await user.getCurrentUser();
+    console.log(song);
     const response = await songs.addSong({ song }, currentUser._id, currentUser.username);
+    //const uri=song.artists[0].uri;
+    //const x=await Spotify.genre(uri);
+    const response2 = await stats.addStat(song.id,song.name , song.artists[0].name, "rock",song.album.images[0].url,1);
     this.setState({ hideTable: true });
     this.showModal();
   }
@@ -44,30 +53,30 @@ class SearchTable extends Component {
     if (response) {
       this.setState({ userActive: true });
     }
-    document.addEventListener('mousedown', this.handleClick, false);
+    document.addEventListener('mousedown',this.handleClick,false);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.showTable !== nextProps.showTable) {
-      this.setState({ hideTable: false });
+  componentWillReceiveProps(nextProps){
+    if(this.props.showTable !==nextProps.showTable){
+      this.setState({hideTable:false});
       this.hideModal();
     }
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, false);
+  componentWillUnmount(){
+    document.removeEventListener('mousedown',this.handleClick,false);
   }
 
-  handleClick = (e) => {
-    if (this.node.contains(e.target)) {
+  handleClick=(e)=>{
+    if(this.node.contains(e.target)){
       return;
-    } else {
-      this.setState({ hideTable: true });
+    }else{
+      this.setState({hideTable:true});
     }
   }
-
+  
   render() {
-    const { result, authorised, } = this.props;
+    const { result, authorised  } = this.props;
     const { userActive, show, addedSong, hideTable } = this.state;
     return (
       <React.Fragment>
@@ -103,41 +112,41 @@ class SearchTable extends Component {
                     :
                     <>
                       {
-                        hideTable ?
+                        hideTable?
                           <div>
                           </div>
-                          :
-                          <>
-                            <table className="search-results__table">
-                              <tbody>
-                                <tr className="search-results__table-header">
-                                  <th className="search-results__table-header-img"></th>
-                                  <th className="search-results__table-header-title">Title</th>
-                                  <th className="search-results__table-header-artist">Artist</th>
-                                  <th className="search-results__table-header-button"></th>
-                                </tr>
-                                {result.slice(0, this.state.itemsToShow).map((song, i) =>
-                                  <tr className="search-results__table__content" key={i}>
-                                    <td><img src={song.album.images[2].url} /></td>
-                                    <td>{song.name}</td>
-                                    <td>{song.artists[0].name}</td>
-                                    <td><button className="btn btn-add" onClick={() => this.handleAdd(song)}>Add song</button></td>
-                                  </tr>
-                                )}
-                              </tbody>
-                            </table>
-                            <div className="search-results__show">
-                              <button onClick={this.showMore} className="btn btn-add">
-                                {this.state.expanded ?
-                                  <span>Show less</span>
-                                  :
-                                  <span>Show more</span>
-                                }
-                              </button>
-                            </div>
-                          </>
-                      }
+                      :
+                      <>
+                      <table className="search-results__table">
+                        <tbody>
+                          <tr className="search-results__table-header">
+                            <th className="search-results__table-header-img"></th>
+                            <th className="search-results__table-header-title">Title</th>
+                            <th className="search-results__table-header-artist">Artist</th>
+                            <th className="search-results__table-header-button"></th>
+                          </tr>
+                          {result.slice(0, this.state.itemsToShow).map((song, i) =>
+                            <tr className="search-results__table__content">
+                              <td key={i}><img src={song.album.images[2].url} /></td>
+                              <td>{song.name}</td>
+                              <td>{song.artists[0].name}</td>
+                              <td><button className="btn btn-add" onClick={() => this.handleAdd(song)}>Add song</button></td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                      <div className="search-results__show">
+                        <button onClick={this.showMore} className="btn btn-add">
+                          {this.state.expanded ?
+                            <span>Show less</span>
+                            :
+                            <span>Show more</span>
+                          }
+                        </button>
+                      </div>
                     </>
+                      }
+                      </>
                   }
                 </>
               }
