@@ -251,40 +251,18 @@ input:checked + .toggleSlider:before {
 }
 
 .settings-divider:hover #settingsPanel {
-  //display: block;
   opacity : 1;
-  
+  transition-delay: 1s;
 }
 
-#settingsPanel :not(:hover) {
-  
-}
+
 
 #settingsPanel {
   padding: 10px;
-  //display: none;
   right: 5%;
   opacity : 0;
-  //-webkit-transition: all 1s;
-  transition-delay: 1s;
-  //transition : all 5s;
+  transition-delay: 0.1s;
 }
-
-
-/*
-.settingsPanel {
-  -webkit-animation: fadein 2s;
-  transition: opacity 2s;
-  margin: -10px;
-  position: absolute;
-  padding: 10px;
-  top: 18%;
-  right: 2%;
-  border-radius: 5px;
-  background: #ffffff;
-  width: 200px;
-  height: 300px; 
-} */
 
 .playback-controls {
   margin: 2rem auto;

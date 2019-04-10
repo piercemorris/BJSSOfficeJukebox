@@ -24,10 +24,13 @@ class Songcards extends Component {
     currentSongDuration: 0,
     currentSongPosition: 0,
     settingsClicked : false,
-    hideExplicit : false
+    hideExplicit : false,
+    controlValue: 0,
+    hideDelete: false
   };
 
   async componentWillMount() {
+    
     const userInfo = user.getCurrentUser();
     let isDevice = false;
 
@@ -48,6 +51,8 @@ class Songcards extends Component {
       console.log(ex);
       this.setState({ loading: false, unauthorised: true });
     }
+
+    this.updateToggles = this.updateToggles.bind(this);
   }
 
   updateCurrentSongDuration = () => {
@@ -70,7 +75,7 @@ class Songcards extends Component {
   }
 
   handleFinish = async () => {
-    const timeCheck = 1000;
+    const timeCheck = 5000;
     setTimeout(() => { this.handleFinish() }, timeCheck);
     let data = await Spotify.getCurrentlyPlaying();
     this.setState({ currentSongPosition: data.progress });
@@ -101,8 +106,14 @@ class Songcards extends Component {
     song.deleteSong(id);
   }
 
-  handleNext = () => {
+   handleNext = () => {
     this.handleDelete(this.state.songs[0]._id);
+    console.log(this.state.songs[0].song.song.explicit );
+    while (this.state.songs[0].song.song.explicit == true && this.state.hideExplicit) {
+      console.log(this.state.songs[0].song.song.explicit);
+      this.handleDelete(this.state.songs[0]._id);
+    }
+
     if (this.state.songs[0]) {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       Spotify.playSong(firstInQueueURI);
@@ -114,18 +125,23 @@ class Songcards extends Component {
     e.preventDefault();
   };
 
-  showSettings = () => {
-    if (this.state.settingsClicked == false) {
-      this.setState({settingsClicked: true});
-    }
-    else {
-      this.setState({settingsClicked: false});
+  async updateExplicit() {
+    while (this.state.songs[0].song.song.explicit) {
+      this.handleNext();
     }
   }
 
-  updateExplicit = () => {
-    this.setState({hideExplicit : true})
+  updateToggles = () => {
+    var toggle = document.getElementById("explicitToggle");
+    this.setState({hideExplicit : toggle.checked});
+    if (this.state.songs[0].song.song.explicit) {
+      this.handleNext();
+    }
+
+    var toggle2 = document.getElementById("deleteToggle");
+    this.setState({hideDelete : toggle2.checked});
   }
+
 
   render() {
     const { songs, loading, isDevice, user, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
@@ -147,10 +163,9 @@ class Songcards extends Component {
             {song.areSongs(songs) ?
               <>
                 <div className="settings-divider">
-                  {!this.state.settingsClicked ? <FontAwesomeIcon onClick={this.showSettings} icon={['fas', 'cog']} size="1x" inverse={true} /> : null}    
-                  {!this.state.settingsClicked ? null : <SettingsTab/>}
+                  <FontAwesomeIcon onClick={this.showSettings} icon={['fas', 'cog']} size="1x" inverse={true}/>   
                   <div id="settingsPanel">
-                    <SettingsTab/>
+                    <SettingsTab handler = {this.updateToggles}/> 
                   </div>
                 </div>
                 <section className="currently-playing">
@@ -180,6 +195,9 @@ class Songcards extends Component {
                         <div className="margin-top-sm">
                           <Button onDelete={this.handleNext} song={songs[0]} text="Remove" />
                         </div>
+                        <div>
+                            <button onClick={this.updateRemove}>Explcit </button>
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -203,9 +221,7 @@ class Songcards extends Component {
                           <div className="playback-controls__volume">
                             <VolumeSlider />
                           </div>
-                          <div>
-                            <button onClick={this.updateExplicit}>Explcit </button>
-                          </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -258,9 +274,14 @@ class Songcards extends Component {
                               <td>{song.song.song.album.name}</td>
                               <td>{song.username}</td>
                               <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
-                              <td>
-                                <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
-                              </td>
+                              
+                              {this.state.hideDelete ?
+                              null:
+                               <td>
+                               <Button onDelete={this.handleDelete} song={song} text="Remove" className="bottom" />
+                             </td>
+                              }
+                              
                             </tr>
                           ))
                       }
