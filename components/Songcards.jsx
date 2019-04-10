@@ -108,11 +108,6 @@ class Songcards extends Component {
 
    handleNext = () => {
     this.handleDelete(this.state.songs[0]._id);
-    console.log(this.state.songs[0].song.song.explicit );
-    while (this.state.songs[0].song.song.explicit == true && this.state.hideExplicit) {
-      console.log(this.state.songs[0].song.song.explicit);
-      this.handleDelete(this.state.songs[0]._id);
-    }
 
     if (this.state.songs[0]) {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
@@ -125,18 +120,22 @@ class Songcards extends Component {
     e.preventDefault();
   };
 
-  async updateExplicit() {
-    while (this.state.songs[0].song.song.explicit) {
+  updateExplicit = () => {
+    if (this.state.songs[0].song.song.explicit) {
+      while (this.state.songs[1].song.song.explicit) {
+        this.handleDelete(this.state.songs[0]._id);
+      }
+
       this.handleNext();
     }
   }
-
+  
   updateToggles = () => {
     var toggle = document.getElementById("explicitToggle");
+    
     this.setState({hideExplicit : toggle.checked});
-    if (this.state.songs[0].song.song.explicit) {
-      this.handleNext();
-    }
+    this.updateExplicit();
+    
 
     var toggle2 = document.getElementById("deleteToggle");
     this.setState({hideDelete : toggle2.checked});
