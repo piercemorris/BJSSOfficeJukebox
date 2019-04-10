@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SongDuration from "../SongDuration";
-import VolumeSlider from "../VolumeSlider";
+import SongDuration from "./SongDuration";
+import VolumeSlider from "./VolumeSlider";
 
 class PlaybackControls extends Component {
   render() {

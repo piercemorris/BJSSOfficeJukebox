@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import song from "../services/songService";
+import song from "../../services/songService";
 
 class SongDuration extends Component {
 

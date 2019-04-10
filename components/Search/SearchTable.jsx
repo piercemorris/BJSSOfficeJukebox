@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import songs from "../services/songService";
-import user from "../services/userService";
-import stats from "../services/statsService";
-import Modal from "../components/common/Modal";
-import Spotify from "../services/spotifyService";
+import songs from "../../services/songService";
+import user from "../../services/userService";
+import stats from "../../services/statsService";
+import Modal from "../Common/Modal";
+import Spotify from "../../services/spotifyService";
 import Link from "next/link";
 
 class SearchTable extends Component {

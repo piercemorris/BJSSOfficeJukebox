@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import user from "../services/userService";
-import stat from "../services/statsService";
+import user from "../../services/userService";
+import stat from "../../services/statsService";
 var arraySort = require('array-sort');
 
 
 class UserAccount extends Component {
   state = {
     user: {},
-    topSong:[[]],
-    topArtists:[]
+    topSong: [[]],
+    topArtists: []
 
   }
 
@@ -17,23 +17,23 @@ class UserAccount extends Component {
     const response = await user.getInfo(currentUser._id);
     this.setState({ user: response.data });
     const mostAddedSong = await stat.getStats();
-    arraySort(mostAddedSong.data,'timesAdded',{reverse: true});
-    
+    arraySort(mostAddedSong.data, 'timesAdded', { reverse: true });
+
     //this.setState({ mostSong1: mostAddedSong.data[0] });
     //this.setState({ mostSong2: mostAddedSong.data[1] });
     this.setState({ topSong: mostAddedSong.data });
-    
 
-    this.state.topSong.forEach(function(item, index, array) {
-      
-      var found = this.state.topArtists.findIndex(function(element) {
-        return element==item.artistName;
+
+    this.state.topSong.forEach(function (item, index, array) {
+
+      var found = this.state.topArtists.findIndex(function (element) {
+        return element == item.artistName;
       }.bind(this));
-      if(found=='-1'){
-        this.state.topArtists.push(item.artistName,item.timesAdded);
-      }else{
-        this.state.topArtists[found]=item.artistName;
-        this.state.topArtists[found+1]=this.state.topArtists[found+1]+item.timesAdded
+      if (found == '-1') {
+        this.state.topArtists.push(item.artistName, item.timesAdded);
+      } else {
+        this.state.topArtists[found] = item.artistName;
+        this.state.topArtists[found + 1] = this.state.topArtists[found + 1] + item.timesAdded
       }
     }.bind(this));
 
@@ -46,14 +46,14 @@ class UserAccount extends Component {
 
   render() {
     const { username, songsAdded } = this.state.user;
-    var topSong=null;
-    var topArtists=null;
-    if(this.state.topSong!==null){
-       topSong=this.state.topSong;
+    var topSong = null;
+    var topArtists = null;
+    if (this.state.topSong !== null) {
+      topSong = this.state.topSong;
     }
-    if(this.state.topArtists!==null){
-      topArtists=this.state.topArtists;
-   }
+    if (this.state.topArtists !== null) {
+      topArtists = this.state.topArtists;
+    }
 
 
 
@@ -70,10 +70,10 @@ class UserAccount extends Component {
               <th className="search-results__table-header-title"></th>
               <th className="search-results__table-header-artist"></th>
             </tr>
-            {topSong.slice(0,topSong.length).map((song,i) =>
+            {topSong.slice(0, topSong.length).map((song, i) =>
               <tr className="search-results__table__content">
-                <td><b>{i+1}</b></td>
-                <td><img src={song.image} width="30%"></img></td>          
+                <td><b>{i + 1}</b></td>
+                <td><img src={song.image} width="30%"></img></td>
                 <td>{song.songName}</td>
                 <td>{song.artistName}</td>
               </tr>
@@ -83,14 +83,14 @@ class UserAccount extends Component {
 
 
         <p>Most added Songs: </p>
-        {topSong.slice(0,topSong.length).map((song,i)=>
-          <p>{i+1}:{song.songName},{song.artistName},{song.timesAdded} </p>
+        {topSong.slice(0, topSong.length).map((song, i) =>
+          <p>{i + 1}:{song.songName},{song.artistName},{song.timesAdded} </p>
         )}
 
         <p>{topArtists[0]}</p>
         <p>Most played artists: </p>
-        {topArtists.slice(0,topArtists.length).map((song,i)=>
-          <p>{i+1}:{song} </p>
+        {topArtists.slice(0, topArtists.length).map((song, i) =>
+          <p>{i + 1}:{song} </p>
         )}
 
 

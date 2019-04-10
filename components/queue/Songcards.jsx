@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Link from "next/link";
 import _ from "lodash";
-import Error from "./common/Error";
-import Timer from "./common/Timer";
-import CurrentlyPlaying from "./queue/CurrentlyPlaying";
-import Queue from "./queue/Queue";
-import Spotify from "../services/spotifyService";
-import song from "../services/songService";
-import user from "../services/userService";
+import Error from "../Common/Error";
+import Timer from "../Common/Timer";
+import CurrentlyPlaying from "./CurrentlyPlaying";
+import Queue from "./Queue";
+import Spotify from "../../services/spotifyService";
+import song from "../../services/songService";
+import user from "../../services/userService";
 
 
 class Songcards extends Component {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from "../common/Button";
+import Button from "../Common/Button";
 import song from "../../services/songService";
 
 const Queue = (props) => {

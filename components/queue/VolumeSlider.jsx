@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import _ from "lodash";
-import Spotify from "../services/spotifyService";
+import Spotify from "../../services/spotifyService";
 
 class VolumeSlider extends Component {
 

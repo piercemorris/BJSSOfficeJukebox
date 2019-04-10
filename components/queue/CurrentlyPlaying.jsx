@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from "../common/Button";
-import PlaybackControls from "../queue/PlaybackControls";
+import PlaybackControls from "./PlaybackControls";
 import ShowMore from "../../services/utilityService";
 
 const CurrentlyPlaying = (props) => {

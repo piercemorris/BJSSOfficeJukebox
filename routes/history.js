@@ -4,11 +4,8 @@ const _ = require("lodash");
 const { History, validate } = require("../models/history");
 
 router.post("/", async (req, res) => {
-  console.log(req.body);
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message, ":: Error validating history");
-
-  console.log("passed history validation");
 
   //creates new history object
   let history = new History({
