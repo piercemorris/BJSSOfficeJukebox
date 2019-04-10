@@ -1,0 +1,9 @@
+{
+  "db-live": "mongodb://public:bjssjukeboxgroup14@ds125422.mlab.com:25422/jukebox_tests",
+  "db-local": "mongodb://localhost/jukebox_tests",
+  "spotify-client-id": "a11348b400434a2ba1cbcf618dadf888",
+  "spotify-client-secret": "c38b37d0392f4234bc44fe635c0b4596",
+  "jwtPrivateKey": "privatekey",
+  "base-url": "http://localhost:3000",
+  "port": "3000"
+}
