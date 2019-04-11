@@ -4,7 +4,7 @@ import song from "../../services/songService";
 
 const Queue = (props) => {
 
-  const { tracks, onDelete } = props;
+  const { tracks, onDelete, explicitToggle, deleteToggle } = props;
 
   return (
     <section className="queue">
@@ -25,6 +25,8 @@ const Queue = (props) => {
             :
             tracks
               .filter(song => tracks.indexOf(song) != 0)
+              .filter(song => (explicitToggle != true || song.song.song.explicit != true))
+
               .map(song => (
                 <tr key={song._id} className="queue__table__content">
                   <td className="queue__table-image">
@@ -45,9 +47,13 @@ const Queue = (props) => {
                   <td>{song.song.song.album.name}</td>
                   <td>{song.username}</td>
                   <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
+                  {deleteToggle ?
+                  null
+                  :
                   <td>
                     <Button onDelete={onDelete} song={song} text="Remove" className="bottom" />
                   </td>
+                  }
                 </tr>
               ))
           }
