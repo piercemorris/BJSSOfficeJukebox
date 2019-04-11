@@ -123,7 +123,7 @@ class Songcards extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-  };
+  }; 
   
   updateToggles = () => {
     var toggle = document.getElementById("explicitToggle");
