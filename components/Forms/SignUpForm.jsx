@@ -1,6 +1,6 @@
 import React from 'react';
 import Joi from "joi-browser";
-import Form from "../Common/Form";
+import Form from "../common/Form";
 import user from "../../services/userService";
 
 class SignUpForm extends Form {

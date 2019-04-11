@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Link from "next/link";
 import _ from "lodash";
-import Error from "../Common/Error";
-import Timer from "../Common/Timer";
+import Error from "../common/Error";
+import Timer from "../common/Timer";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CurrentlyPlaying from "./CurrentlyPlaying";
 import SettingsTab from "./SettingsTab";
