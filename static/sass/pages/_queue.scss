@@ -1,0 +1,387 @@
+.queue-page {
+  background-color: $color-gray-light;
+  height: 100vh;
+
+  .no-device {
+    text-align: center;
+    font-weight: 600;
+    color: $color-white;
+  }
+
+  .currently-playing {
+    background-image: linear-gradient(-180deg, $color-grad-light 0%, $color-grad-dark 100%);
+    min-width: 70rem;
+    min-height: 37.5rem;
+    height: 50vh;
+
+    &__song-info {
+      padding: 4rem 5rem;
+    }
+
+    &__image {
+
+      &-img {
+        float: right;
+        min-height: 32.5vh;
+        height: 32.5vh;
+        box-shadow: 0rem 1rem 2rem rgba($color-black, 0.8);
+      }
+    }
+  }
+}
+
+a{
+  text-decoration: none;
+  color:$primary-text-color-dark;
+}
+
+.queue {
+  padding: 3rem 10rem;
+  background-color: $color-gray-light;
+  margin: auto;
+  
+  &-title {
+    margin-left: calc(10% + 7rem);
+    font-size: 2.8rem;
+    color: $primary-text-color;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__table {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-spacing: 0rem 1rem;
+
+    &-header {
+      &-img {
+        width: 7rem;
+      }
+      &-title {
+        width: 25%;
+      }
+      &-artist {
+        width: 15%;
+      }
+      &-album {
+        width: 20%;
+      }
+      &-username {
+        width: 15%;
+      }
+      &-priority {
+        width: 5%;
+      }
+      &-button {
+        width: 15%;
+      }
+    }
+
+    th {
+      height: 3rem;
+      padding: .4rem;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      color: #A2A2A2;
+      letter-spacing: 0.44px;
+      border-left: 1px dashed #ADACAC;
+      vertical-align: top;
+      text-align: left;
+
+      &:first-child, &:last-child {
+        border: none;
+      }
+    }
+
+    &__content {
+      padding: .5rem;
+      border-radius: 3px;
+      box-shadow: 0rem .5rem 2rem rgba($color-black, 0.15);
+    
+      td {
+        padding: .5rem;
+        height: 5.5rem;
+      }
+    }
+
+    &-image {
+      &-img {
+        height: 60px;
+        width: 60px;
+      }
+    }
+  }
+}
+
+.text-box {
+  color: $color-white;
+  
+  .now-playing {
+    color: $primary-text-color-dark; 
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__song-name {
+    font-size: 4rem;
+    letter-spacing: 0;
+    display: block;
+  }
+
+  &__explicit {
+    position: relative;
+    display: block;
+    margin-bottom: 3rem;
+
+    &-text {
+      position: absolute;
+      border: 1px solid $color-white;
+      text-transform: uppercase;
+      padding: 1px 1rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.86px;
+      text-align: center;
+    }
+
+    &--short {
+      border: 1px solid darken($color-gray, 20%);
+      color: darken($color-gray, 20%);
+      text-transform: uppercase;
+      margin: 1px 5px;
+      padding: 1px 3px;
+      font-size: 1.2rem;
+      letter-spacing: 0.86px;
+      text-align: center;
+    }
+  }
+
+  &__song-artist {
+    display: block;
+    font-size: 2.2rem;
+    letter-spacing: 0;
+  }
+
+  &__song-album {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+}
+
+.settings {
+
+  &__toggleSwitches {
+    float: right;
+  }
+
+  &__switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 18px;
+    padding: 10px;
+  }
+
+  &__switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+  
+  &__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 18px;
+  }
+
+  &__text {
+    color: $color-grayish-white;
+    float: left;
+    padding-bottom: 8px;
+  }
+
+  &__slider:before{
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked + &__slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + &__slider  {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked + &__slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+
+  &__divider {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: -10px;
+    position: absolute;
+    right: 2%;
+    top: 12%;
+    border-radius: 5px;
+    -webkit-transition: all 1s;//background 1s,height 1s, width 1s, padding 1s;
+    transition : all 1s; //background 1s,height 1s, width 1s, padding 1s;
+  }
+
+  &__divider:hover {
+    padding: 5px;
+    display: block;
+    background: #3a3a3a;
+    width: 200px;
+    height: 150px;
+  }
+
+  &__panel {
+    padding: 10px;
+    right: 5%;
+    opacity : 0;
+    transition-delay: 0.1s;
+  }
+
+  &__divider:hover &__panel {
+    opacity : 1;
+    transition-delay: 1s;
+  }
+}
+
+.playback-controls {
+  margin: 2rem auto;
+  max-width: 150rem;
+  position: relative;
+
+  &__play {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translateY(-50%);
+  }
+
+  &__skip {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    right: 34%;
+    transform: translateY(-50%);
+  }
+
+  &__duration {
+    position: absolute;
+    width: 50%;
+    left: 17.5%;
+    transform: translateY(-50%);
+    color: white;
+  }
+
+  &__volume {
+    position: absolute;
+    right: 20%;
+    transform: translateY(-50%);
+  }
+
+  &__button {
+    transition: all .2s;
+    opacity: 0.8;
+
+    &:hover {
+      animation: shake .4s ease;
+    }
+  }
+}
+
+.duration {
+  transform: .2s;
+
+  .slider {
+    &::-moz-range-thumb {
+      height: 1.5rem;
+      width: 1.5rem;
+      outline: none;
+      border: none;
+      border-radius: 1rem;
+    }
+  
+    &::-moz-range-progress {
+      border-radius: 1rem;
+      background-color: $primary-text-color-dark;
+      height: .5rem;
+    }
+    
+    &::-moz-range-track {
+      height: .5rem;
+      outline: none;
+      border: none;
+      border-radius: 1rem;
+      background-color: $color-gray;
+    }
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .slider {
+    width: 100%;
+    height: .5rem;
+    border-radius: 1rem;
+    background-color: rgba($color-white, 0.4);
+    -webkit-appearance: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    
+    &::-webkit-slider-runnable-track {
+      height: 2rem;
+      -webkit-appearance: none;
+      color: #C7C7C7;
+    }
+    
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 100%;
+      background-color: #C7C7C7;
+      cursor: pointer;
+    }
+  }
+}
+
+.msg {
+
+
+  &--error {
+    border-radius: 5px;
+    margin: 1rem;
+    padding: 1rem 3rem;
+    border: 1px solid $color-red;
+    background-color: lighten($color-red, 30%);
+    color: $color-red;
+  }
+}
+

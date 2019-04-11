@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  isAdmin: {
+  isDevice: {
     type: Boolean,
     required: true
   },
@@ -40,7 +40,7 @@ userSchema.methods.generateAuthToken = function () {
     {
       _id: this._id,
       username: this.username,
-      isAdmin: this.isAdmin
+      isDevice: this.isDevice
     },
     config.get("jwtPrivateKey")
   );
@@ -58,7 +58,8 @@ function validateUser(user) {
     password: Joi.string()
       .min(minPasswordLength)
       .max(maxPasswordLength)
-      .required()
+      .required(),
+    isDevice: Joi.bool()
   };
   return Joi.validate(user, schema);
 }

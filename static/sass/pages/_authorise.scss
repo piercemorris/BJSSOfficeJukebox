@@ -1,0 +1,66 @@
+.authorise-page {
+  height: 100%;
+  background-image: linear-gradient(-180deg, $color-grad-light 0%, $color-grad-dark 100%);
+  position: relative;
+  transition: all .2s;
+
+  &__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  &__button {
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 1rem 6rem;
+    border-radius: 2rem;
+    border: none;
+    box-shadow: 0 .5rem 1rem rgba($color-black, 0.6);
+    color: $color-white;
+    background-color: $primary-text-color-dark;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: .1rem;
+    outline: none;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 1rem 4rem rgba($color-black, 0.6);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+      box-shadow: 0 .5rem 2rem rgba($color-black, 0.6);
+    }
+  }
+
+  &__heading {
+    color: $color-white;
+    text-align: center;
+
+    &--main {
+      display: block;
+      font-size: 6rem;
+      letter-spacing: 0;
+      margin-bottom: 2.5%;
+    }
+
+    &--sub {
+      display: block;
+      font-size: 2.4rem;
+      letter-spacing: 0;
+      margin-bottom: 7.5%;
+    }
+      
+    img {
+      animation-name: rotateAndPulse; 
+      animation-duration: 2s; 
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in;
+      height: 6rem;    
+    }
+  }
+}

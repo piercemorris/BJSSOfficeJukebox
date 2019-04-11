@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser';
-import Input from "../common/Input";
-import Submit from "../common/Submit";
+import Input from "./Input";
+import Submit from "./Submit";
 
 class Form extends Component {
   state = {
@@ -49,33 +49,30 @@ class Form extends Component {
   renderInput(name, label, placeholder, type = 'text') {
     const { data, errors } = this.state;
     return (
-      <div className="form-row">
-        <div className="col-md-8">
-          <Input
-            name={name}
-            value={data[name]}
-            type={type}
-            label={label}
-            onChange={this.handleChange}
-            error={errors[name]}
-            placeholder={placeholder}
-          />
-        </div>
+      <div className="form-input">
+        <Input
+          name={name}
+          value={data[name]}
+          type={type}
+          label={label}
+          onChange={this.handleChange}
+          error={errors[name]}
+          placeholder={placeholder}
+        />
       </div>
     );
   }
 
-  renderTitle(title, desc) {
+  renderTitle(title) {
     return (
       <div className="offset-title">
-        <h1>{title}</h1>
-        <span>{desc}</span>
+        <h2>{title}</h2>
       </div>
     );
   }
 
-  renderButton() {
-    return <Submit />
+  renderButton(text) {
+    return <Submit text={text} />
   }
 }
 

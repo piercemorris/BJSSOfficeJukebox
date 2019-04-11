@@ -3,15 +3,19 @@ const { baseUrlLive, baseUrl } = require("../config/default.json");
 
 const apiUrl = (process.env.NODE_ENV === "production" ? baseUrlLive : baseUrl);
 const apiEndpoint = apiUrl + "/api/spotify/";
+const apiEndpointHist = apiUrl + "/api/history/";
 
 export async function search(query) {
   const { data } = await axios.get(apiEndpoint + "/search/" + query);
   return data;
 }
 
-export async function play(playing) {
-  const action = playing ? 1 : 0;
-  await axios.get(apiEndpoint + "/play/" + action);
+export async function resume(uri) {
+  return await axios.get(apiEndpoint + "/resume/" + uri);
+}
+
+export async function pause() {
+  return await axios.get(apiEndpoint + "/pause/");
 }
 
 export async function playSong(uri) {
@@ -20,6 +24,34 @@ export async function playSong(uri) {
 
 export async function updatePlayVolume(volume) {
   await axios.get(apiEndpoint + "/Volume/" + volume);
+}
+
+export async function updatePlaybackPoistion(newTime) {
+  await axios.get(apiEndpoint + "/time/" + newTime);
+}
+
+export async function getAudioFeatures(id) {
+  const { data } = await axios.get(apiEndpoint + "/features/" + id);
+  console.log(data);
+  const resAddHist = await axios.post(apiEndpointHist, {
+    songID: data.body.id,
+    acousticness: data.body.acousticness,
+    danceability: data.body.danceability,
+    energy: data.body.energy,
+    instrumentalness: data.body.instrumentalness,
+    liveness: data.body.liveness,
+    loudness: data.body.loudness,
+    speechiness: data.body.speechiness,
+    valence: data.body.valence,
+    tempo: data.body.tempo
+  });
+
+  console.log(resAddHist);
+}
+
+export async function getCurrentlyPlayingVerbose() {
+  const { data } = await axios.get(apiEndpoint + "/getCurrent");
+  return data;
 }
 
 export async function getCurrentlyPlaying() {
@@ -38,10 +70,14 @@ export async function getMeAndDevices() {
 }
 
 export default {
-  play,
+  resume,
+  pause,
   playSong,
   updatePlayVolume,
+  updatePlaybackPoistion,
+  getAudioFeatures,
   getCurrentlyPlaying,
+  getCurrentlyPlayingVerbose,
   getMeAndDevices,
   search
 }

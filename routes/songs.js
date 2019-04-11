@@ -8,16 +8,24 @@ const priority = require("../services/priorityService");
 //gets all songs in the Song collection
 router.get("/", async (req, res) => {
   const songs = await Song.find();
-  let filtered;
+  let frozen, filtered, full;
   songs.forEach(async (song) => {
     await Song.findByIdAndUpdate({ _id: song._id },
       {
         priority: priority.increaseSongPriority(song.priority, song.dateAdded, Date.now())
       });
   });
-  filtered = _.orderBy(songs, ['priority'], ['desc']);
+  frozen = _.orderBy(songs, ['dateAdded']);
+  full = _.orderBy(songs, ['dateAdded']);
 
-  res.send(filtered).status(200);
+  if (frozen.length > 3) { // order by priority after frozen songs exceeded
+    filtered = _.orderBy(songs, ['dateAdded']);
+    frozen = frozen.slice(0, 3);
+    filtered = filtered.slice(3);
+    filtered = _.orderBy(filtered, ['priority'], ['desc']);
+    full = _.concat(frozen, filtered);
+  }
+  res.send(full).status(200);
 });
 
 //adds a song to the Song collection & updates user

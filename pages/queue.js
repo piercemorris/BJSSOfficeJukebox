@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/Layout";
-import Songcards from "../components/Songcards";
+import Songcards from "../components/queue/Songcards";
 
 export default () => (
   <Layout>
