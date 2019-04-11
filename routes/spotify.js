@@ -58,10 +58,21 @@ router.get("/search/:query", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
-router.get("/play/:playing", async (req, res) => {
+router.get("/resume/:uri", async (req, res) => {
   try {
-    const response = req.params.playing ? spotifyApi.pause({}) : response = spotifyApi.play({});
+    await spotifyApi.play({})
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(err => {
+        res.send(400).send(err);
+      });
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
+});
 
+router.get("/pause", async (req, res) => {
+  try {
+    const response = spotifyApi.pause({});
     res.status(200).send(response);
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
@@ -88,6 +99,14 @@ router.get("/time/:newTime", async (req, res) => {
 router.get("/start/:uri", async (req, res) => {
   try {
     const response = await spotifyApi.play({ uris: [req.params.uri] });
+
+    res.status(200).send(response);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
+});
+
+router.get("/features/:id", async (req, res) => {
+  try {
+    const response = await spotifyApi.getAudioFeaturesForTrack(req.params.id);
 
     res.status(200).send(response);
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }

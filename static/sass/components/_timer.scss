@@ -1,0 +1,29 @@
+.update-timer {
+  width: 100%;
+  height: 5px;
+  position: relative;
+
+  input[type='range'] {
+    position: absolute;
+    top: 0%;
+    overflow: hidden;
+    width: inherit;
+    -webkit-appearance: none;
+    background-color: $color-gray-light
+  }
+  
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 5px;
+    -webkit-appearance: none;
+    color: #13bba4;
+  }
+  
+  input[type='range']::-webkit-slider-thumb {
+    width: 0px;
+    -webkit-appearance: none;
+    height: 5px;
+    cursor: ew-resize;
+    background: $color-white;
+    box-shadow: -5000px 0 0 5000px $primary-text-color-dark;
+  }
+}

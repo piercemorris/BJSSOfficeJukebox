@@ -10,6 +10,8 @@
 
   .currently-playing {
     background-image: linear-gradient(-180deg, $color-grad-light 0%, $color-grad-dark 100%);
+    min-width: 70rem;
+    min-height: 37.5rem;
     height: 50vh;
 
     &__song-info {
@@ -20,11 +22,17 @@
 
       &-img {
         float: right;
-        height: 30vh;
+        min-height: 32.5vh;
+        height: 32.5vh;
         box-shadow: 0rem 1rem 2rem rgba($color-black, 0.8);
       }
     }
   }
+}
+
+a{
+  text-decoration: none;
+  color:$primary-text-color-dark;
 }
 
 .queue {
@@ -265,19 +273,29 @@
 
 .playback-controls {
   margin: 2rem auto;
+  max-width: 150rem;
   position: relative;
 
   &__play {
+    z-index: 2;
     position: absolute;
     top: 50%;
     left: 20%;
     transform: translateY(-50%);
   }
 
+  &__skip {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    right: 34%;
+    transform: translateY(-50%);
+  }
+
   &__duration {
     position: absolute;
     width: 50%;
-    left: 20%;
+    left: 17.5%;
     transform: translateY(-50%);
     color: white;
   }
@@ -294,6 +312,62 @@
 
     &:hover {
       animation: shake .4s ease;
+    }
+  }
+}
+
+.duration {
+  transform: .2s;
+
+  .slider {
+    &::-moz-range-thumb {
+      height: 1.5rem;
+      width: 1.5rem;
+      outline: none;
+      border: none;
+      border-radius: 1rem;
+    }
+  
+    &::-moz-range-progress {
+      border-radius: 1rem;
+      background-color: $primary-text-color-dark;
+      height: .5rem;
+    }
+    
+    &::-moz-range-track {
+      height: .5rem;
+      outline: none;
+      border: none;
+      border-radius: 1rem;
+      background-color: $color-gray;
+    }
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .slider {
+    width: 100%;
+    height: .5rem;
+    border-radius: 1rem;
+    background-color: rgba($color-white, 0.4);
+    -webkit-appearance: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    
+    &::-webkit-slider-runnable-track {
+      height: 2rem;
+      -webkit-appearance: none;
+      color: #C7C7C7;
+    }
+    
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 100%;
+      background-color: #C7C7C7;
+      cursor: pointer;
     }
   }
 }

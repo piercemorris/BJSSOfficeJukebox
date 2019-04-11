@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Spotify from "../services/spotifyService";
+import Spotify from "../../services/spotifyService";
 import SearchTable from "./SearchTable";
 
 class SearchBar extends Component {
@@ -9,6 +9,7 @@ class SearchBar extends Component {
     },
     authorised: true,
     clicked: false,
+    showTable: true,
     result: {}
   };
 
@@ -21,6 +22,7 @@ class SearchBar extends Component {
     if (search.query.length > 3) {
       try {
         const data = await Spotify.search(search.query);
+        this.state.search.query = "";
         this.setState({ result: data, authorised: true, clicked: true });
       } catch (ex) {
         if (ex.response.status === 401)
@@ -29,6 +31,8 @@ class SearchBar extends Component {
     } else {
       this.setState({ result: null, authorised: true, clicked: true });
     }
+    this.setState({ showTable: !this.state.showTable })
+    console.log(this.state.showTable);
   };
 
   handleChange = e => {
@@ -36,7 +40,9 @@ class SearchBar extends Component {
     const component = e.currentTarget.name;
     search[component] = e.currentTarget.value;
     this.setState({ search });
+
   };
+
 
   renderSearchBar = () => {
     const { search } = this.state;
@@ -61,8 +67,10 @@ class SearchBar extends Component {
 
     return (
       <>
-        {this.renderSearchBar()}
-        {!clicked ? null : <SearchTable result={this.state.result} authorised={this.state.authorised} />}
+        <form>
+          {this.renderSearchBar()}
+        </form>
+        {!clicked ? null : <SearchTable result={this.state.result} authorised={this.state.authorised} showTable={this.state.showTable} />}
       </>
     );
   }
