@@ -117,6 +117,7 @@ class Songcards extends Component {
       this.setState({ playing: false });
       this.handleDelete(this.state.songs[0]._id);
 
+      // Ensures queue skips any explcit songs if neccessary as the toggle only hides them in the queue, incase toggle is turned off again
       var explcitToggle = document.getElementById("explicitToggle");
       if (this.state.songs[0]) {
         while (this.state.songs[0].song.song.explicit && explcitToggle.checked) {
@@ -136,9 +137,11 @@ class Songcards extends Component {
     e.preventDefault();
   };
 
+  // Called every time a toggle is updated, it then updates the relevant state properties depending on their current value
   updateToggles = () => {
     var explicitToggle = document.getElementById("explicitToggle");
     this.setState({ hideExplicit: explicitToggle.checked });
+    // This is to ensure if an explcit song is already playing when toggled on, it is also removed
     if (explicitToggle.checked && this.state.songs[0].song.song.explicit) {
       this.handleNext();
     }

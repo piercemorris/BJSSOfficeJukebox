@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import _ from "lodash";
 
+// Component for the control panel, with the various options available and their relevant toggle
 class SettingsTab extends Component {
 
   render() {
