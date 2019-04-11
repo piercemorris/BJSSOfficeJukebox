@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/Layout";
-import UserAccount from "../components/Forms/UserAccount";
+import UserAccount from "../components/forms/UserAccount";
 
 export default () => (
   <Layout>

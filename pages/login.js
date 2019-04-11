@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/Layout";
-import LoginForm from "../components/Forms/LoginForm";
+import LoginForm from "../components/forms/LoginForm";
 
 export default () => (
   <Layout>
