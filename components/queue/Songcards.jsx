@@ -29,7 +29,8 @@ class Songcards extends Component {
       spotifyData: null,
       currentSongDuration: 0,
       hideExplicit: false,
-      hideDelete: false
+      hideDelete: false,
+      hideQueue: false
     };
   }
 
@@ -51,7 +52,7 @@ class Songcards extends Component {
       this.setState({ loading: false, unauthorised: true });
     }
 
-    this.updateToggles = this.updateToggles.bind(this);
+    //this.updateToggles = this.updateToggles.bind(this);
   }
 
   // clears any timeouts/intervals set just before the component is removed
@@ -116,9 +117,9 @@ class Songcards extends Component {
       this.setState({ playing: false });
       this.handleDelete(this.state.songs[0]._id);
 
-      var toggle = document.getElementById("explicitToggle");
+      var explcitToggle = document.getElementById("explicitToggle");
       if (this.state.songs[0]) {
-        while (this.state.songs[0].song.song.explicit && toggle.checked) {
+        while (this.state.songs[0].song.song.explicit && explcitToggle.checked) {
           this.handleDelete(this.state.songs[0]._id);
         }  
       }
@@ -136,14 +137,17 @@ class Songcards extends Component {
   };
 
   updateToggles = () => {
-    var toggle = document.getElementById("explicitToggle");
-    this.setState({ hideExplicit: toggle.checked });
-    if (toggle.checked && this.state.songs[0].song.song.explicit) {
+    var explicitToggle = document.getElementById("explicitToggle");
+    this.setState({ hideExplicit: explicitToggle.checked });
+    if (explicitToggle.checked && this.state.songs[0].song.song.explicit) {
       this.handleNext();
     }
 
-    var toggle2 = document.getElementById("deleteToggle");
-    this.setState({ hideDelete: toggle2.checked });
+    var deleteToggle = document.getElementById("deleteToggle");
+    this.setState({ hideDelete: deleteToggle.checked });
+
+    var queueToggle = document.getElementById("queueToggle");
+    this.setState({ hideQueue: queueToggle.checked})
   }
 
   // renders this component
@@ -177,12 +181,18 @@ class Songcards extends Component {
                   currentSongDuration={currentSongDuration}
                 />
                 <Timer time={this.state.updateTime} onUpdate={this.handleQueueUpdate} />
+                {this.state.hideQueue ?
+                null
+                :
                 <Queue
                   tracks={songs}
                   onDelete={this.handleDelete}
                   explicitToggle = {this.state.hideExplicit}
                   deleteToggle = {this.state.hideDelete}
                 />
+
+                }
+                
               </>
               :
               <>

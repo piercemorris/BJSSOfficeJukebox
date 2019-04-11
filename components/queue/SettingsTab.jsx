@@ -17,6 +17,11 @@ class SettingsTab extends Component {
               <input type="checkbox" id="deleteToggle" value="deleteToggle" onChange={this.props.handler} />
               <span className="settings__slider"></span>
             </label>
+            <br/>
+            <label className="settings__switch">
+              <input type="checkbox" id="queueToggle" value="queueToggle" onChange={this.props.handler} />
+              <span className="settings__slider"></span>
+            </label>
           </div>
 
           <p className="settings__text">
@@ -24,6 +29,9 @@ class SettingsTab extends Component {
           </p >
           <p className="settings__text">
             Hide Remove:
+          </p>
+          <p className="settings__text">
+            Hide Queue:
           </p>
 
         </div>
