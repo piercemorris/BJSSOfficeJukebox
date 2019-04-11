@@ -50,6 +50,8 @@ class Songcards extends Component {
     } catch (ex) {
       this.setState({ loading: false, unauthorised: true });
     }
+
+    this.updateToggles = this.updateToggles.bind(this);
   }
 
   // clears any timeouts/intervals set just before the component is removed
@@ -113,6 +115,14 @@ class Songcards extends Component {
     if (this.state.songs[1]) {
       this.setState({ playing: false });
       this.handleDelete(this.state.songs[0]._id);
+
+      var toggle = document.getElementById("explicitToggle");
+      if (this.state.songs[0]) {
+        while (this.state.songs[0].song.song.explicit && toggle.checked) {
+          this.handleDelete(this.state.songs[0]._id);
+        }  
+      }
+
       if (this.state.songs[0]) {
         const firstInQueueURI = this.state.songs[0].song.song.uri;
         Spotify.playSong(firstInQueueURI);
@@ -170,6 +180,8 @@ class Songcards extends Component {
                 <Queue
                   tracks={songs}
                   onDelete={this.handleDelete}
+                  explicitToggle = {this.state.hideExplicit}
+                  deleteToggle = {this.state.hideDelete}
                 />
               </>
               :
