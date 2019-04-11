@@ -17,7 +17,8 @@ import {
   faForward,
   faPauseCircle,
   faPlayCircle,
-  faArrowAltCircleRight
+  faArrowAltCircleRight,
+  faCog
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faCoffee,
@@ -29,7 +30,8 @@ library.add(
   faPlayCircle,
   faPauseCircleRegular,
   faPlayCircleRegular,
-  faArrowAltCircleRightRegular
+  faArrowAltCircleRightRegular,
+  faCog
 );
 
 class Layout extends Component {

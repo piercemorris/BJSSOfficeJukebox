@@ -3,7 +3,9 @@ import Link from "next/link";
 import _ from "lodash";
 import Error from "../Common/Error";
 import Timer from "../Common/Timer";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CurrentlyPlaying from "./CurrentlyPlaying";
+import SettingsTab from "./SettingsTab";
 import Queue from "./Queue";
 import Spotify from "../../services/spotifyService";
 import song from "../../services/songService";
@@ -26,7 +28,8 @@ class Songcards extends Component {
       unauthorised: false,
       spotifyData: null,
       currentSongDuration: 0,
-      frozenLength: 3
+      hideExplicit: false,
+      hideDelete: false
     };
   }
 
@@ -122,6 +125,17 @@ class Songcards extends Component {
     e.preventDefault();
   };
 
+  updateToggles = () => {
+    var toggle = document.getElementById("explicitToggle");
+    this.setState({ hideExplicit: toggle.checked });
+    if (toggle.checked && this.state.songs[0].song.song.explicit) {
+      this.handleNext();
+    }
+
+    var toggle2 = document.getElementById("deleteToggle");
+    this.setState({ hideDelete: toggle2.checked });
+  }
+
   // renders this component
   render() {
     const { songs, loading, isDevice, isDeviceActive, unauthorised, currentSongDuration, currentSongPosition, playing } = this.state;
@@ -136,6 +150,12 @@ class Songcards extends Component {
           <>
             {song.areSongs(songs) ?
               <>
+                <div className="settings__divider">
+                  <FontAwesomeIcon onClick={this.showSettings} icon={['fas', 'cog']} size="1x" inverse={true} />
+                  <div className="settings__panel">
+                    <SettingsTab handler={this.updateToggles} />
+                  </div>
+                </div>
                 <CurrentlyPlaying
                   track={songs[0]}
                   playing={playing}
