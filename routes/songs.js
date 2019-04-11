@@ -5,7 +5,15 @@ const { Song, validate } = require("../models/song");
 const { User } = require("../models/user");
 const priority = require("../services/priorityService");
 
-//gets all songs in the Song collection
+/**
+ * @api {get} /api/songs/ GET Songs
+ * @apiName GetQueue
+ * @apiGroup Queue
+ * @apiDescription  Gets all songs in the queue, filters the first N songs by time, then the rest by priority.
+ *                  Updates the song's priorty on each call.
+ * 
+ * @apiSuccess {Object[]} body list of all songs in the current queue
+ */
 router.get("/", async (req, res) => {
   const songs = await Song.find();
   let frozen, filtered, full;
@@ -28,7 +36,20 @@ router.get("/", async (req, res) => {
   res.send(full).status(200);
 });
 
-//adds a song to the Song collection & updates user
+/**
+ * @api {get} /api/songs/ POST Song
+ * @apiName PostQueue
+ * @apiGroup Queue
+ * @apiParam {String} requestedBy User ID of the user who requested the song
+ * @apiParam {Object} song Object of the song received from Spotify
+ * @apiParam {String} username Username of the user who requested the song
+ * @apiDescription  Adds a new song to the current queue. Adds the current logged in user and assigns the user priority 
+ *                  to the song priority
+ *                  
+ * @apiSuccess {Object} body The song that has successfully been added to the queue
+ * @apiError (400) InvalidBody Validation error details
+ * @apiError (404) UserNotFound The current logged in user was not found
+ */
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message, ":: Error validating song");
@@ -65,7 +86,15 @@ router.post("/", async (req, res) => {
   res.send(song).status(200);
 });
 
-//deletes a song with a given ID
+/**
+ * @api {get} /api/songs/:id DELETE Song
+ * @apiName DeleteQueue
+ * @apiGroup Queue
+ * @apiDescription  Deletes a song from the queue with the given ID in the URL body
+ *                  
+ * @apiSuccess {Object} body The song that has been successfully deleted
+ * @apiError (404) BadRequest The song with the given ID wasn't found
+ */
 router.delete("/:id", async (req, res) => {
   const song = await Song.findByIdAndRemove(req.params.id);
   if (!song)

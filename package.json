@@ -1,12 +1,13 @@
 {
-  "name": "bjssjukebox",
+  "name": "OfficeJukebox",
   "version": "1.0.0",
-  "description": "A online jukebox app for BJSS which allows multiple users to queue up songs",
+  "description": "A online jukebox app for BJSS which allows multiple users to queue up songs to a shared queue",
   "repository": {
     "url": "https://github.com/perjermer/BJSSOfficeJukebox"
   },
   "main": "index.js",
   "scripts": {
+    "doc": "apidoc -e '(node_modules|public|static)' -o docs/",
     "dev": "node index.js",
     "prestart": "next build",
     "start": "node index.js -p $PORT",
