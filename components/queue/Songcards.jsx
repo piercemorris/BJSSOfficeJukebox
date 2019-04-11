@@ -52,7 +52,6 @@ class Songcards extends Component {
       this.setState({ loading: false, unauthorised: true });
     }
 
-    //this.updateToggles = this.updateToggles.bind(this);
   }
 
   // clears any timeouts/intervals set just before the component is removed
