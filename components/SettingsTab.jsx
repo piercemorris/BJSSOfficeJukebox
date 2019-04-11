@@ -3,36 +3,29 @@ import _ from "lodash";
 
 class SettingsTab extends Component {
 
-  state = {
-  }
-
-
   render() {
 
     return (
         <div>
-          <div id="toggles">
-            <label class="switch">
+          <div className="settings__toggleSwitches">
+            <label className="settings__switch">
               <input type="checkbox" id="explicitToggle" value="explicitToggle" onChange={this.props.handler} />
-              <span class="toggleSlider"></span> 
+              <span className="settings__slider"></span> 
             </label>
             <br/>
-            <label class="switch">
+            <label className="settings__switch">
               <input type="checkbox" id="deleteToggle" value="deleteToggle" onChange={this.props.handler} />
-              <span class="toggleSlider"></span>
+              <span className="settings__slider"></span>
             </label>
           </div>
 
-          <p id="settingsText">
+          <p className="settings__text">
             Hide Explicit:
           </p >
-          <p id="settingsText">
+          <p className="settings__text">
             Hide Remove:
           </p>
 
-          <p id= "settingsText">
-            {this.state.contValue}
-          </p>
         </div>
     );
   }

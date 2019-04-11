@@ -23,9 +23,7 @@ class Songcards extends Component {
     spotifyData: null,
     currentSongDuration: 0,
     currentSongPosition: 0,
-    settingsClicked : false,
     hideExplicit : false,
-    controlValue: 0,
     hideDelete: false
   };
 
@@ -107,8 +105,15 @@ class Songcards extends Component {
   }
 
    handleNext = () => {
+    var toggle = document.getElementById("explicitToggle");
     this.handleDelete(this.state.songs[0]._id);
 
+    if (this.state.songs[0]) {
+      while (this.state.songs[0].song.song.explicit && toggle.checked) {
+        this.handleDelete(this.state.songs[0]._id);
+      }  
+    }
+    
     if (this.state.songs[0]) {
       const firstInQueueURI = this.state.songs[0].song.song.uri;
       Spotify.playSong(firstInQueueURI);
@@ -119,23 +124,13 @@ class Songcards extends Component {
   handleSubmit = async e => {
     e.preventDefault();
   };
-
-  updateExplicit = () => {
-    if (this.state.songs[0].song.song.explicit) {
-      while (this.state.songs[1].song.song.explicit) {
-        this.handleDelete(this.state.songs[0]._id);
-      }
-
-      this.handleNext();
-    }
-  }
   
   updateToggles = () => {
     var toggle = document.getElementById("explicitToggle");
-    
     this.setState({hideExplicit : toggle.checked});
-    this.updateExplicit();
-    
+    if (toggle.checked && this.state.songs[0].song.song.explicit) {
+      this.handleNext();
+    }
 
     var toggle2 = document.getElementById("deleteToggle");
     this.setState({hideDelete : toggle2.checked});
@@ -161,9 +156,9 @@ class Songcards extends Component {
           <>
             {song.areSongs(songs) ?
               <>
-                <div className="settings-divider">
+                <div className="settings__divider">
                   <FontAwesomeIcon onClick={this.showSettings} icon={['fas', 'cog']} size="1x" inverse={true}/>   
-                  <div id="settingsPanel">
+                  <div className="settings__panel">
                     <SettingsTab handler = {this.updateToggles}/> 
                   </div>
                 </div>
@@ -194,9 +189,6 @@ class Songcards extends Component {
                         <div className="margin-top-sm">
                           <Button onDelete={this.handleNext} song={songs[0]} text="Remove" />
                         </div>
-                        <div>
-                            <button onClick={this.updateRemove}>Explcit </button>
-                          </div>
                       </div>
                     </div>
                   </div>
