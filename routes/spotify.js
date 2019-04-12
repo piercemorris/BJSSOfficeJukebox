@@ -238,12 +238,12 @@ router.post("/alexa", async (req, res) => {
       username: "Alexa",
       requestedBy: null,
       dateAdded: Date.now(),
-      priority: 0.5,
+      priority: 1.0,
     });
 
 
     // save the song
-    //song = await song.save();
+    song = await song.save();
     res.send(songInfo).status(200);
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
