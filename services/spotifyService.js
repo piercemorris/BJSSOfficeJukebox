@@ -59,5 +59,5 @@ export default {
   getCurrentlyPlaying,
   getCurrentlyPlayingVerbose,
   getMeAndDevices,
-  search,
+  search
 }

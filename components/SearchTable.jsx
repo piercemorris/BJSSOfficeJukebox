@@ -43,7 +43,7 @@ class SearchTable extends Component {
     const response = await songs.addSong({ song }, currentUser._id, currentUser.username);
     //const uri=song.artists[0].uri;
     //const x=await Spotify.genre(uri);
-    const response2 = await stats.addStat(song.id,song.name , song.artists[0].name, "rock",song.album.images[0].url,1);
+    const response2 = await stats.addStat(song.id,song.name , song.artists[0].name, "rock",song.album.images[0].url,20);
     this.setState({ hideTable: true });
     this.showModal();
   }

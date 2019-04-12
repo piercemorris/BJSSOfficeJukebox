@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import user from "../services/userService";
 import stat from "../services/statsService";
 var arraySort = require('array-sort');
+import { VictoryBar, VictoryChart, VictoryGroup   } from 'victory';
+
 
 
 class UserAccount extends Component {
@@ -17,6 +19,7 @@ class UserAccount extends Component {
     const response = await user.getInfo(currentUser._id);
     this.setState({ user: response.data });
     const mostAddedSong = await stat.getStats();
+    console.log(mostAddedSong);
     arraySort(mostAddedSong.data,'timesAdded',{reverse: true});
     
     //this.setState({ mostSong1: mostAddedSong.data[0] });
@@ -39,6 +42,10 @@ class UserAccount extends Component {
 
     this.setState({ topArtists: this.state.topArtists });
 
+    const data = [
+      {name:this.state.topArtists[0],times:this.state.topArtists[1]}
+  ]
+
 
   }
 
@@ -48,57 +55,75 @@ class UserAccount extends Component {
     const { username, songsAdded } = this.state.user;
     var topSong=null;
     var topArtists=null;
+    var maxFive;
+    var data=[];
     if(this.state.topSong!==null){
        topSong=this.state.topSong;
     }
     if(this.state.topArtists!==null){
       topArtists=this.state.topArtists;
    }
-
-
-
-    console.log(topArtists);
+    if(topSong.length>5){
+      maxFive=5;
+    }else{
+      maxFive=topSong.length
+    }
+    var artistLength=topArtists.length;
+    if(artistLength==0){
+      data=null;
+    }else{
+     for(var i=0;i<10;i=i+2){
+      data.push({artist:topArtists[i],times:topArtists[i+1]})
+     }
+  }
     return (
       <div>
-        <h1>{username}</h1>
-        <p>Total Number of Songs added to queue: {songsAdded}</p>
-        <table className="search-results__table">
+        <div className="top-five-first-section">
+
+        {/*<h1>{username}</h1>
+        <p>Total Number of Songs added to queue: {songsAdded}</p>*/}
+        <div className="top-five-title"><p>Top 5 Played Songs</p></div>
+        <table className="top-five__table">
           <tbody>
-            <tr className="search-results__table-header">
-              <th className="search-results__table-header-title"></th>
-              <th className="search-results__table-header-img"></th>
-              <th className="search-results__table-header-title"></th>
-              <th className="search-results__table-header-artist"></th>
+            <tr className="top-five__table-header">
+              <th className="top-five__table-header-rank"></th>
+              <th className="top-five__table-header-img"></th>
+              <th className="top-five__table-header-title"></th>
+              <th className="top-five__table-header-artist"></th>
             </tr>
-            {topSong.slice(0,topSong.length).map((song,i) =>
-              <tr className="search-results__table__content">
-                <td><b>{i+1}</b></td>
-                <td><img src={song.image} width="30%"></img></td>          
-                <td>{song.songName}</td>
-                <td>{song.artistName}</td>
-              </tr>
+            {topSong.slice(0,maxFive).map((song,i) =>
+                <tr className="top-five__table__content">
+              <td><b>{i+1}</b></td>
+              <td className="td-img"><img src={song.image} width="100%" ></img></td>          
+              <td>{song.songName}</td>
+              <td>{song.artistName}</td>
+            </tr>
             )}
           </tbody>
         </table>
 
 
-        <p>Most added Songs: </p>
-        {topSong.slice(0,topSong.length).map((song,i)=>
-          <p>{i+1}:{song.songName},{song.artistName},{song.timesAdded} </p>
-        )}
+  </div>
+  <div className="top-five-second-section">
+  <div className="datas">
+  <div className="top-five-title-artist"><p>Top 5 Listened Artists</p></div>
+    <VictoryChart height={400} width={600}
+      domainPadding={{ x: 50, y: [0, 20] } }
+      >
+        <VictoryGroup offset={20}
+          colorScale={["#061e51"]}
+        >
 
-        <p>{topArtists[0]}</p>
-        <p>Most played artists: </p>
-        {topArtists.slice(0,topArtists.length).map((song,i)=>
-          <p>{i+1}:{song} </p>
-        )}
+      <VictoryBar
+        data={data}
+        x={"artist"}
+        y={"times"}
+      />
 
-
-
-
-
-
-
+      </VictoryGroup>
+    </VictoryChart>
+  </div>
+      </div>
       </div>
     );
   }

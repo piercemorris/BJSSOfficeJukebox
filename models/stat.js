@@ -19,7 +19,7 @@ const statSchema = new mongoose.Schema({
   },
   image:{
     type:String,
-    required:true
+    required:false
   },
   timesAdded: {
     type: Number,
@@ -35,7 +35,6 @@ function validateStat(stat) {
     songName: Joi.string().required(),
     artistName: Joi.string().required(),
     genre: Joi.string().required(),
-    image: Joi.string().required(),
   };
   return Joi.validate(stat, schema);
 }

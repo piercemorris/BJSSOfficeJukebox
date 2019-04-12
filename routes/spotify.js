@@ -125,6 +125,7 @@ router.get("/getMe", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
+
 router.post("/alexa", async (req, res) => {
   try {
     const query = req.body.query;

@@ -13,9 +13,6 @@ export async function addStat(_id,songName, artistName, genre,image,timesAdded) 
   return await axios.post(apiEndpoint, { _id,songName, artistName, genre,image, timesAdded });
 }
 
-
-
-
 export default {
   getStats,
   addStat,
