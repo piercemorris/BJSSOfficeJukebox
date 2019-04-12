@@ -104,6 +104,14 @@ router.get("/start/:uri", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
+router.get("/features/:id", async (req, res) => {
+  try {
+    const response = await spotifyApi.getAudioFeaturesForTrack(req.params.id);
+
+    res.status(200).send(response);
+  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
+});
+
 router.get("/getCurrent", async (req, res) => {
   try {
     const response = await spotifyApi.getMyCurrentPlayingTrack({});

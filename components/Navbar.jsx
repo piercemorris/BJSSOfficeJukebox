@@ -3,7 +3,7 @@ import _ from "lodash";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { changeNavbarState } from "../services/stylingScript";
-import SearchBar from "./SearchBar";
+import SearchBar from "./search/SearchBar";
 
 class Navbar extends Component {
 

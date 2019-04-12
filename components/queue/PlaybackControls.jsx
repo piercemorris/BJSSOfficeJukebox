@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SongDuration from "../SongDuration";
-import VolumeSlider from "../VolumeSlider";
+import SongDuration from "./SongDuration";
+import VolumeSlider from "./VolumeSlider";
 
 class PlaybackControls extends Component {
   render() {
@@ -25,6 +25,9 @@ class PlaybackControls extends Component {
                 }
                 <div className="playback-controls__duration">
                   <SongDuration currentSongDuration={currentSongDuration} isPlaying={playing} isPaused={paused} handleNext={handleNext} />
+                </div>
+                <div className="playback-controls__skip">
+                  <FontAwesomeIcon onClick={() => handleNext()} className="playback-controls__button" icon={['far', 'arrow-alt-circle-right']} size="3x" inverse={true} />
                 </div>
                 <div className="playback-controls__volume">
                   <VolumeSlider />
