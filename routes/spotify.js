@@ -4,6 +4,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const { Song, validate } = require("../models/song");
 const router = express.Router();
 
+// defining scopes for the Spotify API
 const scopes = [
   "user-read-private",
   "user-read-email",
@@ -12,22 +13,34 @@ const scopes = [
   "user-modify-playback-state"
 ];
 const state = "code";
+
+// configure secrets and environment variables
 const url = process.env.FRONTEND_URL || config.get("baseUrl");
 const clientId = process.env.CLIENT_ID || config.get("spotify-client-id");
 const clientSecret = process.env.CLIENT_SECRET || config.get("spotify-client-secret");
 const redirectUri = process.env.REDIRECT_URI || config.get("redirect-uri");
 
+// create new Spotify API object
 const spotifyApi = new SpotifyWebApi({
   clientId,
   clientSecret,
   redirectUri,
 });
 
+/**
+ * @api {get} /api/spotify/login Authorise Spotify
+ * @apiName SpotifyLogin
+ * @apiGroup Spotify
+ * @apiDescription Creates the authorisation URL for Spotify which allows you to retrieve a token
+ *                  
+ * @apiSuccess {undefined} null redirect to Spotify Authorisation Grant
+ */
 router.get("/login", (req, res) => {
   const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
   res.redirect(authorizeURL);
 });
 
+// Called through Spotify Authorisation Flow
 router.get("/callback", async (req, res) => {
   const code = req.query.code || null;
   const response = await spotifyApi.authorizationCodeGrant(code);
@@ -44,12 +57,16 @@ router.get("/callback", async (req, res) => {
   }, 1740000);
 });
 
-router.get("/refresh", async (req, res) => {
-  const response = await spotifyApi.refreshAccessToken();
-
-  spotifyApi.setAccessToken(response.body.access_token);
-});
-
+/**
+ * @api {get} /api/spotify/search/:query Search Track
+ * @apiName SpotifyTrackSearch
+ * @apiGroup Spotify
+ * @apiParam {String} query Keyword to search for the songs using Spotify
+ * @apiDescription Searches for a track given the query parameter. If no tracks are found, then an error is sent.
+ *                  
+ * @apiSuccess {Object[]} data The top songs (max 20) matching the query 
+ * @apiError SpotifyError Spotify error message
+ */
 router.get("/search/:query", async (req, res) => {
   try {
     const query = req.params.query;
@@ -58,6 +75,16 @@ router.get("/search/:query", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
+/**
+ * @api {get} /api/spotify/resume/:uri Resume Track
+ * @apiName SpotifyResumeTrack
+ * @apiGroup Spotify
+ * @apiParam {String} uri Resume a paused track given the Spotify URI
+ * @apiDescription This endpoint resumes a track given its URI
+ *                  
+ * @apiSuccess {Object} returns the response object from the Spotify call
+ * @apiError SpotifyError Spotify error message
+ */
 router.get("/resume/:uri", async (req, res) => {
   try {
     await spotifyApi.play({})
@@ -70,6 +97,15 @@ router.get("/resume/:uri", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
+/**
+ * @api {get} /api/spotify/pause Pause Track
+ * @apiName SpotifyPauseTrack
+ * @apiGroup Spotify
+ * @apiDescription This endpoint simply pauses the track that is currently playing
+ *                  
+ * @apiSuccess {Object} returns the response object from the Spotify call
+ * @apiError SpotifyError Spotify error message
+ */
 router.get("/pause", async (req, res) => {
   try {
     const response = spotifyApi.pause({});
@@ -77,6 +113,16 @@ router.get("/pause", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
+/**
+ * @api {get} /api/spotify/volume/:newVolume Set Volume
+ * @apiName SpotifySetVolume
+ * @apiGroup Spotify
+ * @apiParam {Number} newVolume New volume to set Spotify
+ * @apiDescription This endpoint resumes a track given its URI
+ *                  
+ * @apiSuccess {Object} returns the response object from the Spotify call
+ * @apiError SpotifyError Spotify error message
+ */
 router.get("/volume/:newVolume", async (req, res) => {
   try {
     const volume = req.params.newVolume;
@@ -86,16 +132,16 @@ router.get("/volume/:newVolume", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
-router.get("/time/:newTime", async (req, res) => {
-
-  try {
-    const newTime = req.params.newTime;
-    const response = await spotifyApi.seek(newTime, {});
-
-    res.status(200).send(response);
-  } catch (ex) { res.status(ex.statusCode).send(ex.message); }
-});
-
+/**
+ * @api {get} /api/spotify/start/:uri Start Track
+ * @apiName SpotifyStartTrack
+ * @apiGroup Spotify
+ * @apiParam {String} uri URI of the song to be played
+ * @apiDescription This endpoint plays the track with the given
+ *                  
+ * @apiSuccess {Object} returns the response object from the Spotify call
+ * @apiError SpotifyError Spotify error message
+ */
 router.get("/start/:uri", async (req, res) => {
   try {
     const response = await spotifyApi.play({ uris: [req.params.uri] });
@@ -104,6 +150,16 @@ router.get("/start/:uri", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
+/**
+ * @api {get} /api/spotify/features/:id Get Audio Features
+ * @apiName SpotifyAudioFeatures
+ * @apiGroup Spotify
+ * @apiParam {String} id ID of the track to get audio features from
+ * @apiDescription This endpoint gets the audio features of the tracks i.e. acousticness, energy etc.
+ *                  
+ * @apiSuccess {Object} returns the response object from the Spotify call
+ * @apiError SpotifyError Spotify error message
+ */
 router.get("/features/:id", async (req, res) => {
   try {
     const response = await spotifyApi.getAudioFeaturesForTrack(req.params.id);
@@ -112,6 +168,15 @@ router.get("/features/:id", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
+/**
+ * @api {get} /api/spotify/getCurrent Get Track
+ * @apiName SpotifyGetTrack
+ * @apiGroup Spotify
+ * @apiDescription This endpoint gets the currently playing track on the authorised user
+ *                  
+ * @apiSuccess {Object} returns the response object from the Spotify call
+ * @apiError SpotifyError Spotify error message
+ */
 router.get("/getCurrent", async (req, res) => {
   try {
     const response = await spotifyApi.getMyCurrentPlayingTrack({});
@@ -119,6 +184,15 @@ router.get("/getCurrent", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
+/**
+ * @api {get} /api/spotify/getMe Get Authorised User
+ * @apiName SpotifyAuthorisedUser
+ * @apiGroup Spotify
+ * @apiDescription This endpoint plays the track with the given
+ *                  
+ * @apiSuccess {Object} returns the response object from the Spotify call
+ * @apiError SpotifyError Spotify error message
+ */
 router.get("/getMe", async (req, res) => {
   try {
     const { body } = await spotifyApi.getMe();
@@ -133,6 +207,16 @@ router.get("/getMe", async (req, res) => {
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
+/**
+ * @api {get} /api/spotify/alexa Search & Add Track Alexa
+ * @apiName SpotifyAlexaTrack
+ * @apiGroup Spotify
+ * @apiParam {String} query Keyword to be used to search Spotify
+ * @apiDescription This endpoint selects the top track from a search with they input query. Then this result is added to the queue
+ *                  
+ * @apiSuccess {Object} returns the response object from the Spotify call
+ * @apiError SpotifyError Spotify error message
+ */
 router.post("/alexa", async (req, res) => {
   try {
     const query = req.body.query;
@@ -143,6 +227,7 @@ router.post("/alexa", async (req, res) => {
       return res.status(404).send("No songs found");
 
     const track = response.body.tracks.items[0];
+    const songInfo = { songName: track.name, songArtist: track.artists[0].name }
     const songObj = {
       song: track
     }
@@ -153,12 +238,13 @@ router.post("/alexa", async (req, res) => {
       username: "Alexa",
       requestedBy: null,
       dateAdded: Date.now(),
-      priority: 0.5,
+      priority: 1.0,
     });
+
 
     // save the song
     song = await song.save();
-    res.send(song).status(200);
+    res.send(songInfo).status(200);
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });
 
