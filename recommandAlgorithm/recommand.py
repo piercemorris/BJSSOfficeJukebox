@@ -1,5 +1,6 @@
 import csv
 import pymongo
+import bpAglorithm
 
 
 def read_dict(file_name):
@@ -45,3 +46,15 @@ uri = "mongodb://public:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox"
 my_dict_list = read_dict('E:\BJSS\BJSSOfficeJukebox\\recommandAlgorithm\\dict.csv')
 song_ids = connect_db("songs")
 songs_features = create_song_feature()
+n_inputs = len(songs_features[0]) - 2
+n_outputs = 2
+network = bpAglorithm.initialize_network(n_inputs, 9, n_outputs)
+
+dataset = list()
+for song_features in songs_features:
+    dataset.append(song_features[1:])
+bpAglorithm.train_network(network, dataset, 0.5, 20, n_outputs)
+
+for row in dataset:
+    prediction = bpAglorithm.predict(network, row)
+    print('Expected=%d, Got=%d' % (row[-1], prediction))

@@ -84,7 +84,7 @@ def train_network(net_work, train, l_rate, n_epoch, n_outputs):
             sum_error += sum([(expect[i] - outputs[i]) ** 2 for i in range(len(expect))])
             back_propagation(net_work, expect)
             update_weights(net_work, row, l_rate)
-        print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error))
+        # print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error))
 
 
 # Predict the value of the function
@@ -93,6 +93,7 @@ def predict(network, row):
     return outputs.index(max(outputs))
 
 
+'''
 dataset = []
 
 n_inputs = len(dataset[0]) - 1
@@ -103,3 +104,4 @@ train_network(network, dataset, 0.5, 20, n_outputs)
 for row in dataset:
     prediction = predict(network, row)
     print('Expected=%d, Got=%d' % (row[-1], prediction))
+'''
