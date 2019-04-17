@@ -2,6 +2,15 @@ import React, { Component } from "react";
 import Spotify from "../../services/spotifyService";
 import SearchTable from "./SearchTable";
 
+/**
+ * @api {Class Component} <SearchBar|classProp/> search/SearchBar.jsx
+ * @apiName SearchBar
+ * @apiGroup Components
+ * @apiParam {String} classProp Classes to pass down to the search bar component
+ * @apiDescription  This components renders the search bar and invisible search table
+ * @apiSuccessExample Navbar.jsx
+ *    <SearchBar/>
+ */
 class SearchBar extends Component {
   state = {
     search: {
@@ -13,7 +22,7 @@ class SearchBar extends Component {
     result: {}
   };
 
-
+  // handle search submit and checks for error codes from server
   handleSubmit = async e => {
     e.preventDefault();
 
@@ -35,6 +44,7 @@ class SearchBar extends Component {
     console.log(this.state.showTable);
   };
 
+  // when key presses, updates search text with current input value
   handleChange = e => {
     const search = { ...this.state.search };
     const component = e.currentTarget.name;
@@ -43,7 +53,7 @@ class SearchBar extends Component {
 
   };
 
-
+  // function for rendering the search bar component
   renderSearchBar = () => {
     const { search } = this.state;
     return (
@@ -61,7 +71,7 @@ class SearchBar extends Component {
     );
   }
 
-
+  // renders the search bar and search table if search has commenced
   render() {
     const { result, clicked } = this.state;
 

@@ -243,7 +243,7 @@ router.post("/alexa", async (req, res) => {
 
 
     // save the song
-    //song = await song.save();
+    song = await song.save();
     res.send(songInfo).status(200);
   } catch (ex) { res.status(ex.statusCode).send(ex.message); }
 });

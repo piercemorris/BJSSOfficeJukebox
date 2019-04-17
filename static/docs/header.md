@@ -1,0 +1,27 @@
+## Directory Structure
+
+- components
+    - Contains all the React components
+- config
+    - Contains all the non-sensitive environment variables & constants
+- docs
+    - Contains the static page to render software documentation
+- middleware
+    - Contains middleware for API endpoints
+- models
+    - Contains model definitions for the Mongoose database
+- pages
+    - Contains static pages for Next.js that will be rendered under `/<page name>`
+- routes
+    - Contains the definitions of the API routes
+- services
+    - Contains functions and API call handlers for the client
+- test
+    - Contains unit and integration tests
+- .gitignore - Files/folders to be ignored when pushing to GitHub
+- .travis.yml - Travis CI configuration file
+- apidoc.json - APIDoc configuration file
+- index.js - Instansiation file
+- jest.config.js - Jest configuration file (testing framework)
+- next.config.js - Next.js configuration file (server-side rendered react framwork)
+- package.json - Node dependency manager and configuration
