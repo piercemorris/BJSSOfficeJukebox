@@ -3,8 +3,17 @@ import Joi from "joi-browser";
 import Form from "../common/Form";
 import user from "../../services/userService";
 
+/**
+ * @api {Class Component} <LoginForm /> forms/LoginForm.jsx
+ * @apiName LoginForm
+ * @apiGroup Components
+ * @apiDescription  This component simple renders a login form. Extends from class Form.
+ * @apiSuccessExample Login.js
+ *    <LoginForm />
+ */
 class LoginForm extends Form {
 
+  // schema used to validate user input
   schema = {
     username: Joi.string()
       .required()
@@ -14,6 +23,7 @@ class LoginForm extends Form {
       .label("Password")
   };
 
+  // handles what to perform when the user submits the login form
   doSubmit = async () => {
     try {
       const { data } = this.state;

@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import user from "../../services/userService";
 
+/**
+ * @api {Class Component} <Logout /> forms/Logout.jsx
+ * @apiName Logout
+ * @apiGroup Components
+ * @apiDescription  This component logs out the user when mounted.
+ * @apiSuccessExample Logout.js
+ *    <Logout />
+ */
 class Logout extends Component {
   state = {}
 
@@ -10,7 +18,6 @@ class Logout extends Component {
       window.location = '/';
     }
     catch (ex) {
-
     }
   }
 

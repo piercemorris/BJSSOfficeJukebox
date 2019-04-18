@@ -9,7 +9,6 @@ class UserAccount extends Component {
     user: {},
     topSong: [[]],
     topArtists: []
-
   }
 
   async componentWillMount() {
@@ -18,14 +17,10 @@ class UserAccount extends Component {
     this.setState({ user: response.data });
     const mostAddedSong = await stat.getStats();
     arraySort(mostAddedSong.data, 'timesAdded', { reverse: true });
-
-    //this.setState({ mostSong1: mostAddedSong.data[0] });
-    //this.setState({ mostSong2: mostAddedSong.data[1] });
     this.setState({ topSong: mostAddedSong.data });
 
 
     this.state.topSong.forEach(function (item, index, array) {
-
       var found = this.state.topArtists.findIndex(function (element) {
         return element == item.artistName;
       }.bind(this));
@@ -38,11 +33,7 @@ class UserAccount extends Component {
     }.bind(this));
 
     this.setState({ topArtists: this.state.topArtists });
-
-
   }
-
-
 
   render() {
     const { username, songsAdded } = this.state.user;
@@ -55,9 +46,6 @@ class UserAccount extends Component {
       topArtists = this.state.topArtists;
     }
 
-
-
-    console.log(topArtists);
     return (
       <div>
         <h1>{username}</h1>
@@ -81,7 +69,6 @@ class UserAccount extends Component {
           </tbody>
         </table>
 
-
         <p>Most added Songs: </p>
         {topSong.slice(0, topSong.length).map((song, i) =>
           <p>{i + 1}:{song.songName},{song.artistName},{song.timesAdded} </p>
@@ -92,13 +79,6 @@ class UserAccount extends Component {
         {topArtists.slice(0, topArtists.length).map((song, i) =>
           <p>{i + 1}:{song} </p>
         )}
-
-
-
-
-
-
-
       </div>
     );
   }
