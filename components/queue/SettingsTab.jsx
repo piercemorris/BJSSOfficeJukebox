@@ -21,7 +21,7 @@ class SettingsTab extends Component {
 
           <p className="settings__text">
             Hide Explicit:
-          </p >
+          </p>
           <p className="settings__text">
             Hide Remove:
           </p>
