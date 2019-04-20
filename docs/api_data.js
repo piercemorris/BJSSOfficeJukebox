@@ -675,6 +675,20 @@ define({ "api": [
             "optional": false,
             "field": "onDelete",
             "description": "<p>Delete function if a song in the queue is to be deleted</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "explicitToggle",
+            "description": "<p>Boolean value if the explicit songs should be displayed or not</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "deleteToggle",
+            "description": "<p>Boolean value if the remove button should be displayed or not</p>"
           }
         ]
       }
