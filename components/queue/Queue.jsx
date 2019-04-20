@@ -2,10 +2,21 @@ import React from 'react'
 import Button from "../common/Button";
 import song from "../../services/songService";
 
-const Queue = (props) => {
-
-  const { tracks, onDelete } = props;
-
+/**
+ * @api {Stateless Functional Component} <Queue|tracks|onDelete/> queue/Queue.jsx
+ * @apiName Queue
+ * @apiGroup Components
+ * @apiParam {Object[]} tracks Object array of the songs in the queue
+ * @apiParam {Function} onDelete Delete function if a song in the queue is to be deleted
+ * @apiDescription  This component is responsible for rendering the queue of songs and a delete function to remove
+ *                  any of the songs.
+ * @apiSuccessExample CurrentlyPlaying.jsx
+ *    <Queue
+ *      tracks={this.songs}
+ *      onDelete={this.handleDelete}
+ *    />
+ */
+const Queue = ({ tracks, onDelete }) => {
   return (
     <section className="queue">
       <h1 className="queue-title">Up Next</h1>
@@ -20,7 +31,7 @@ const Queue = (props) => {
             <th className="queue__table-header-priority">Priority</th>
             <th className="queue__table-header-button"></th>
           </tr>
-          {!song.areSongsInQueue(tracks) ?
+          {!song.areSongsInQueue(tracks) ? // if there isn't more than one song then return nothing
             null
             :
             tracks

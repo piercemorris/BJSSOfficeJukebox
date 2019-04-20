@@ -4,7 +4,7 @@ import Form from "../common/Form";
 import user from "../../services/userService";
 
 /**
- * @api {Class Component} <LoginForm /> forms/LoginForm.jsx
+ * @api {Class Component} <LoginForm/> forms/LoginForm.jsx
  * @apiName LoginForm
  * @apiGroup Components
  * @apiDescription  This component simple renders a login form. Extends from class Form.

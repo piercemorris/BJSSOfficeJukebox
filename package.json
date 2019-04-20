@@ -69,6 +69,7 @@
     "spotify-web-api-node": "^4.0.0"
   },
   "devDependencies": {
+    "apidoc": "^0.17.7",
     "jest": "^23.6.0",
     "morgan": "^1.9.1",
     "node-pre-gyp": "^0.12.0",
