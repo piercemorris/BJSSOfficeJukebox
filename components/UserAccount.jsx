@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import user from "../../services/userService";
-import stat from "../../services/statsService";
+import user from "../services/userService";
+import stat from "../services/statsService";
 var arraySort = require('array-sort');
 import { VictoryBar, VictoryChart, VictoryGroup   } from 'victory';
 
@@ -72,7 +72,7 @@ class UserAccount extends Component {
     if(artistLength==0){
       data=null;
     }else{
-     for(var i=0;i<artistLength-1;i=i+2){
+     for(var i=0;i<10;i=i+2){
       data.push({artist:topArtists[i],times:topArtists[i+1]})
      }
   }

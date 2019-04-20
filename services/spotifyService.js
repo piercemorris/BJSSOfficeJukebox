@@ -69,6 +69,7 @@ export async function getMeAndDevices() {
   return data;
 }
 
+
 export default {
   resume,
   pause,
