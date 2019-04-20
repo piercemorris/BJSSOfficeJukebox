@@ -8,6 +8,8 @@ import song from "../../services/songService";
  * @apiGroup Components
  * @apiParam {Object[]} tracks Object array of the songs in the queue
  * @apiParam {Function} onDelete Delete function if a song in the queue is to be deleted
+ * @apiParam {Boolean} explicitToggle Boolean value if the explicit songs should be displayed or not
+ * @apiParam {Boolean} deleteToggle Boolean value if the remove button should be displayed or not
  * @apiDescription  This component is responsible for rendering the queue of songs and a delete function to remove
  *                  any of the songs.
  * @apiSuccessExample CurrentlyPlaying.jsx
@@ -16,7 +18,7 @@ import song from "../../services/songService";
  *      onDelete={this.handleDelete}
  *    />
  */
-const Queue = ({ tracks, onDelete }) => {
+const Queue = ({ tracks, onDelete, explicitToggle, deleteToggle }) => {
   return (
     <section className="queue">
       <h1 className="queue-title">Up Next</h1>
@@ -36,6 +38,8 @@ const Queue = ({ tracks, onDelete }) => {
             :
             tracks
               .filter(song => tracks.indexOf(song) != 0)
+              .filter(song => (explicitToggle != true || song.song.song.explicit != true))
+
               .map(song => (
                 <tr key={song._id} className="queue__table__content">
                   <td className="queue__table-image">
@@ -56,9 +60,13 @@ const Queue = ({ tracks, onDelete }) => {
                   <td>{song.song.song.album.name}</td>
                   <td>{song.username}</td>
                   <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
+                  {deleteToggle ?
+                  null
+                  :
                   <td>
                     <Button onDelete={onDelete} song={song} text="Remove" className="bottom" />
                   </td>
+                  }
                 </tr>
               ))
           }

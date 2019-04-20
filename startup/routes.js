@@ -6,7 +6,6 @@ const spotify = require("../routes/spotify");
 const users = require("../routes/users");
 const songs = require("../routes/songs");
 const stats = require("../routes/stats");
-const history = require("../routes/history");
 
 module.exports = function (app) {
   app.use(cors());
@@ -18,5 +17,4 @@ module.exports = function (app) {
   app.use("/api/users/", users);
   app.use("/api/songs/", songs);
   app.use("/api/stats/", stats);
-  app.use("/api/history/", history);
 };

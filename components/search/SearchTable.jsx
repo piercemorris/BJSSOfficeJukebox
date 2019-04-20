@@ -55,7 +55,7 @@ class SearchTable extends Component {
     const currentUser = await user.getCurrentUser();
     const resAddSong = await songs.addSong({ song }, currentUser._id, currentUser.username);
     const resAddStat = await stats.addStat(song.id, song.name, song.artists[0].name, "rock", song.album.images[0].url, 1);
-    const resAddHist = await Spotify.getAudioFeatures(song.id);
+    //const resAddHist = await Spotify.getAudioFeatures(song.id);
     this.setState({ hideTable: true });
     this.showModal();
   }

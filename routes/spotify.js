@@ -238,7 +238,7 @@ router.post("/alexa", async (req, res) => {
       username: "Alexa",
       requestedBy: null,
       dateAdded: Date.now(),
-      priority: 0.5,
+      priority: 1.0,
     });
 
 

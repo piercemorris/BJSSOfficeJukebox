@@ -1,62 +1,60 @@
 import csv
-import math
+import pymongo
+import bpAglorithm
 
 
-# calculate the similarity of list1 and list2
-def calSim(list1, list2):
-    distance = 0               # use the distance to calculate the distance between two list
-    for i in range(len(list1)):
-        distance += pow((list1[i] - list2[i]),2)
-    return math.sqrt(distance)
+def read_dict(file_name):
+    with open(file_name, mode='r') as infile:
+        reader = csv.DictReader(infile)
+        song_features_list = [row for row in reader]
+        infile.close()
+    return song_features_list
 
 
-def songList2vec( songList ):
-    # to access the DB
-    vector = [0] * len(mydict)
-    for i in range(songList):
-        vector[(mydict[i])] = 1
-    return  vector
-
-def readDict(fileName):
-    with open(fileName, 'rb') as csv_file:
-        reader = csv.reader(csv_file)
-        mydict1 = dict(reader)
-    return mydict1
+def connect_db(col_name):
+    client = pymongo.MongoClient(uri)
+    my_db = client.jukebox
+    my_col = my_db[col_name]
+    song_id_list = []
+    for i in my_col.find():
+        song_id_list.append(i["song"]["song"]["id"])
+    return song_id_list
 
 
-def recommandSong(list, listArray, mydict):
-    distanceList = []
-    songList = []
-    for i in listArray:
-        distanceList.append(calSim(list, i))
+def create_song_feature():
+    songs_features_list = []
+    for song_id in song_ids:
+        for dic in my_dict_list:
+            if dic["songID"] == song_id:
+                tmp = [dic['songID'], float(dic['acousticness']), float(dic['danceability']), float(dic['energy']),
+                       float(dic['instrumentalness']), float(dic['liveness']), float(dic['loudness'])/60 + 1.0,
+                       float(dic['speechiness']), float(dic['valence']), float(dic['tempo']/250), 1]
+            else:
+                tmp = [dic['songID'], float(dic['acousticness']), float(dic['danceability']), float(dic['energy']),
+                       float(dic['instrumentalness']), float(dic['liveness']), float(dic['loudness'])/60 + 1.0,
+                       float(dic['speechiness']), float(dic['valence']), float(dic['tempo']/250), 0]
+            songs_features_list.append(tmp)
+    print(songs_features_list)
+    return songs_features_list
 
-    for i in range(10):
-        songList.append(mydict[distanceList.index(min(distanceList))])
-        distanceList[distanceList.index(min(distanceList))] = max(distanceList)
-    return songList
-
-
-def recommandSongRandom():
-    list = []
-    songList = []
-    while b_length <= 10:
-        random_number = random.randint(0, 99)
-        if random_number not in b_list:
-            list.append(random_number)
-            b_length += 1
-            songList.append(mydict[random_number])
-    return songList
 
 def updateDB():
-    # update the recommand song to the DB
+    return
 
 
-mydict = readDict("dict.csv")
-newUserSongList = songList2vec()
-# if the song list is empty we can recommond the song randomly
-if isEmpty(newUserSongList):
-    song = recommadSongRandom()
-else:
-    existedUserSongList = songList2vec()
-    recommandSong(newUserSongList, existedUserSongList, mydict)
-updateDB()
+uri = "mongodb://public:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox"
+my_dict_list = read_dict('E:\BJSS\BJSSOfficeJukebox\\recommandAlgorithm\\dict.csv')
+song_ids = connect_db("songs")
+songs_features = create_song_feature()
+n_inputs = len(songs_features[0]) - 2
+n_outputs = 2
+network = bpAglorithm.initialize_network(n_inputs, 9, n_outputs)
+
+dataset = list()
+for song_features in songs_features:
+    dataset.append(song_features[1:])
+bpAglorithm.train_network(network, dataset, 0.5, 20, n_outputs)
+
+for row in dataset:
+    prediction = bpAglorithm.predict(network, row)
+    print('Expected=%d, Got=%d' % (row[-1], prediction))

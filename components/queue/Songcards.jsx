@@ -43,7 +43,8 @@ class Songcards extends Component {
       spotifyData: null,
       currentSongDuration: 0,
       hideExplicit: false,
-      hideDelete: false
+      hideDelete: false,
+      hideQueue: false
     };
   }
 
@@ -64,6 +65,7 @@ class Songcards extends Component {
     } catch (ex) {
       this.setState({ loading: false, unauthorised: true });
     }
+
   }
 
   // clears any timeouts/intervals set just before the component is removed
@@ -127,6 +129,15 @@ class Songcards extends Component {
     if (this.state.songs[1]) {
       this.setState({ playing: false });
       this.handleDelete(this.state.songs[0]._id);
+
+      // Ensures queue skips any explcit songs if neccessary as the toggle only hides them in the queue, incase toggle is turned off again
+      var explcitToggle = document.getElementById("explicitToggle");
+      if (this.state.songs[0]) {
+        while (this.state.songs[0].song.song.explicit && explcitToggle.checked) {
+          this.handleDelete(this.state.songs[0]._id);
+        }  
+      }
+
       if (this.state.songs[0]) {
         const firstInQueueURI = this.state.songs[0].song.song.uri;
         Spotify.playSong(firstInQueueURI);
@@ -139,15 +150,20 @@ class Songcards extends Component {
     e.preventDefault();
   };
 
+  // Called every time a toggle is updated, it then updates the relevant state properties depending on their current value
   updateToggles = () => {
-    var toggle = document.getElementById("explicitToggle");
-    this.setState({ hideExplicit: toggle.checked });
-    if (toggle.checked && this.state.songs[0].song.song.explicit) {
+    var explicitToggle = document.getElementById("explicitToggle");
+    this.setState({ hideExplicit: explicitToggle.checked });
+    // This is to ensure if an explcit song is already playing when toggled on, it is also removed
+    if (explicitToggle.checked && this.state.songs[0].song.song.explicit) {
       this.handleNext();
     }
 
-    var toggle2 = document.getElementById("deleteToggle");
-    this.setState({ hideDelete: toggle2.checked });
+    var deleteToggle = document.getElementById("deleteToggle");
+    this.setState({ hideDelete: deleteToggle.checked });
+
+    var queueToggle = document.getElementById("queueToggle");
+    this.setState({ hideQueue: queueToggle.checked})
   }
 
   // renders this component
@@ -181,10 +197,18 @@ class Songcards extends Component {
                   currentSongDuration={currentSongDuration}
                 />
                 <Timer time={this.state.updateTime} onUpdate={this.handleQueueUpdate} />
+                {this.state.hideQueue ?
+                null
+                :
                 <Queue
                   tracks={songs}
                   onDelete={this.handleDelete}
+                  explicitToggle = {this.state.hideExplicit}
+                  deleteToggle = {this.state.hideDelete}
                 />
+
+                }
+                
               </>
               :
               <>
