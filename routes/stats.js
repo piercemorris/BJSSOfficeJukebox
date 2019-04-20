@@ -8,8 +8,6 @@ const { Stat, validate } = require("../models/stat");
 //gets all songs in the Song collection
 router.get("/", async (req, res) => {
   const stats = await Stat.find();
-  //req.body.timesAdded
-  console.log("aaaa");
   res.send(stats).status(200);
 });
 

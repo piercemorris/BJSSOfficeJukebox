@@ -1,18 +1,6 @@
-# File structure
+# Software docs 
 
-`components` - contains all the components for react<br />
-`components/common` - contains all the components for react that are reusable<br />
-`config` - contains all the information about database connections, private keys etc<br />
-`middleware` - contains middleware for express i.e. checking if someone is authorised<br />
-`models` - contains the models & schemas for the mongo database<br />
-`pages` - contains the files for rendering react pages using the components<br />
-`public` - contains all the static images/css files/javascript files<br />
-`routes` - defines all the routes to the project structure<br />
-`startup` - contains all the functions for on the project startup<br />
-`test` - folder containing all the tests, with subfolders for integration and unit testing<br />
-`.gitignore` - to ignore any dev dependent folders i.e. node_modules etc<br />
-`index.js` - root files for the project<br />
-`package.json` - contains dependecies and project information<br />
+We have comprehensive software docs found at: https://perjermer.github.io/BJSSOfficeJukebox/
 
 # Tools for local development
 

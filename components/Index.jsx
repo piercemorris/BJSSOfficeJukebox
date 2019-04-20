@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { baseUrlLive, baseUrl } from "../config/default.json";
 
+/**
+ * @api {Class Component} <Index/> Index.jsx
+ * @apiName Index
+ * @apiGroup Components
+ * @apiDescription  This components renders the home screen from the root URL
+ * @apiSuccessExample Home page
+ *    <Index/>
+ */
 class Index extends Component {
   render() {
     return (
@@ -25,7 +32,7 @@ class Index extends Component {
           <div className="feature-grid">
             <div>
               <div className="container">
-              <div className="icon pad-bottom"><img src="static/img/search-song-icon.png"></img></div>
+                <div className="icon pad-bottom"><img src="static/img/search-song-icon.png"></img></div>
                 <span className="feature-title pad-bottom">
                   Search songs
                   </span>
@@ -42,7 +49,7 @@ class Index extends Component {
                 <span className="feature-title pad-bottom">
                   Fair Queue
                 </span>
-                  <ul>
+                <ul>
                   <li>There's a priority system so that each user will get their song played</li>
                   <li>Add too many songs and your priority will get decreased!</li>
                   <li>Wait long enough and your priority will be reset</li>
@@ -55,7 +62,7 @@ class Index extends Component {
                 <span className="feature-title pad-bottom">
                   Listen
                 </span>
-                  <ul>
+                <ul>
                   <li>Dedicate a device to play the queue in your social space</li>
                   <li>Play, pause, skip and control the volume on the device</li>
                   <li>Don't worry if there's only one song in the queue, our clever system will add some!</li>
@@ -71,45 +78,45 @@ class Index extends Component {
           </div>
 
           <div className="feature-grid">
-             <div>
-                <div className="container">
-                    <div className="how-to-icon pad-bottom"><img src="static/img/sign-up-icon.png"></img></div>
-                    <div className="how-to-titles pad-bottom"><b>Sign up</b></div>
-                    <p>
-                     <ul>
-                      <li>Create a new 'user' by clicking 'Sign Up', and filling in the form.</li>
-                      <li>Your password will be hashed, only you will know it!</li>
-                      </ul>
-                  </p>
-                </div>
+            <div>
+              <div className="container">
+                <div className="how-to-icon pad-bottom"><img src="static/img/sign-up-icon.png"></img></div>
+                <div className="how-to-titles pad-bottom"><b>Sign up</b></div>
+                <p>
+                  <ul>
+                    <li>Create a new 'user' by clicking 'Sign Up', and filling in the form.</li>
+                    <li>Your password will be hashed, only you will know it!</li>
+                  </ul>
+                </p>
               </div>
-              <div>
-                <div className="container">
+            </div>
+            <div>
+              <div className="container">
                 <div className="how-to-icon pad-bottom"><img src="static/img/spotify-icon.png"></img></div>
 
                 <div className="how-to-titles pad-bottom"><b>Authorise Spotify</b></div>
-                      <p>
-                        <ul>
-                          <li>If this is your first time using the Jukebox, you will need to connect to your Spotify account.</li>
-                          <li>So, simple click on 'Authorise Spotify', in the upper navigation bar. </li>
-                          <li>This will redirect you to a screen where you can enter your Spotify details (don't worry, they are not stored anywhere on this app).</li>
-                        </ul>
-                      </p>
-                </div>
+                <p>
+                  <ul>
+                    <li>If this is your first time using the Jukebox, you will need to connect to your Spotify account.</li>
+                    <li>So, simple click on 'Authorise Spotify', in the upper navigation bar. </li>
+                    <li>This will redirect you to a screen where you can enter your Spotify details (don't worry, they are not stored anywhere on this app).</li>
+                  </ul>
+                </p>
               </div>
-              <div>
+            </div>
+            <div>
               <div className="container">
-              <div className="how-to-icon pad-bottom"><img src="static/img/add-songs-icon.png"></img></div>
+                <div className="how-to-icon pad-bottom"><img src="static/img/add-songs-icon.png"></img></div>
 
-              <div className="how-to-titles pad-bottom"><b>Add songs</b></div>
-                    <p>
-                      <ul>
-                        <li>Navigate to 'Search'. Use the search bar to find the song you fancy.</li>
-                        <li>From the search results, find your song, and click the '+'. The song is now queued!</li>
-                      </ul>
-                  </p>
-                </div>
+                <div className="how-to-titles pad-bottom"><b>Add songs</b></div>
+                <p>
+                  <ul>
+                    <li>Navigate to 'Search'. Use the search bar to find the song you fancy.</li>
+                    <li>From the search results, find your song, and click the '+'. The song is now queued!</li>
+                  </ul>
+                </p>
               </div>
+            </div>
           </div>
         </section>
       </div>

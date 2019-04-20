@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "doc": "apidoc -e '(node_modules|public|static)' -o docs/",
+    "doc": "apidoc -e node_modules -o docs/",
     "dev": "node index.js",
     "prestart": "next build",
     "start": "node index.js -p $PORT",
@@ -71,6 +71,7 @@
     "victory-bar": "^32.2.0"
   },
   "devDependencies": {
+    "apidoc": "^0.17.7",
     "jest": "^23.6.0",
     "morgan": "^1.9.1",
     "node-pre-gyp": "^0.12.0",

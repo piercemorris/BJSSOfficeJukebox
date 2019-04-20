@@ -2,9 +2,33 @@ import React from 'react';
 import PlaybackControls from "./PlaybackControls";
 import ShowMore from "../../services/utilityService";
 
+/**
+ * @api {Stateless Functional Component} <CurrentlyPlaying|track|currentSongDuration|playing|isDevice|isDeviceActive|onNext|onPlay/> queue/CurrentlyPlaying.jsx
+ * @apiName CurrentlyPlaying
+ * @apiGroup Components
+ * @apiParam {Object} track The object of the track currently in the first position in the queue
+ * @apiParam {Integer} currentSongDuration Time in milliseconds of the current track's duration
+ * @apiParam {Boolean} playing Boolean value if the app is playing
+ * @apiParam {Boolean} isDevice Boolean value if the account is a device account or not
+ * @apiParam {Boolean} isDeviceActive Boolean value if there's a Spotify account active on a device
+ * @apiParam {Function} onNext Function to call if the current song is skipped
+ * @apiParam {Function} onPlay Function to call if the current song is played/paused
+ * @apiDescription  This component handles the first song in the queue and contains all the playback controls. It is responsible for 
+ *                  checking user authorisation and checks if the account is allowed to control playback of the music.
+ * @apiSuccessExample Songcards.jsx
+ *    <CurrentlyPlaying
+ *      track={this.songs[0]}
+ *      currentSongDuration={this.songs[0].duration}
+ *      playing={this.playing}
+ *      isDevice={true}
+ *      isDeviceActive={false}
+ *      onNext={this.handleNext}
+ *      onPlay={this.handlePlay}
+ *    />
+ */
 const CurrentlyPlaying = (props) => {
 
-  const { track, onNext, onDelete, onPlay, currentSongDuration, playing, isDevice, isDeviceActive } = props;
+  const { track, onNext, onPlay, currentSongDuration, playing, isDevice, isDeviceActive } = props;
 
   return (
     <section className="currently-playing">
