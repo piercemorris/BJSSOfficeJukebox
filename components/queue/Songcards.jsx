@@ -12,6 +12,20 @@ import song from "../../services/songService";
 import user from "../../services/userService";
 
 
+/**
+ * @api {Class Component} <Queue|tracks|onDelete/> queue/Queue.jsx
+ * @apiName Queue
+ * @apiGroup Components
+ * @apiParam {Object[]} tracks Object array of the songs in the queue
+ * @apiParam {Function} onDelete Delete function if a song in the queue is to be deleted
+ * @apiDescription  This component is responsible for rendering the queue of songs and a delete function to remove
+ *                  any of the songs.
+ * @apiSuccessExample CurrentlyPlaying.jsx
+ *    <Queue
+ *      tracks={this.songs}
+ *      onDelete={this.handleDelete}
+ *    />
+ */
 class Songcards extends Component {
 
   constructor(props) {

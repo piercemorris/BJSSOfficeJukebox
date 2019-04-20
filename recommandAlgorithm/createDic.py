@@ -4,11 +4,10 @@ import pymongo
 
 def save_dic(my_dic):
     try:
-        with open('dict.csv', 'w') as csv_file:
+        with open('dict.csv', 'w', newline='') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=csv_columns)
             writer.writeheader()
-            for i in my_dic:
-                writer.writerow(i)
+            writer.writerows(my_dic)
     except IOError:
         print("I/O error")
 

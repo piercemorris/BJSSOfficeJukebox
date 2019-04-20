@@ -4,6 +4,8 @@ A music queueing system for the offices of BJSS
 
 For more information, view our [wiki](https://github.com/perjermer/BJSSOfficeJukebox/wiki)
 
+For software documentation, view our [software manual](https://perjermer.github.io/BJSSOfficeJukebox/)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

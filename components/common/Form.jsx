@@ -3,6 +3,25 @@ import Joi from 'joi-browser';
 import Input from "./Input";
 import Submit from "./Submit";
 
+/**
+ * @api {Class Component} Form common/Form.jsx
+ * @apiName Form
+ * @apiGroup Components
+ * @apiDescription  This component is used for forms. It is built to be used as an extension to provide
+ *                  common functionality accross all forms i.e. login, signup etc. usability is documented
+ *                  in the code
+ * @apiSuccessExample LoginForm.jsx
+ *    Class LoginForm extends Form {
+ *      schema = { ... }
+ *      doSubmit() { ... }
+ *      render() {
+ *        return (
+ *          {this.renderTitle("Login form")}
+ *          ...
+ *        );
+ *      }
+ *    }
+ */
 class Form extends Component {
   state = {
     data: {},
