@@ -5,16 +5,36 @@ const _ = require("lodash");
 const auth = require("../middleware/auth");
 const { User, validate } = require("../models/user");
 
-// HTTP GET request to retrieve information about the currently logged in user
+/**
+ * @api {get} /api/user/:id GET User
+ * @apiName GetUser
+ * @apiGroup User
+ * @apiParam {String} id Users unique ID
+ * 
+ * @apiSuccess {Object} body User information without sensitive data
+ * @apiError (404) NoUserFound No user found with the given ID
+ */
 router.get("/:id", async (req, res) => { //auth for middleware
   const user = await User.findById(req.params.id).select(
     "-password"
   );
-  if (!user) return res.send("No user found").status(404);
+  if (!user) return res.send("No user found with the given ID").status(404);
   res.send(user);
 });
 
-// HTTP POST request to create a new user account then log them in immediately
+
+/**
+ * @api {post} /api/user/ POST User
+ * @apiName PostUser
+ * @apiGroup User
+ * @apiParam {String} username User inputted username
+ * @apiParam {String} password User inputted password
+ * @apiParam {Boolean} isDevice Is the account a device account or not
+ * 
+ * @apiSuccess {String} JSON Web Token
+ * @apiError (400) InvalidBody Validation error details
+ * @apiError (400) BadRequest User is already registered
+ */
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -41,7 +61,17 @@ router.post("/", async (req, res) => {
   res.header("x-auth-token", token).send(token).status(200);
 });
 
-// HTTP POST request to login a user if the credentials are correct
+/**
+ * @api {post} /api/user/login LOGIN User
+ * @apiName LoginUser
+ * @apiGroup User
+ * @apiParam {String} username User inputted username
+ * @apiParam {String} password User inputted password
+ * 
+ * @apiSuccess {String} JSON Web Token
+ * @apiError (400) InvalidBody Validation error details
+ * @apiError (400) BadRequest Incorrect username or password
+ */
 router.post("/login", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -57,7 +87,17 @@ router.post("/login", async (req, res) => {
   } else return res.status(400).send("Incorrect username or password");
 });
 
-// HTTP PUT request to update the currently logged in user
+/**
+ * @api {put} /api/user/me UPDATE User
+ * @apiName PutUser
+ * @apiGroup User
+ * @apiParam {String} username Username of the current user
+ * @apiParam {String} password New password for the user
+ * 
+ * @apiSuccess {Object} User insensitive information
+ * @apiError (400) InvalidBody validation error details
+ * @apiError (404) NotFound The user with the given ID was not found
+ */
 router.put("/me", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -76,7 +116,14 @@ router.put("/me", auth, async (req, res) => {
   res.send(user);
 });
 
-// HTTP DELETE request to delete a given user
+/**
+ * @api {delete} /api/user/me DELETE User
+ * @apiName DeleteUser
+ * @apiGroup User
+ * 
+ * @apiSuccess {Object} User that was deleted
+ * @apiError (404) NotFound The user with the given ID was not found
+ */
 router.delete("/me", auth, async (req, res) => {
   const user = await User.findByIdAndRemove(req.user._id);
   if (!user)

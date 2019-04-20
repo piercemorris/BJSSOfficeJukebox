@@ -1,0 +1,8 @@
+{
+  "name": "Office Jukebox",
+  "version": "1.0.0",
+  "description": "A online jukebox app for BJSS which allows multiple users to queue up songs to a shared queue",
+  "template": {
+    "forceLanguage": "en"
+  }
+}
