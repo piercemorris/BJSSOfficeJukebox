@@ -1,0 +1,91 @@
+.datas{
+  width:60vw;
+  height:80vh;
+  margin-right: auto;
+  margin-left:auto;
+}
+.top-five-title{
+    text-align: center;
+    font-size:5rem;
+    font-weight: 800;
+    color:white;
+    padding: 10px;
+    }
+.top-five-title-artist{
+      text-align: center;
+      font-size:5rem;
+      font-weight: 800;
+      color:black;
+      padding-top: 20px;
+}
+  
+.top-five-first-section {
+    width:100vw;
+    height:100vh;
+    background:linear-gradient(45deg,#005bec, #000);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #464646;
+    float: none;
+  }
+  .top-five-second-section {
+    width:100vw;
+    height:100vh;
+    background:linear-gradient(45deg,#686868, #3CCBDA);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #464646;
+    float: none;
+  }
+
+  .td-img{
+    max-width: 20%;
+  }
+.top-five {
+    border: none;
+    border-radius: 3px;
+    background-color: rgba($color-white, 0.95);
+      
+    &__table {
+      margin-right: auto;
+      margin-left:auto;
+      border-spacing: 0rem .5rem;
+      width:55%;
+  
+      &__content {
+        color: $color-black;
+        background: white;
+        border-radius: 100px;
+        box-shadow: 0rem .5rem 2rem rgba($color-black, 0.15);
+      }
+
+      tr {
+        font-weight: bold;
+        font-size: 2.5rem;
+        color: black;
+        letter-spacing: 0.44px;
+        text-align: center;
+        vertical-align: auto;
+      }
+  
+      &-header {
+        &-rank {
+          width:10%;
+          }  
+        &-img {
+          width: 10%;
+        }
+        &-title {
+          width: 25%;
+        }
+        &-artist {
+          width: 25%;
+        }
+      }  
+  
+    }
+  }

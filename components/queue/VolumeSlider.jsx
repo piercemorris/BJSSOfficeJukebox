@@ -2,12 +2,22 @@ import React, { Component } from 'react'
 import _ from "lodash";
 import Spotify from "../../services/spotifyService";
 
+/**
+ * @api {Class Component} <VolumeSlider|currentSongDuration|isPlaying|handleNext/> queue/VolumeSlider.jsx
+ * @apiName VolumeSlider
+ * @apiGroup Components
+ * @apiDescription  This component is responsible for handling the volume slider. This changes the volume for the authorised Spotify account
+ *                  
+ * @apiSuccessExample PlaybackControls.jsx
+ *    <VolumeSlider />
+ */
 class VolumeSlider extends Component {
 
   state = {
     volume: null
   }
 
+  // get the current volume from Spotify
   componentWillMount = async () => {
     const response = await Spotify.getMeAndDevices();
     let highestValue = 0;
@@ -18,6 +28,7 @@ class VolumeSlider extends Component {
     this.setState({ volume: highestValue });
   }
 
+  // updates volume on slider
   updateVolume = () => {
     var slider = document.getElementById("myRange");
     Spotify.updatePlayVolume(slider.value);

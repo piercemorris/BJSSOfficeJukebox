@@ -7,6 +7,22 @@ import Modal from "../common/Modal";
 import Spotify from "../../services/spotifyService";
 import Link from "next/link";
 
+/**
+ * @api {Class Component} <SearchTable|result|authorised|showTable/> search/searchTable.jsx
+ * @apiName SearchTable
+ * @apiGroup Components
+ * @apiParam {Object[]} result Results of the track search from the server
+ * @apiParam {Boolean} authorised A boolean value whether the queue has Spotify authorised
+ * @apiParam {Boolean} showTable A boolean value whether the table should be displayed or hidden
+ * @apiDescription  This components renders the search bar and invisible search table
+ * @apiSuccessExample SearchTable.jsx
+ *    <SearchTable 
+ *      result={
+ *        { complex object ... },
+ *        { complex object ... }}
+ *      authorised={true}
+ *      showTable={true}/>
+ */
 class SearchTable extends Component {
   state = {
     itemsToShow: 3,
@@ -33,12 +49,13 @@ class SearchTable extends Component {
       )
   }
 
+  // adds the selected song to the queue
   async handleAdd(song) {
     this.setState({ addedSong: song.name });
     const currentUser = await user.getCurrentUser();
     const resAddSong = await songs.addSong({ song }, currentUser._id, currentUser.username);
     const resAddStat = await stats.addStat(song.id, song.name, song.artists[0].name, "rock", song.album.images[0].url, 1);
-    const resAddHist = await Spotify.getAudioFeatures(song.id);
+    //const resAddHist = await Spotify.getAudioFeatures(song.id);
     this.setState({ hideTable: true });
     this.showModal();
   }
@@ -70,6 +87,7 @@ class SearchTable extends Component {
     }
   }
 
+  //renders the search table and an invisible modal for a successful song add
   render() {
     const { result, authorised } = this.props;
     const { userActive, show, addedSong, hideTable } = this.state;

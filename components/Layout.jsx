@@ -34,6 +34,18 @@ library.add(
   faCog
 );
 
+/**
+ * @api {Class Component} <Layout>{children}</Layout> Layout.jsx
+ * @apiName Layout
+ * @apiGroup Components
+ * @apiDescription  This component renders the essential components to the screen, essentially a wrapper for each html page served
+ *                  to the client. For example, it renders all of its children passed. The header, navigation bar and meta tags are
+ *                  defined here.
+ * @apiSuccessExample page-name.js
+ *    <Layout>
+ *      page content
+ *    </Layout>
+ */
 class Layout extends Component {
   state = {
     user: {},

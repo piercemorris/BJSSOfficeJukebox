@@ -5,6 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { changeNavbarState } from "../services/stylingScript";
 import SearchBar from "./search/SearchBar";
 
+/**
+ * @api {Class Component} <Navbar|user?/> Navbar.jsx
+ * @apiName Navbar
+ * @apiGroup Components
+ * @apiParam {Object} user Currently logged in user (optional)
+ * @apiDescription  This components renders the navigation bar at the top of the user's screen
+ * @apiSuccessExample Layout.jsx
+ *    <Navbar user={this.state.user} />
+ */
 class Navbar extends Component {
 
   state = {

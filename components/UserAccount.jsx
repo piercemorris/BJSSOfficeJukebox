@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import user from "../../services/userService";
-import stat from "../../services/statsService";
+import user from "../services/userService";
+import stat from "../services/statsService";
 var arraySort = require('array-sort');
 import { VictoryBar, VictoryChart, VictoryGroup   } from 'victory';
 
@@ -11,6 +11,7 @@ class UserAccount extends Component {
     user: {},
     topSong:[[]],
     topArtists:[]
+
   }
 
   async componentWillMount() {
@@ -18,11 +19,16 @@ class UserAccount extends Component {
     const response = await user.getInfo(currentUser._id);
     this.setState({ user: response.data });
     const mostAddedSong = await stat.getStats();
-    arraySort(mostAddedSong.data, 'timesAdded', { reverse: true });
+    console.log(mostAddedSong);
+    arraySort(mostAddedSong.data,'timesAdded',{reverse: true});
+    
+    //this.setState({ mostSong1: mostAddedSong.data[0] });
+    //this.setState({ mostSong2: mostAddedSong.data[1] });
     this.setState({ topSong: mostAddedSong.data });
     
 
     this.state.topSong.forEach(function(item, index, array) {
+      
       var found = this.state.topArtists.findIndex(function(element) {
         return element==item.artistName;
       }.bind(this));
@@ -35,10 +41,15 @@ class UserAccount extends Component {
     }.bind(this));
 
     this.setState({ topArtists: this.state.topArtists });
+
     const data = [
       {name:this.state.topArtists[0],times:this.state.topArtists[1]}
   ]
+
+
   }
+
+
 
   render() {
     const { username, songsAdded } = this.state.user;
@@ -57,16 +68,14 @@ class UserAccount extends Component {
     }else{
       maxFive=topSong.length
     }
-
     var artistLength=topArtists.length;
     if(artistLength==0){
       data=null;
     }else{
-     for(var i=0;i<artistLength-1;i=i+2){
+     for(var i=0;i<10;i=i+2){
       data.push({artist:topArtists[i],times:topArtists[i+1]})
      }
   }
-    
     return (
       <div>
         <div className="top-five-first-section">
@@ -92,26 +101,30 @@ class UserAccount extends Component {
             )}
           </tbody>
         </table>
-    </div>
-    <div className="top-five-second-section">
-      <div className="datas">
-        <div className="top-five-title-artist"><p>Top 5 Listened Artists</p></div>
-          <VictoryChart height={400} width={600}
-            domainPadding={{ x: 50, y: [0, 20] } }
-            >
-              <VictoryGroup offset={20}
-                colorScale={["#061e51"]}
-              >
-                <VictoryBar
-                data={data}
-                x={"artist"}
-                y={"times"}
-              />
-            </VictoryGroup>
-          </VictoryChart>
-        </div>
+
+
+  </div>
+  <div className="top-five-second-section">
+  <div className="datas">
+  <div className="top-five-title-artist"><p>Top 5 Listened Artists</p></div>
+    <VictoryChart height={400} width={600}
+      domainPadding={{ x: 50, y: [0, 20] } }
+      >
+        <VictoryGroup offset={20}
+          colorScale={["#061e51"]}
+        >
+
+      <VictoryBar
+        data={data}
+        x={"artist"}
+        y={"times"}
+      />
+
+      </VictoryGroup>
+    </VictoryChart>
+  </div>
       </div>
-     </div>
+      </div>
     );
   }
 }
