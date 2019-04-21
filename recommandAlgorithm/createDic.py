@@ -26,8 +26,10 @@ def create_dic(collections):
         # the song id and feature were stored as a dictionary
         tmp = {"songID": i['songID'], 'acousticness': i['acousticness'], 'danceability': i['danceability'],
                'energy': i['energy'], 'instrumentalness': i['instrumentalness'], 'liveness': i['liveness'],
-               'loudness': i['loudness'], 'speechiness': i['speechiness'], 'valence': i['valence'], "tempo": i['tempo']}
-        list_song_dict.append(tmp)
+               'loudness': i['loudness'], 'speechiness': i['speechiness'], 'valence': i['valence'],
+               "tempo": i['tempo']}
+        if tmp not in list_song_dict:
+            list_song_dict.append(tmp)
     return list_song_dict
 
 
