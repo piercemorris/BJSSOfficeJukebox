@@ -3,6 +3,15 @@ import pymongo
 import bpAglorithm
 
 
+"""
+@api {Stateless functional Component} <recommand|url/> recommandAlgorithm/recommand.py
+@apiName RecommendAlgorithm
+@apiGroup Components
+@apiParam {String} URL The current url of database.
+@apiDescription  This components lets the recommandAlgorithm.py to get current song ids for the machine learning
+"""
+
+
 def read_dict(file_name):
     with open(file_name, mode='r') as infile:
         reader = csv.DictReader(infile)
@@ -11,6 +20,9 @@ def read_dict(file_name):
     return song_features_list
 
 
+'''
+connected with the database to catch the current song ids
+'''
 def connect_db(col_name):
     client = pymongo.MongoClient(uri)
     my_db = client.jukebox
@@ -23,6 +35,9 @@ def connect_db(col_name):
     return song_id_list
 
 
+'''
+preprocessing the song list to the data set
+'''
 def create_song_feature():
     songs_features_list = []
     for dic in my_dict_list:

@@ -1,6 +1,14 @@
 import csv
 import pymongo
 
+"""
+@api {Stateless functional Component} <createDic|url/> recommandAlgorithm/createDic.py
+@apiName CreateDictionary
+@apiGroup Components
+@apiParam {String} URL The current url of database.
+@apiDescription  This components lets the createDic.py to get current song features to save as a csv file.
+"""
+
 
 def save_dic(my_dic):
     try:
