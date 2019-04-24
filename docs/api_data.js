@@ -614,46 +614,6 @@ define({ "api": [
     "groupTitle": "Components"
   },
   {
-    "type": "Class Component",
-    "url": "<Queue|tracks|onDelete/>",
-    "title": "queue/Queue.jsx",
-    "name": "Queue",
-    "group": "Components",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Object[]",
-            "optional": false,
-            "field": "tracks",
-            "description": "<p>Object array of the songs in the queue</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Function",
-            "optional": false,
-            "field": "onDelete",
-            "description": "<p>Delete function if a song in the queue is to be deleted</p>"
-          }
-        ]
-      }
-    },
-    "description": "<p>This component is responsible for rendering the queue of songs and a delete function to remove any of the songs.</p>",
-    "success": {
-      "examples": [
-        {
-          "title": "CurrentlyPlaying.jsx",
-          "content": "<Queue\n  tracks={this.songs}\n  onDelete={this.handleDelete}\n/>",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "./components/queue/Songcards.jsx",
-    "groupTitle": "Components"
-  },
-  {
     "type": "Stateless Functional Component",
     "url": "<Queue|tracks|onDelete/>",
     "title": "queue/Queue.jsx",
@@ -705,6 +665,46 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "./components/queue/Queue.jsx",
+    "groupTitle": "Components"
+  },
+  {
+    "type": "Class Component",
+    "url": "<Queue|tracks|onDelete/>",
+    "title": "queue/Queue.jsx",
+    "name": "Queue",
+    "group": "Components",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object[]",
+            "optional": false,
+            "field": "tracks",
+            "description": "<p>Object array of the songs in the queue</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Function",
+            "optional": false,
+            "field": "onDelete",
+            "description": "<p>Delete function if a song in the queue is to be deleted</p>"
+          }
+        ]
+      }
+    },
+    "description": "<p>This component is responsible for rendering the queue of songs and a delete function to remove any of the songs.</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "CurrentlyPlaying.jsx",
+          "content": "<Queue\n  tracks={this.songs}\n  onDelete={this.handleDelete}\n/>",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./components/queue/Songcards.jsx",
     "groupTitle": "Components"
   },
   {
@@ -1187,6 +1187,54 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "./routes/songs.js",
     "groupTitle": "Queue"
+  },
+  {
+    "type": "Function",
+    "url": "createDic(url)",
+    "title": "createDic.py",
+    "name": "CreateDictionary",
+    "group": "Recommend_Algorithm",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "URL",
+            "description": "<p>The current url of database.</p>"
+          }
+        ]
+      }
+    },
+    "description": "<p>This components lets the createDic.py to get current song features to save as a csv file.</p>",
+    "version": "0.0.0",
+    "filename": "./recommandAlgorithm/createDic.py",
+    "groupTitle": "Recommend_Algorithm"
+  },
+  {
+    "type": "Function",
+    "url": "recommand(url)",
+    "title": "recommand.py",
+    "name": "RecommendAlgorithm",
+    "group": "Recommend_Algorithm",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "URL",
+            "description": "<p>The current url of database.</p>"
+          }
+        ]
+      }
+    },
+    "description": "<p>This components lets the recommandAlgorithm.py to get current song ids for the machine learning</p>",
+    "version": "0.0.0",
+    "filename": "./recommandAlgorithm/recommand.py",
+    "groupTitle": "Recommend_Algorithm"
   },
   {
     "type": "get",

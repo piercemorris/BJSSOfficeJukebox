@@ -2,9 +2,9 @@ import csv
 import pymongo
 
 """
-@api {Stateless functional Component} <createDic|url/> recommandAlgorithm/createDic.py
+@api {Function} createDic(url) createDic.py
 @apiName CreateDictionary
-@apiGroup Components
+@apiGroup Recommend Algorithm
 @apiParam {String} URL The current url of database.
 @apiDescription  This components lets the createDic.py to get current song features to save as a csv file.
 """
