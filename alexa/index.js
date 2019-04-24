@@ -17,6 +17,51 @@ const LaunchRequestHandler = {
     }
 };
 
+function httpPost(query, callbackData){
+    var responseText = '';   
+    
+    const queryString = JSON.stringify({
+        query: query
+    })
+        
+    const options = {
+        hostname: 'office-jukebox.herokuapp.com',
+        port: 80,
+        path: '/api/spotify/alexa',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': queryString.length
+        }
+    }
+    
+    var callback = function(res) {
+        res.setEncoding('utf-8');
+        if(res.statusCode === 404) {//Bad song request.
+            console.log("in code 404 block");
+            responseText = "Couldn't find that song";
+        }
+          
+        if(res.statusCode === 200){//Good song request.
+            res.on('data', (data) => {
+                var songText = "";
+                var jsonData = JSON.parse(data);
+                songText = songText + jsonData.songName;
+                var artistText = "";
+                artistText = artistText + jsonData.songArtist;
+                responseText = "Adding " + songText + " by " + artistText;
+            })
+        }
+            
+        res.on('end', function () {
+            callbackData(responseText);
+        }); 
+    }
+    var req = http.request(options, callback);
+    req.write(queryString);
+    req.end();
+}
+
 const QueueIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -24,44 +69,16 @@ const QueueIntentHandler = {
     },
     handle(handlerInput) {
         const query = handlerInput.requestEnvelope.request.intent.slots.Query.value;
-        var speechText = 'Adding ' + query + " to the queue";
+        var speechRespose = "default";
         
-        const data = JSON.stringify({
-            query: query
-        })
-        
-        const options = {
-            hostname: 'office-jukebox.herokuapp.com',
-            port: 80,
-            path: '/api/spotify/alexa',
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': data.length
-            }
-        }
-        const req = http.request(options, (res) => {
-          console.log(`request statusCode: ${res.statusCode}`)
-          
-          if(res.statusCode > 200) {
-            speechText = "Sorry, I can't find that song.";
-          }
-          
-          res.on('data', (d) => {
-            //callback
-          })
-        })
-        
-        req.on('error', (error) => {
-          
-        })
-        
-        req.write(data)
-        req.end()
+        httpPost(query, function(confirmationMessage){
+           console.log("In post callback: message = " + confirmationMessage);//This works. It will log the message that I want spoken.
+           speechRespose = confirmationMessage;
+        });
         
         return handlerInput.responseBuilder
-                    .speak(speechText)
-                    .getResponse();
+            .speak(speechRespose)//This does not work, Alexa says 'default', so speechRespose has not been changed.
+            .getResponse();
     }
 };
 const HelpIntentHandler = {
@@ -152,3 +169,4 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addErrorHandlers(
         ErrorHandler)
     .lambda();
+
