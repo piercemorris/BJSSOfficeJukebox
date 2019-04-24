@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import _ from "lodash";
 
 /**
- * @api {Class Component} <SettingsTab/> queue/SettingsTab.jsx
+ * @api {Class Component} <SettingsTab|handler/> queue/SettingsTab.jsx
  * @apiName SettingsTab
  * @apiGroup Components
  * @apiParam {Function} handler Function to call if any of the toggles have been updated
