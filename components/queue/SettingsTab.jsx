@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import _ from "lodash";
 
-// Component for the control panel, with the various options available and their relevant toggle
+/**
+ * @api {Class Component} <SettingsTab/> queue/SettingsTab.jsx
+ * @apiName SettingsTab
+ * @apiGroup Components
+ * @apiParam {Function} handler Function to call if any of the toggles have been updated
+ * @apiDescription  This is for the control panel, calling the functions which have been passed to it from it's parent Songcards
+ * @apiSuccessExample Songcards.jsx
+ *    <SettingsTab 
+ *    handler = {this.updateToggles}
+ *    />      
+ */
 class SettingsTab extends Component {
 
   render() {
