@@ -1,6 +1,3 @@
-// This sample demonstrates handling intents from an Alexa skill using the Alexa Skills Kit SDK (v2).
-// Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
-// session persistence, api calls, and more.
 const Alexa = require('ask-sdk-core');
 const http = require('http');
 
@@ -17,67 +14,70 @@ const LaunchRequestHandler = {
     }
 };
 
-function httpPost(query, callbackData){
-    var responseText = '';   
-    
-    const queryString = JSON.stringify({
-        query: query
-    })
+function httpPost(query) {
+    return new Promise(((resolve, reject) => {
         
-    const options = {
-        hostname: 'office-jukebox.herokuapp.com',
-        port: 80,
-        path: '/api/spotify/alexa',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': queryString.length
-        }
-    }
-    
-    var callback = function(res) {
-        res.setEncoding('utf-8');
-        if(res.statusCode === 404) {//Bad song request.
-            console.log("in code 404 block");
-            responseText = "Couldn't find that song";
-        }
-          
-        if(res.statusCode === 200){//Good song request.
-            res.on('data', (data) => {
-                var songText = "";
-                var jsonData = JSON.parse(data);
-                songText = songText + jsonData.songName;
-                var artistText = "";
-                artistText = artistText + jsonData.songArtist;
-                responseText = "Adding " + songText + " by " + artistText;
-            })
-        }
+        const queryString = JSON.stringify({
+            query: query
+        });
+        
+        const options = {
+            hostname: 'office-jukebox.herokuapp.com',
+            port: 80,
+            path: '/api/spotify/alexa',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Content-Length': queryString.length
+            }
+        };
+        
+        const request = http.request(options, (response) => {
+            response.setEncoding('utf-8');
+            let returnData = '';
             
-        res.on('end', function () {
-            callbackData(responseText);
-        }); 
-    }
-    var req = http.request(options, callback);
-    req.write(queryString);
-    req.end();
+            response.on('data', (data) => {
+                if(response.statusCode === 200) {//Good song request
+                    var songText = "";
+                    var jsonData = JSON.parse(data);
+                    songText = songText + jsonData.songName;
+                    var artistText = "";
+                    artistText = artistText + jsonData.songArtist;
+                    returnData = "Adding " + songText + " by " + artistText + " to the queue!";
+                    console.log("message to return = " + returnData);
+                }
+                else if(response.statusCode === 404)  {//Bad song request
+                    console.log("in code 404 block");
+                    returnData = "Sorry, I couldn't find that song.";    
+                }
+            })
+            
+            
+            response.on('end', () => {
+                resolve(returnData);
+            });
+            
+            response.on('error', (error) => {
+                reject(error);
+            });
+        });
+        request.write(queryString);
+        request.end();
+    }));
 }
+
 
 const QueueIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && handlerInput.requestEnvelope.request.intent.name === 'QueueIntent';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         const query = handlerInput.requestEnvelope.request.intent.slots.Query.value;
-        var speechRespose = "default";
-        
-        httpPost(query, function(confirmationMessage){
-           console.log("In post callback: message = " + confirmationMessage);//This works. It will log the message that I want spoken.
-           speechRespose = confirmationMessage;
-        });
+        const speechResponse = await httpPost(query);
         
         return handlerInput.responseBuilder
-            .speak(speechRespose)//This does not work, Alexa says 'default', so speechRespose has not been changed.
+            .speak(speechResponse)
             .getResponse();
     }
 };
