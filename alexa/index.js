@@ -1,3 +1,6 @@
+// This sample demonstrates handling intents from an Alexa skill using the Alexa Skills Kit SDK (v2).
+// Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
+// session persistence, api calls, and more.
 const Alexa = require('ask-sdk-core');
 const http = require('http');
 
@@ -20,6 +23,8 @@ function httpPost(query) {
         const queryString = JSON.stringify({
             query: query
         });
+        
+        console.log("Query sent to  route: " + query);
         
         const options = {
             hostname: 'office-jukebox.herokuapp.com',
@@ -73,7 +78,8 @@ const QueueIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'QueueIntent';
     },
     async handle(handlerInput) {
-        const query = handlerInput.requestEnvelope.request.intent.slots.Query.value;
+        var query = handlerInput.requestEnvelope.request.intent.slots.Query.value;
+        query = query.replace(/ by /g, '');
         const speechResponse = await httpPost(query);
         
         return handlerInput.responseBuilder
