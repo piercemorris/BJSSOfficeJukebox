@@ -79,7 +79,7 @@ const QueueIntentHandler = {
     },
     async handle(handlerInput) {
         var query = handlerInput.requestEnvelope.request.intent.slots.Query.value;
-        query = query.replace(/ by /g, '');
+        query = query.replace(/ by /g, ' ');
         const speechResponse = await httpPost(query);
         
         return handlerInput.responseBuilder
