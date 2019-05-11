@@ -1,6 +1,7 @@
 import csv
 import pymongo
 import bpAglorithm
+import createDic
 
 
 """
@@ -27,11 +28,11 @@ def connect_db(col_name):
     client = pymongo.MongoClient(uri)
     my_db = client.jukebox
     my_col = my_db[col_name]
-    song_id_list = []
+    song_id_list = list()
     for i in my_col.find():
-        if i["song"]["song"]["id"] not in song_id_list:
-            song_id_list.append(i["song"]["song"]["id"])
-    # print(song_id_list)
+        # if i["song"]["song"]["id"] not in song_id_list:
+        song_id_list.append(i["song"]["song"]["id"])
+    print(song_id_list)
     return song_id_list
 
 
@@ -63,6 +64,7 @@ def updateDB(input_list):
     client = pymongo.MongoClient(uri)
     my_db = client.jukebox
     my_col = my_db["recommendSongs"]
+    my_col.delete_many({})
     for i in input_list:
         dic = {"songId": i}
         my_col.insert_one(dic)
@@ -70,27 +72,48 @@ def updateDB(input_list):
 
 
 uri = "mongodb://public:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox"
-my_dict_list = read_dict('E:\BJSS\BJSSOfficeJukebox\\recommandAlgorithm\\dict.csv')
-song_ids = connect_db("songs")
-songs_features = create_song_feature()
-n_inputs = len(songs_features[0]) - 2
-n_outputs = 2
-# the number of nodes in hiden layer could be changed
-# notice: the number of hiden layers could only be one
-hided_nodes_num = 9
-network = bpAglorithm.initialize_network(n_inputs, hided_nodes_num, n_outputs)
 
-dataset = list()
-for song_features in songs_features:
-    dataset.append(song_features[1:])
-# print(dataset)
-bpAglorithm.train_network(network, dataset, 0.5, 200, n_outputs)
 
-recommend_list = list()
-for row in songs_features:
-    prediction = bpAglorithm.predict(network, row[1:])
-    print('Expected=%d, Got=%d' % (row[-1], prediction))
-    if prediction == 1 and row[0] not in song_ids:
-        recommend_list.append(row[0])
+def main():
+    my_dict_list = read_dict('E:\BJSS\BJSSOfficeJukebox\\recommandAlgorithm\\dict.csv')
+    song_ids = connect_db("songs")
+    songs_features = create_song_feature()
+    n_inputs = len(songs_features[0]) - 2
+    n_outputs = 2
 
-updateDB(recommend_list)
+    # the number of nodes in hiden layer could be changed
+    # notice: the number of hiden layers could only be one
+    hided_nodes_num = 9
+
+    accuracy = 0.0
+    iteration = 100
+
+    network = bpAglorithm.initialize_network(n_inputs, hided_nodes_num, n_outputs)
+
+    dataset = list()
+    for song_features in songs_features:
+        dataset.append(song_features[1:])
+    # print(dataset)
+
+    while True:
+        bpAglorithm.train_network(network, dataset, 0.5, iteration, n_outputs)
+
+        predict_songs = 0
+        recommend_list = list()
+        for row in songs_features:
+            prediction = bpAglorithm.predict(network, row[1:])
+            if prediction == 1 and (row[0] in song_ids):
+                predict_songs += 1
+            if prediction == 1 and (row[0] not in song_ids):
+                    recommend_list.append(row[0])
+        accuracy = predict_songs / len(song_ids)
+
+        print(accuracy)
+        if accuracy > 0.3:
+            for row in songs_features:
+                print('Expected=%d, Got=%d' % (row[-1], prediction))
+            break
+        else:
+            iteration += 100
+
+    updateDB(recommend_list)
