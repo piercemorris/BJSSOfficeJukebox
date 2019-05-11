@@ -60,11 +60,19 @@ class UserAccount extends Component {
 
     var artistLength=topArtists.length;
     if(artistLength==0){
+      //if zero
       data=null;
-    }else{
-     for(var i=0;i<artistLength-1;i=i+2){
+    }else if(artistLength<5){
+      //if less than five
+      for(var i=0;i<artistLength*2;i=i+2){
+        data.push({artist:topArtists[i],times:topArtists[i+1]})
+       }
+    }else {
+      //max five
+      for(var i=0;i<10;i=i+2){
       data.push({artist:topArtists[i],times:topArtists[i+1]})
      }
+    
   }
     
     return (

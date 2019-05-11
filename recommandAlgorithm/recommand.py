@@ -5,9 +5,9 @@ import createDic
 
 
 """
-@api {Stateless functional Component} <recommand|url/> recommandAlgorithm/recommand.py
+@api {Function} recommand(url) recommand.py
 @apiName RecommendAlgorithm
-@apiGroup Components
+@apiGroup Recommend Algorithm
 @apiParam {String} URL The current url of database.
 @apiDescription  This components lets the recommandAlgorithm.py to get current song ids for the machine learning
 """

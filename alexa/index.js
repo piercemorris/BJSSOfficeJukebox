@@ -17,18 +17,14 @@ const LaunchRequestHandler = {
     }
 };
 
-const QueueIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'QueueIntent';
-    },
-    handle(handlerInput) {
-        const query = handlerInput.requestEnvelope.request.intent.slots.Query.value;
-        var speechText = 'Adding ' + query + " to the queue";
+function httpPost(query) {
+    return new Promise(((resolve, reject) => {
         
-        const data = JSON.stringify({
+        const queryString = JSON.stringify({
             query: query
-        })
+        });
+        
+        console.log("Query sent to  route: " + query);
         
         const options = {
             hostname: 'office-jukebox.herokuapp.com',
@@ -36,32 +32,59 @@ const QueueIntentHandler = {
             path: '/api/spotify/alexa',
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': data.length
+              'Content-Type': 'application/json',
+              'Content-Length': queryString.length
             }
-        }
-        const req = http.request(options, (res) => {
-          console.log(`request statusCode: ${res.statusCode}`)
-          
-          if(res.statusCode > 200) {
-            speechText = "Sorry, I can't find that song.";
-          }
-          
-          res.on('data', (d) => {
-            //callback
-          })
-        })
+        };
         
-        req.on('error', (error) => {
-          
-        })
-        
-        req.write(data)
-        req.end()
+        const request = http.request(options, (response) => {
+            response.setEncoding('utf-8');
+            let returnData = '';
+            
+            response.on('data', (data) => {
+                if(response.statusCode === 200) {//Good song request
+                    var songText = "";
+                    var jsonData = JSON.parse(data);
+                    songText = songText + jsonData.songName;
+                    var artistText = "";
+                    artistText = artistText + jsonData.songArtist;
+                    returnData = "Adding " + songText + " by " + artistText + " to the queue!";
+                    console.log("message to return = " + returnData);
+                }
+                else if(response.statusCode === 404)  {//Bad song request
+                    console.log("in code 404 block");
+                    returnData = "Sorry, I couldn't find that song.";    
+                }
+            })
+            
+            
+            response.on('end', () => {
+                resolve(returnData);
+            });
+            
+            response.on('error', (error) => {
+                reject(error);
+            });
+        });
+        request.write(queryString);
+        request.end();
+    }));
+}
+
+
+const QueueIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'QueueIntent';
+    },
+    async handle(handlerInput) {
+        var query = handlerInput.requestEnvelope.request.intent.slots.Query.value;
+        query = query.replace(/ by /g, ' ');
+        const speechResponse = await httpPost(query);
         
         return handlerInput.responseBuilder
-                    .speak(speechText)
-                    .getResponse();
+            .speak(speechResponse)
+            .getResponse();
     }
 };
 const HelpIntentHandler = {
@@ -152,3 +175,4 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addErrorHandlers(
         ErrorHandler)
     .lambda();
+

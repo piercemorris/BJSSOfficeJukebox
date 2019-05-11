@@ -1,4 +1,5 @@
-# BJSS Office Jukebox Brief
+# BJSS Office Jukebox
+![](https://www.bjss.com/wp-content/uploads/BJSS-280x150.png)
 
 A music queueing system for the offices of BJSS
 
@@ -6,11 +7,11 @@ For more information, view our [wiki](https://github.com/perjermer/BJSSOfficeJuk
 
 For software documentation, view our [software manual](https://perjermer.github.io/BJSSOfficeJukebox/)
 
-## Getting Started
+## Getting Started 🚀
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
+### Prerequisites 💿
 
 ##### Node.js & NPM (node package manager)
 
@@ -18,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
 2. Click and install the downloaded package
 3. To test if the installation is successful enter `node -v` & `npm -v` in the terminal/commandline
 
-### Installing & Running
+### Installing & Running 🏃‍♀️
 
 *NOTE: eduroam blocks the connection to mLab; the service we use for the live MongoDB database*
 
@@ -30,7 +31,7 @@ How to get the development environment running:
 4. Run the project locally (with a live database connection) `$ npm run dev`
 5. Head over to your favored web browser and go to the following url `http://localhost:3000`
 
-### Running the tests
+### Running the tests 📑
 
 To run the tests:
 
@@ -54,18 +55,18 @@ Time:        3.486s
 Ran all test suites.
 ```
 
-## Built With
+## Built With 🛠
 
 - [Node & npm](https://nodejs.org/en/) - Backend framework and dependency management
 - [React.js & Next.js](https://nextjs.org/) - Frontend library and server-side rendering framework
 - [Express.js](https://expressjs.com/) - Minimalist web framework with Node
 - [Bootstrap](https://getbootstrap.com/) - CSS framework
 
-## Contributing
+## Contributing ⌨
 
 Please read CONTRIBUTING.md for details on our code of conduct, and the process of submitting pull requests.
 
-## Authors
+## Authors 📚
 
 - **Pierce James Morris** - _Group Administrator & Git Master_ - [perjermer](https://github.com/perjermer)
 - **James Bennett** - _Project Lead_ - [JPUF](https://github.com/JPUF)

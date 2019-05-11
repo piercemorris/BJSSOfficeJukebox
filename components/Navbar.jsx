@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import Link from "next/link";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { changeNavbarState } from "../services/stylingScript";
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//import { changeNavbarState } from "../services/stylingScript";
 import SearchBar from "./search/SearchBar";
 
 /**
@@ -76,13 +76,16 @@ class Navbar extends Component {
               }
             </>
           }
-          <a href="javascript:void(0);" className="icon" onClick={changeNavbarState}>
-            <FontAwesomeIcon icon="bars" />
-          </a>
         </nav>
       </div>
     );
   }
 }
+
+/*
+<a href="javascript:void(0);" className="icon" onClick={changeNavbarState}>
+            <FontAwesomeIcon icon="bars" />
+          </a>
+*/
 
 export default Navbar;

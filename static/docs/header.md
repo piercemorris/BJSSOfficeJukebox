@@ -1,23 +1,23 @@
 ## Directory Structure
 
-`./components` - contains all the React components
-`./config` - contains all the non-sensitive environment variables & constants
-`./docs` - contains the static page to render software documentation
-`./middleware` - contains middleware for API endpoints
-`./models` - contains model definitions for the Mongoose database
-`./pages` - contains static pages for Next.js that will be rendered under `/<page name>`
-`./routes` - contains the definitions of the API routes
-`./services` - contains functions and API call handlers for the client
-`./test` - contains unit and integration tests
-`./.gitignore` - Files/folders to be ignored when pushing to GitHub
-`./.travis.yml` - Travis CI configuration file
-`./apidoc.json` - APIDoc configuration file
-`./index.js` - Entry point of the web server
-`./jest.config.js` - Jest configuration file (testing framework)
-`./next.config.js` - Next.js configuration file (server-side rendered react framwork)
+`./components` - contains all the React components <br>
+`./config` - contains all the non-sensitive environment variables & constants <br>
+`./docs` - contains the static page to render software documentation <br>
+`./middleware` - contains middleware for API endpoints <br>
+`./models` - contains model definitions for the Mongoose database <br>
+`./pages` - contains static pages for Next.js that will be rendered under `/<page name>` <br>
+`./routes` - contains the definitions of the API routes <br>
+`./services` - contains functions and API call handlers for the client <br>
+`./test` - contains unit and integration tests <br>
+`./.gitignore` - Files/folders to be ignored when pushing to GitHub <br>
+`./.travis.yml` - Travis CI configuration file <br>
+`./apidoc.json` - APIDoc configuration file <br>
+`./index.js` - Entry point of the web server <br>
+`./jest.config.js` - Jest configuration file (testing framework) <br>
+`./next.config.js` - Next.js configuration file (server-side rendered react framwork) <br>
 `./package.json` - Node dependency manager and configuration
 
-
+<br>
 
 ## Development
 
@@ -31,11 +31,13 @@ In our app we use several JavaScript technologies. Here I list what we are using
 
 <b>MongoDB (Mongoose package)</b> - we use this NoSQL database to store all the information we need for songs & users etc.
 
+<br>
+
 ### Client-side development
 
-Useful folders to be aware of:
+Useful folders to be aware of: <br>
 
-#### `pages`
+#### ./pages
 
 The files in this folder are JavaScript files which will be rendered at the root of the URL when the server starts up. For example:
 
@@ -47,7 +49,7 @@ The files in this folder are JavaScript files which will be rendered at the root
 
 
 
-#### `static` 
+#### ./static
 
 Static contains assets necessary for the project.
 
@@ -62,13 +64,56 @@ Static contains assets necessary for the project.
 
 
 
-#### `components`
+#### ./components
 
 The components contains all the definitions of the react components.
 
 - `/common` - contains all of the components that are reusable throughout the web app
 - `/` - for other folders, they are based on similarity, for example `/forms` contains components that are heavily form based. Likewise for `/queue` for components based around the queue ideal etc.
 
-
+<br>
 
 ### Server-side development
+
+Useful folders to be aware of: <br>
+
+
+
+#### ./models
+
+The models folder defines the collections (tables) in MongoDB, there each file is a definition for a collection in the database.
+
+Each file should contain a `schema` which defines an object in which the collection should accept and a validation function.
+Look at a file for refernce on syntax and libraries used.
+
+
+
+#### ./routes
+
+This folder defines all of the API routes the node server should handle, each file in it's current implementation should handle a sub URL.
+
+For example, a file in routes like `songs.js` should be defined to have its endpoint situated at `.../songs/`. These handlers get defined
+in `./startup/routes`.
+
+
+
+#### ./middleware
+
+The middleware folder contains functions that should be applied to the API routes before it gets called. One example of this is the `auth.js`
+middleware which checks that an incoming request is authorised i.e. the header of the request has a valid JSON web token. 
+
+
+
+#### ./startup
+
+The startup folder defines the database and initialises all the routes in the app. It also applies global middleware to the project. One example
+of this is `helmet.js` which secures the apps request and response headers in production.
+
+
+<br>
+
+### Shared development
+
+#### ./services
+
+Services folder extracts the functions the UI components and routes to simplify the logic contained within them.  
