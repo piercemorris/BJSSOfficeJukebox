@@ -78,7 +78,7 @@ class SignUpForm extends Form {
               {this.renderInput("confirmpassword", "Confirm Password", "Password", "password")}
               <div className="form__input">
                 <label className="form__input-label" htmlFor="device">Is this a device account?</label>
-                <input className="form__input-input" type="checkbox" id="device" name="device" />
+                <input className="form__input-input" type="checkbox" id="device" name="device" disabled />
               </div>
               {this.renderButton("Sign up for office jukebox")}
             </form>
