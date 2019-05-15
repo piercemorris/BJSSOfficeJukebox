@@ -61,7 +61,7 @@ const Queue = ({ tracks, onDelete, explicitToggle, deleteToggle }) => {
                   <td>{song.song.song.album.name}</td>
                   <td>{song.username}</td>
                   <td>
-                    { index === 0 || index === 1 || index === 2 ? 
+                    { index === 0 || index === 1 ? 
                       <FontAwesomeIcon icon='lock' />
                       : 
                       parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}
