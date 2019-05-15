@@ -180,12 +180,16 @@ class Songcards extends Component {
           <>
             {song.areSongs(songs) ?
               <>
-                <div className="settings__divider">
-                  <FontAwesomeIcon onClick={this.showSettings} icon={['fas', 'cog']} size="1x" inverse={true} />
-                  <div className="settings__panel">
-                    <SettingsTab handler={this.updateToggles} />
+                {isDevice ?                 
+                  <div className="settings__divider">
+                    <FontAwesomeIcon onClick={this.showSettings} icon={['fas', 'cog']} size="1x" inverse={true} />
+                    <div className="settings__panel">
+                      <SettingsTab handler={this.updateToggles} />
+                    </div>
                   </div>
-                </div>
+                  :
+                  null
+                }
                 <CurrentlyPlaying
                   track={songs[0]}
                   playing={playing}

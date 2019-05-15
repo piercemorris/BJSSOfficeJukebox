@@ -63,7 +63,7 @@ class Navbar extends Component {
                 <a className="right">Logout</a>
               </Link>
               <Link href="/account">
-                <a className="right">{user.username}</a>
+                <a className="right">Stats</a>
               </Link>
               {
                 links

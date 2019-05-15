@@ -17,6 +17,7 @@ import {
   faForward,
   faPauseCircle,
   faPlayCircle,
+  faLock,
   faArrowAltCircleRight,
   faCog
 } from '@fortawesome/free-solid-svg-icons';
@@ -31,7 +32,8 @@ library.add(
   faPauseCircleRegular,
   faPlayCircleRegular,
   faArrowAltCircleRightRegular,
-  faCog
+  faCog,
+  faLock
 );
 
 /**

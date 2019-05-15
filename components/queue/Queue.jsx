@@ -1,4 +1,5 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from "../common/Button";
 import song from "../../services/songService";
 
@@ -39,10 +40,10 @@ const Queue = ({ tracks, onDelete, explicitToggle, deleteToggle }) => {
             tracks
               .filter(song => tracks.indexOf(song) != 0)
               .filter(song => (explicitToggle != true || song.song.song.explicit != true))
-
-              .map(song => (
+              .map((song, index) => (
                 <tr key={song._id} className="queue__table__content">
                   <td className="queue__table-image">
+                  {console.log(index)}
                     <img
                       className="queue__table-image-img"
                       src={song.song.song.album.images[1].url}
@@ -59,7 +60,12 @@ const Queue = ({ tracks, onDelete, explicitToggle, deleteToggle }) => {
                   <td>{song.song.song.artists[0].name}</td>
                   <td>{song.song.song.album.name}</td>
                   <td>{song.username}</td>
-                  <td>{parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}</td>
+                  <td>
+                    { index === 0 || index === 1 ? 
+                      <FontAwesomeIcon icon='lock' />
+                      : 
+                      parseFloat(Math.round(song.priority * 100) / 100).toFixed(2)}
+                  </td>
                   {deleteToggle ?
                   null
                   :
