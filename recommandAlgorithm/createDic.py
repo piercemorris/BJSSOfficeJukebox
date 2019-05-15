@@ -41,10 +41,12 @@ def create_dic(collections):
     return list_song_dict
 
 
+uri = "mongodb://public:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox"
+csv_columns = ["songID", 'acousticness', 'danceability',  'energy', 'instrumentalness', 'liveness',
+               'loudness', 'speechiness', 'valence', "tempo"]
+
+
 def main():
-    uri = "mongodb://public:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox"
-    csv_columns = ["songID", 'acousticness', 'danceability',  'energy', 'instrumentalness', 'liveness',
-                   'loudness', 'speechiness', 'valence', "tempo"]
     songs = connect_db("histories")
     my_dicts = create_dic(songs)
     save_dic(my_dicts)

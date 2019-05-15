@@ -1,7 +1,7 @@
 import csv
 import pymongo
 import bpAglorithm
-import createDic
+import random
 
 
 """
@@ -39,7 +39,7 @@ def connect_db(col_name):
 '''
 preprocessing the song list to the data set
 '''
-def create_song_feature():
+def create_song_feature (my_dict_list):
     songs_features_list = []
     for dic in my_dict_list:
         is_in_the_list = 0
@@ -65,19 +65,22 @@ def updateDB(input_list):
     my_db = client.jukebox
     my_col = my_db["recommendSongs"]
     my_col.delete_many({})
-    for i in input_list:
-        dic = {"songId": i}
-        my_col.insert_one(dic)
+
+    dic = {"songID": input_list[random.randint(0, len(input_list) - 1)]}
+    my_col.insert_one(dic)
+    # print(type(input_list[0]))
     return
 
 
 uri = "mongodb://public:bjssjukeboxgroup14@ds261253.mlab.com:61253/jukebox"
+song_ids = list()
 
 
 def main():
     my_dict_list = read_dict('E:\BJSS\BJSSOfficeJukebox\\recommandAlgorithm\\dict.csv')
-    song_ids = connect_db("songs")
-    songs_features = create_song_feature()
+    for i in range(5):
+        song_ids.append(my_dict_list[i]['songID'])
+    songs_features = create_song_feature(my_dict_list)
     n_inputs = len(songs_features[0]) - 2
     n_outputs = 2
 
@@ -86,14 +89,15 @@ def main():
     hided_nodes_num = 9
 
     accuracy = 0.0
-    iteration = 100
+    iteration = 50
 
     network = bpAglorithm.initialize_network(n_inputs, hided_nodes_num, n_outputs)
 
     dataset = list()
     for song_features in songs_features:
         dataset.append(song_features[1:])
-    # print(dataset)
+    print(len(dataset))
+    print(len(song_ids))
 
     while True:
         bpAglorithm.train_network(network, dataset, 0.5, iteration, n_outputs)
@@ -109,11 +113,17 @@ def main():
         accuracy = predict_songs / len(song_ids)
 
         print(accuracy)
-        if accuracy > 0.3:
-            for row in songs_features:
-                print('Expected=%d, Got=%d' % (row[-1], prediction))
+        if accuracy >= 0.8:
+            if len(recommend_list) == 0:
+                '''for row in songs_features:
+                prediction = bpAglorithm.predict(network, row[1:])
+                print('Expected=%d, Got=%d' % (row[-1], prediction))'''
+                recommend_list.append(song_ids[random.randint(0, 4)])
             break
         else:
-            iteration += 100
-
+            iteration += 0
     updateDB(recommend_list)
+    dataset.clear()
+    song_ids.clear()
+    songs_features.clear()
+    recommend_list.clear()
