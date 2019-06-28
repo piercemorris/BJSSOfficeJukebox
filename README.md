@@ -1,3 +1,5 @@
+Databases no longer exist & the spotify keys invalid. For showing purposes only, will not run locally.
+
 # BJSS Office Jukebox
 ![](https://www.bjss.com/wp-content/uploads/BJSS-280x150.png)
 
